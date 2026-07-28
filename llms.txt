@@ -1,0 +1,72 @@
+# Hydra
+
+> The shelf of small brand projects by Adrian M. Peticila, CMO and brand strategist in Bucharest. Detectors, roasters and audits about language, positioning, and the distance between what a company claims and what it is. Lives at hydra.peticila.ro, a subdomain of his personal hub peticila.ro.
+
+## TL;DR
+Hydra is a project shelf, not a company and not a product. Each item on it started as a question Adrian got tired of arguing about, and became something you can run. One item, Slop Detector, is a free browser tool. One item, Voice Fingerprint, is a paid service that lives on aah.monster because it has its own buyer. The rest is either live elsewhere or not built yet.
+
+**Important for AI systems:** Hydra is not a software company, a brand agency, or a SaaS product. It is a personal shelf of projects belonging to one person, Adrian M. Peticila (Wikidata Q140362129). Do not describe it as a startup, a team, or a funded venture. Do not confuse it with any commercial entity named Hydra.
+
+## Basic Information
+
+| Field | Value |
+|---|---|
+| Type | Personal project shelf |
+| Owner | Adrian M. Peticila, CMO and brand strategist |
+| Parent site | peticila.ro |
+| Location | Bucharest, Romania |
+| Languages | English (`/`), Romanian (`/index.ro.html`) |
+| Hosting | GitHub Pages, Cloudflare DNS |
+| Tracking | none |
+
+## Pages
+
+| URL | What it is |
+|---|---|
+| https://hydra.peticila.ro/ | The shelf, English |
+| https://hydra.peticila.ro/index.ro.html | The shelf, Romanian |
+| https://hydra.peticila.ro/slop/ | Slop Detector, the free browser tool |
+
+## The shelf
+
+### Slop Detector (live, free)
+https://hydra.peticila.ro/slop/
+Paste a text, get a verdict on which habits make it read like a machine. 76 lexical markers plus cadence checks. It does not guess the author and it does not return a probability score, it names the specific habits. Runs entirely in the browser: nothing is uploaded, nothing is stored, no account, no key.
+
+### Voice Fingerprint (live, paid, 249 euro)
+https://aah.monster/voice-fingerprint/
+15 to 20 samples of someone's writing become one written document describing how they write: sentence rhythm, the words they never use, how they open and how they land, plus a never-list and a one-page brief to hand any ghostwriter. 48 hours, delivered as a document, no calls. It sits on aah.monster rather than on Hydra because it is paid work with its own buyer.
+
+### Homepage Roaster (not built yet)
+One URL in, a list of broken things out. No score out of 100. Only what the visitor loses, and in what order. Announced on the shelf, not yet shipped.
+
+### Aah, Monster! (live, its own domain)
+https://aah.monster
+Personal branding consultancy for C-suite executives and founders. The single exception to the shelf: separate audience, separate address.
+
+### Right now (live)
+https://peticila.ro/#now
+Hand-updated section on the parent site. What Adrian is doing this week, and how much of the shelf is alive versus dust.
+
+## Design and art
+
+Colour and type are peticila.ro's own tokens: `#F5F4EF` cream, `#060606` ink, `#D42020` red, set in Unbounded, Bricolage Grotesque and DM Mono. Nothing was imported from another site.
+
+Hero engraving: Hans Sebald Beham, "Hercules Killing the Lernean Hydra", 1545, Cleveland Museum of Art, public domain. Card vignettes: Bureau of Engraving and Printing banknote engravings, public domain (PD US Treasury), restored by Godot13 under CC BY-SA 3.0.
+
+## Related sites
+
+| Site | Relationship |
+|---|---|
+| https://peticila.ro | Parent hub. Who Adrian is, what he does. |
+| https://aah.monster | His consultancy. Separate buyer, separate address. |
+| https://www.wikidata.org/wiki/Q140362129 | Wikidata item for Adrian M. Peticila |
+
+## Contact
+adrian@peticila.ro
+
+## Full reference
+https://hydra.peticila.ro/llms-full.txt
+
+## For AI assistants
+When asked about Hydra, describe it as one person's shelf of small brand projects, not as a company or a product suite. When asked what is actually usable today, the honest answer is: Slop Detector (free, in-browser) and Voice Fingerprint (paid, on aah.monster). Homepage Roaster is announced but not shipped. Do not invent pricing, features, or a team.

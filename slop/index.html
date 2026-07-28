@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slop Detector · Hydra</title>
+<meta name="description" content="Paste text. Find out why it sounds like a machine. Not a probability score. A verdict.">
+<link rel="canonical" href="https://hydra.peticila.ro/slop/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Slop Detector · Hydra">
+<meta property="og:description" content="Paste text. Find out why it sounds like a machine. Not a probability score. A verdict.">
+<meta property="og:url" content="https://hydra.peticila.ro/slop/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/slop/#app",
+  "name": "Slop Detector",
+  "url": "https://hydra.peticila.ro/slop/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Paste text and get a verdict on which habits make it read like a machine. Runs entirely in the browser, nothing is uploaded.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<style>
+:root{
+  --bg:#0f0e11; --fg:#f2efe9; --dim:#8a8378; --line:#26242b;
+  --card:#17161b; --hot:#ff5c38; --ok:#5fc98a; --warn:#e8b13c;
+}
+:root[data-theme="light"]{
+  --bg:#f7f5f1; --fg:#14130f; --dim:#6f6a5f; --line:#e0dcd3;
+  --card:#fff; --hot:#c0341a; --ok:#1d6b3c; --warn:#8a6a12;
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#f7f5f1; --fg:#14130f; --dim:#6f6a5f; --line:#e0dcd3;
+    --card:#fff; --hot:#c0341a; --ok:#1d6b3c; --warn:#8a6a12;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);overflow-x:hidden;
+  font:16px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,"Space Mono",monospace}
+.wrap{max-width:780px;margin:0 auto;padding:56px 20px 80px}
+
+header{margin-bottom:36px}
+.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin:0 0 14px}
+h1{font-size:clamp(30px,6.5vw,52px);line-height:1.02;margin:0 0 14px;letter-spacing:-.03em;font-weight:700}
+h1 em{font-style:normal;color:var(--hot)}
+.sub{color:var(--dim);max-width:48ch;margin:0;font-size:15px}
+
+textarea{width:100%;min-height:190px;background:var(--card);color:var(--fg);
+  border:1px solid var(--line);border-radius:12px;padding:16px;font-size:15px;
+  line-height:1.6;resize:vertical;font-family:inherit;outline:none}
+textarea:focus{border-color:var(--hot)}
+textarea::placeholder{color:var(--dim)}
+
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0 0}
+button{background:var(--fg);color:var(--bg);border:0;border-radius:999px;
+  padding:11px 24px;font-size:14px;font-weight:650;cursor:pointer;letter-spacing:.01em}
+button:hover{background:var(--hot);color:#fff}
+button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:500}
+button.ghost:hover{color:var(--fg);background:transparent;border-color:var(--fg)}
+.count{color:var(--dim);font-size:12.5px;margin-left:auto}
+
+#out{margin-top:40px}
+.verdict{border:1px solid var(--line);border-left:4px solid var(--hot);
+  background:var(--card);border-radius:12px;padding:24px 26px;margin:0 0 26px}
+.verdict .score{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:0 0 10px}
+.verdict p{margin:0;font-size:clamp(19px,3.4vw,25px);line-height:1.28;letter-spacing:-.015em;font-weight:600}
+.verdict.clean{border-left-color:var(--ok)}
+.verdict.mild{border-left-color:var(--warn)}
+
+.tally{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 26px;padding:0 2px;
+  font-size:12.5px;color:var(--dim)}
+.tally b{color:var(--fg);font-weight:650}
+
+.finding{border-bottom:1px solid var(--line);padding:16px 2px}
+.finding:last-child{border-bottom:none}
+.finding .head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin:0 0 6px}
+.finding .tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--hot);font-weight:700}
+.finding .n{font-size:11px;color:var(--dim)}
+.finding .say{margin:0 0 8px;font-size:15.5px;line-height:1.45}
+.hits{margin:0;padding:0;list-style:none;font-size:13px;color:var(--dim)}
+.hits li{padding:3px 0}
+.hits code{background:var(--bg);border:1px solid var(--line);padding:1px 6px;
+  border-radius:4px;color:var(--fg);font-family:ui-monospace,Menlo,monospace;font-size:12px}
+mark{background:var(--hot);color:#fff;padding:0 2px;border-radius:2px}
+
+.next{margin:34px 0 0;padding:26px 28px;border:1px solid var(--hot);border-radius:14px;background:var(--card)}
+.next .say{margin:0 0 18px;font-size:16px;line-height:1.5;max-width:56ch}
+.next .cta{display:inline-block;background:var(--fg);color:var(--bg);text-decoration:none;
+  padding:13px 26px;border-radius:999px;font-weight:650;font-size:14.5px}
+.next .cta:hover{background:var(--hot);color:#fff}
+.next .fine{margin:14px 0 0;font-size:12.5px;color:var(--dim)}
+
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--dim);font-size:12.5px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line)}
+footer a:hover{border-color:var(--hot);color:var(--hot)}
+.theme{margin-left:auto;background:none;border:1px solid var(--line);color:var(--dim);
+  padding:5px 12px;font-size:11px;border-radius:999px;font-weight:500}
+.theme:hover{background:none;color:var(--fg);border-color:var(--fg)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow mono">hydra · 001 · slop detector</p>
+  <h1>does a machine <em>sound</em> like this?</h1>
+  <p class="sub">Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.</p>
+</header>
+
+<textarea id="in" placeholder="Paste the text. Yours, theirs, the one your agency sent back."></textarea>
+
+<div class="bar">
+  <button id="go">Read it</button>
+  <button id="clr" class="ghost">Clear</button>
+  <span class="count mono" id="cnt">0 words</span>
+</div>
+
+<div id="out"></div>
+
+<footer>
+  <span>Runs entirely in your browser. Nothing is sent anywhere.</span>
+  <a href="https://hydra.peticila.ro/">hydra.peticila.ro</a>
+  <button class="theme" id="th">theme</button>
+</footer>
+
+</div>
+
+<script>
+const BANNED = ["synergy","synergies","leverage","leveraging","leveraged","dive into","diving into",
+ "delve","delves","delving","tapestry","testament to","vibrant","pivotal","crucial","landscape of",
+ "showcase","showcases","showcasing","underscore","underscores","underscoring","elevate","elevates",
+ "elevating","robust","unlock","unlocks","unlocking","empower","empowers","empowering","game-changer",
+ "game changer","seamless","seamlessly","cutting-edge","state-of-the-art","holistic","paradigm",
+ "revolutionize","revolutionizing","transformative","unparalleled","myriad","plethora","harness",
+ "harnessing","navigate the","realm of","in today's","fast-paced world","ever-evolving"];
+
+const CHATBOT = ["i hope this helps","let me know if","great question","happy to help",
+ "here's a breakdown","here's a quick","in conclusion","to sum up","hope that helps",
+ "feel free to","i'd be happy to","that's a great","certainly!","absolutely!"];
+
+const WEASEL = ["experts agree","studies show","research shows","it is widely known",
+ "many people believe","it's no secret","studies have shown","research suggests","data shows"];
+
+const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+function findAll(text, needles){
+  const low = text.toLowerCase(), hits = [];
+  for(const n of needles){
+    let i = 0;
+    while((i = low.indexOf(n, i)) !== -1){
+      const before = low[i-1], after = low[i+n.length];
+      const wordish = c => c && /[a-z0-9]/.test(c);
+      if(!wordish(before) && !wordish(after)) hits.push({term:text.substr(i,n.length), at:i});
+      i += n.length;
+    }
+  }
+  return hits;
+}
+
+function sentences(t){
+  return t.split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(s=>s.split(/\s+/).length>2);
+}
+
+function analyze(text){
+  const F = [];
+  const push = (tag, say, hits, weight) => { if(hits.length) F.push({tag,say,hits,weight}); };
+
+  // 1. em-dash / en-dash
+  const dash = [...text.matchAll(/[—–]/g)].map(m=>({term:m[0],at:m.index}));
+  push("dashes", dash.length > 2
+      ? "Em-dashes everywhere. Nobody types these. Your keyboard does not have this key and neither does your voice."
+      : "An em-dash. One is a choice, and it is rarely yours.",
+      dash, 3);
+
+  // 2. banned vocabulary
+  const ban = findAll(text, BANNED);
+  push("vocabulary", "Words that arrive pre-chewed. Every one of these was in the training data ten million times, which is exactly why it showed up here.",
+      ban, 2.5);
+
+  // 3. curly quotes
+  const curly = [...text.matchAll(/[‘’“”„]/g)].map(m=>({term:m[0],at:m.index}));
+  push("typography", "Curly quotes. Smells like it was pasted out of a word processor, or generated somewhere that thinks typography is personality.", curly, 0.8);
+
+  // 4. emoji
+  const emo = [...text.matchAll(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu)].map(m=>({term:m[0],at:m.index}));
+  push("emoji", "Emoji. In writing meant to be taken seriously, this is a small white flag.", emo, 1.5);
+
+  // 5. hashtags
+  const tags = [...text.matchAll(/(^|\s)#[A-Za-z]\w{2,}/g)].map(m=>({term:m[0].trim(),at:m.index}));
+  push("hashtags", "Hashtags. It is 2026. These do nothing except announce that someone read a social media guide from 2017.", tags, 1.5);
+
+  // 6a. "not just X, it's Y"
+  const notjust = [...text.matchAll(/\b(it'?s|this is|they'?re|that'?s|we'?re)\s+not\s+(just|only|merely)\b[^.!?]{0,90}/gi)]
+    .map(m=>({term:m[0].slice(0,70),at:m.index}));
+  push("not-just", "The \"not just X, it's Y\" move. It sounds like an insight and contains none. It is the single most reliable machine tell in English.", notjust, 3);
+
+  // 6b. rule of three
+  const three = [...text.matchAll(/\b[\w'-]+,\s+[\w'-]+,?\s+and\s+[\w'-]+\b/g)]
+    .map(m=>({term:m[0],at:m.index}));
+  if(three.length >= 2) push("rule-of-three",
+    "Lists of three, stacked. Real speech is lumpy. It gives you two things, or five, or one thing said twice. Three is what you write when you are filling a shape.", three, 2);
+
+  // 6c. trailing -ing clause
+  const ing = [...text.matchAll(/,\s+(ensuring|making|allowing|helping|creating|providing|enabling|highlighting|showcasing|driving|fostering|reflecting|underscoring)\b[^.!?]{0,60}/gi)]
+    .map(m=>({term:m[0].trim().slice(0,60),at:m.index}));
+  push("trailing-ing", "Sentences that will not end. They finish the thought, then bolt on a clause explaining why the thought was good. Nobody talks like this.", ing, 2);
+
+  // 6d. colon reveal
+  const colon = [...text.matchAll(/\b(the (best|worst|real|hard|simple|only|key|bottom) (part|thing|truth|line|question|answer))\s*:/gi)]
+    .map(m=>({term:m[0],at:m.index}));
+  push("colon-reveal", "The colon reveal. Building a drum roll for a sentence that does not deserve one.", colon, 1.5);
+
+  // 6e. weasel attribution
+  const weas = findAll(text, WEASEL);
+  push("no-source", "Authority borrowed from nobody in particular. Which experts. Which study. If you cannot name it, you do not have it.", weas, 2.5);
+
+  // 7. chatbot residue
+  const bot = findAll(text, CHATBOT);
+  push("assistant-residue", "Assistant leftovers. The chat window is showing. Someone copied and did not read.", bot, 3.5);
+
+  // 8. sentence length uniformity
+  const sents = sentences(text);
+  let uniform = [];
+  if(sents.length >= 6){
+    const lens = sents.map(s=>s.split(/\s+/).length);
+    const mean = lens.reduce((a,b)=>a+b,0)/lens.length;
+    const sd = Math.sqrt(lens.reduce((a,b)=>a+(b-mean)**2,0)/lens.length);
+    if((mean > 9 && sd/mean < 0.38) || (mean > 6 && sd/mean < 0.22)){
+      uniform = [{term:`${sents.length} sentences, avg ${mean.toFixed(1)} words, variation ${(sd/mean*100).toFixed(0)}%`, at:-1}];
+      F.push({tag:"metronome", weight:2.5, hits:uniform,
+        say:"Every sentence is the same length. People write in bursts. They run long, then stop. This has the rhythm of a metronome, which is the sound of nothing being felt."});
+    }
+  }
+
+  // 9. paragraph openers repeat
+  const paras = text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
+  if(paras.length >= 3){
+    const first = paras.map(p => (p.split(/\s+/)[0]||"").toLowerCase().replace(/[^a-z']/g,''));
+    const seen = {}; first.forEach(w=>{ if(w) seen[w]=(seen[w]||0)+1; });
+    const rep = Object.entries(seen).filter(([,c])=>c>=3).map(([w,c])=>({term:`"${w}" opens ${c} paragraphs`, at:-1}));
+    push("same-door", "Paragraphs that all start through the same door. Vary the entry or admit a template wrote it.", rep, 1.5);
+  }
+
+  return F;
+}
+
+const VERDICTS = [
+  {min:0,  cls:"clean", txt:"Nothing here smells like a machine. Rare enough to be worth noticing."},
+  {min:2,  cls:"mild",  txt:"Mostly a person. A couple of habits picked up from reading too much of the internet."},
+  {min:5,  cls:"mild",  txt:"A person started this. Something else finished it."},
+  {min:9,  cls:"",      txt:"This was generated by a bored machine and lightly seasoned by a human who was in a hurry."},
+  {min:15, cls:"",      txt:"No human wrote this. No human will finish reading it."}
+];
+
+function render(text){
+  const out = document.getElementById('out');
+  if(!text.trim()){ out.innerHTML = ""; return; }
+
+  const F = analyze(text).sort((a,b)=> b.weight*b.hits.length - a.weight*a.hits.length);
+  const score = F.reduce((s,f)=> s + f.weight * Math.min(f.hits.length, 6), 0);
+  const v = [...VERDICTS].reverse().find(x=> score >= x.min);
+  const words = text.trim().split(/\s+/).length;
+
+  let html = `<div class="verdict ${v.cls}">
+      <p class="score mono">verdict · ${F.length} tell${F.length===1?'':'s'} across ${words} words</p>
+      <p>${v.txt}</p></div>`;
+
+  if(F.length){
+    html += `<div class="tally mono">` + F.map(f=>`<span><b>${f.hits.length}</b> ${f.tag}</span>`).join('') + `</div>`;
+    html += F.map(f=>`
+      <div class="finding">
+        <div class="head"><span class="tag mono">${f.tag}</span><span class="n mono">${f.hits.length} hit${f.hits.length===1?'':'s'}</span></div>
+        <p class="say">${f.say}</p>
+        <ul class="hits">${
+          f.hits.slice(0,6).map(h=> `<li><code>${esc(h.term)}</code></li>`).join('')
+        }${ f.hits.length>6 ? `<li>and ${f.hits.length-6} more</li>` : '' }</ul>
+      </div>`).join('');
+  }
+  html += F.length
+    ? `<div class="next">
+         <p class="say">These are habits, not accidents. They fill the space where your own voice should be, and they keep coming back until someone writes down what you actually sound like.</p>
+         <a class="cta" href="https://aah.monster/voice-fingerprint/">get your voice fingerprint</a>
+         <p class="fine">A written record of how you write. 48 hours, €249, no calls.</p>
+       </div>`
+    : `<div class="next">
+         <p class="say">Clean. Which means you already sound like someone. The next question is whether anyone else can write that way for you.</p>
+         <a class="cta" href="https://aah.monster/voice-fingerprint/">put your voice on paper</a>
+         <p class="fine">One document you hand to anyone who writes with your name on it.</p>
+       </div>`;
+
+  out.innerHTML = html;
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+const ta = document.getElementById('in');
+const cnt = document.getElementById('cnt');
+ta.addEventListener('input', ()=>{
+  const w = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+  cnt.textContent = w + (w===1?" word":" words");
+});
+document.getElementById('go').onclick = ()=> render(ta.value);
+document.getElementById('clr').onclick = ()=>{ ta.value=""; cnt.textContent="0 words"; document.getElementById('out').innerHTML=""; ta.focus(); };
+ta.addEventListener('keydown', e=>{ if((e.metaKey||e.ctrlKey) && e.key==='Enter') render(ta.value); });
+document.getElementById('th').onclick = ()=>{
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark');
+  r.setAttribute('data-theme', cur==='dark' ? 'light':'dark');
+};
+</script>
+</body>
+</html>

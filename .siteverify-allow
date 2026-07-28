@@ -1,0 +1,13 @@
+# Fisiere care ajung in setul de publicare dar sunt legitime.
+# Verificat cu curl inainte de a fi trecute aici — nu presupune, probeaza.
+
+# GitHub Pages serveste continutul repo-ului, deci README.md ajunge la
+# https://hydra.peticila.ro/README.md ca text servit 200. Nu contine nimic
+# privat: e aceeasi informatie ca llms.txt, scrisa pentru un om care deschide
+# repo-ul. Ramane, dar e scos din indexare prin robots.txt (Disallow: /README.md)
+# ca sa nu concureze cu pagina reala pe continut duplicat.
+README.md
+
+# Acest fisier se publica pe sine, din acelasi motiv. E o lista de decizii, nu
+# un secret. Aceeasi situatie ca pe zerohypelab.com.
+.siteverify-allow

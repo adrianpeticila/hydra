@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+# Repo readme, served by GitHub Pages but not a page. Duplicate of llms.txt.
+Disallow: /README.md
+
+# AI crawlers — welcome, index everything
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+Sitemap: https://hydra.peticila.ro/sitemap.xml

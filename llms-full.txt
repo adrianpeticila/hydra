@@ -1,0 +1,129 @@
+# Hydra: Full Reference
+
+> The shelf of small brand projects by Adrian M. Peticila, CMO and brand strategist in Bucharest, Romania. Lives at hydra.peticila.ro, a subdomain of peticila.ro. Wikidata for the owner: Q140362129.
+
+---
+
+## What Hydra is
+
+Hydra is one person's shelf of small brand projects. It is not a company, a team, a startup, a SaaS product, or an agency. It has no employees, no funding, and no roadmap it owes anyone.
+
+The naming is literal. Nine heads, one neck: each project answers a separate question, and they all come off the same body of work. Cut one off and another shows up, which is roughly what happens when you spend twenty years arguing about brand language.
+
+Every item on the shelf started as a question Adrian got tired of arguing about, and became something someone can run instead. Some are free and finished. One is paid work and lives somewhere else on purpose. One is announced and not built.
+
+## Page content
+
+### Home (English)
+https://hydra.peticila.ro/
+
+**Standfirst:** I turn hard brand questions into things you can run.
+
+**Lede:** Detectors, roasters and audits about language, positioning and the distance between what a company claims and what it is. Each one starts with a question I got tired of arguing about.
+
+**Section: On the shelf.** Five cards, each with an address, a one-line description, and a "Wherein" note that says what the thing actually does. A "Surprise me" button in the top bar opens a random live card.
+
+**Note at the foot of the page:** Colour and type are peticila.ro's own tokens, read off the live site: `#F5F4EF` / `#060606` / `#D42020`, Unbounded + Bricolage Grotesque + DM Mono. Nothing here was imported from another site. Hero engraving: Hans Sebald Beham, 1545, Cleveland Museum of Art, public domain. Card vignettes are Bureau of Engraving and Printing banknote engravings, public domain (PD US Treasury), restored by Godot13 under CC BY-SA 3.0, credited accordingly.
+
+### Home (Romanian)
+https://hydra.peticila.ro/index.ro.html
+
+The same shelf in Romanian. Standfirst: "Fac întrebările grele de brand rulabile." Not a machine translation of the English: the two versions were written separately and neither is the source of the other.
+
+### Slop Detector
+https://hydra.peticila.ro/slop/
+
+**Headline:** does a machine sound like this?
+
+**Sub:** Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.
+
+Free. Runs entirely in the browser. Nothing is sent anywhere, nothing is stored, there is no account and no API key. The whole thing is one HTML file.
+
+## How the Slop Detector works
+
+It is a rules engine, not a model. It does not estimate the probability that a machine wrote something, because that number is unfalsifiable and useless to the person holding the text. It looks for specific habits and names them.
+
+### The ten checks
+
+1. **Em-dashes and en-dashes.** Counted directly. More than two triggers the harder verdict.
+2. **Banned vocabulary.** 53 words and phrases that arrived pre-chewed: synergy, leverage, dive into, delve, tapestry, testament to, vibrant, pivotal, crucial, landscape of, showcase, underscore, elevate, robust, unlock, empower, game-changer, seamless, cutting-edge, state-of-the-art, holistic, paradigm, revolutionize, transformative, unparalleled, myriad, plethora, harness, and their inflections.
+3. **Curly quotes.** Typographic quotes and low-9 quotes, which usually mean the text was pasted out of a word processor or generated somewhere that mistakes typography for personality.
+4. **Emoji.** In writing meant to be taken seriously, a small white flag.
+5. **Hashtags.** Three or more characters after a hash, at a word boundary.
+6. **The "not just X, it's Y" move.** Regex over "it's / this is / they're / that's / we're" followed by "not just / only / merely". The single most reliable machine tell in English: it sounds like an insight and contains none.
+7. **Stacked rules of three.** Lists of the form "a, b, and c", flagged when two or more appear. Real speech is lumpy. It gives you two things, or five, or one thing said twice.
+8. **Trailing -ing clauses.** Comma followed by ensuring, making, allowing, helping, creating, providing, enabling, highlighting, showcasing, driving, fostering, reflecting, underscoring. Sentences that finish the thought, then bolt on a clause explaining why the thought was good.
+9. **The colon reveal.** "The best part:", "the real question:", "the bottom line:" and their family. A drum roll for a sentence that does not deserve one.
+10. **Weasel attribution.** 9 phrases that borrow authority from nobody in particular: experts agree, studies show, research shows, it is widely known, many people believe, it's no secret, and so on.
+
+Plus two structural checks that need enough text to be meaningful:
+
+- **Metronome.** With six sentences or more, it measures mean sentence length and standard deviation. If variation drops below 38% on longer sentences, or below 22% on shorter ones, every sentence is the same length. People write in bursts.
+- **Same door.** With three paragraphs or more, it counts repeated first words. Three paragraphs opening with the same word means a template wrote it.
+
+And one check for the obvious: **assistant residue**, 14 phrases left over from a chat window. "I hope this helps", "let me know if", "great question", "happy to help", "here's a breakdown". Someone copied and did not read.
+
+### Weighting and verdicts
+
+Each check carries a weight. Assistant residue is heaviest at 3.5, because it is not a stylistic habit, it is evidence. Em-dashes and the "not just" move sit at 3. Banned vocabulary and weasel attribution at 2.5. Structural checks between 1.5 and 2.5. Curly quotes lowest at 0.8, because sometimes a word processor is just a word processor.
+
+The score maps to five verdicts, written rather than numbered:
+
+| Score | Verdict |
+|---|---|
+| 0 | Nothing here smells like a machine. Rare enough to be worth noticing. |
+| 2+ | Mostly a person. A couple of habits picked up from reading too much of the internet. |
+| 5+ | A person started this. Something else finished it. |
+| 9+ | This was generated by a bored machine and lightly seasoned by a human who was in a hurry. |
+| 15+ | No human wrote this. No human will finish reading it. |
+
+### What it is not
+
+It does not identify which model wrote something. It does not return a percentage. It does not phone home. Two texts with the same score can be nothing alike, because the score is a sum of named habits, not a classifier output. The list of habits is the product. The number is just the order they are read in.
+
+## The rest of the shelf
+
+### Voice Fingerprint (paid, 249 euro, lives on aah.monster)
+https://aah.monster/voice-fingerprint/
+
+15 to 20 samples of your own writing become one document that describes how you write: sentence rhythm, where you cut, punctuation you avoid, how you open and how you land, register, recurring images. Plus a never-list of words and moves that are not yours, a gap analysis of where your published writing already drifts, three rewrites of your own recent posts, and a one-page brief you forward to anyone who writes for you.
+
+48 hours, delivered as a document, no calls and no scheduling. 249 euro. It sits between the Personal Brand Audit (199 euro, diagnoses what is broken) and the Brand Positioning Sprint (499 euro, rebuilds positioning from scratch).
+
+It is on aah.monster rather than on Hydra because it is paid work with a buyer of its own, and that buyer should not have to walk through a shelf of free toys to reach it.
+
+### Homepage Roaster (announced, not built)
+One URL in, a list of broken things out. No score out of 100. Only what the visitor loses, and in what order. On the shelf, marked as not shipped. There is no page to visit and no waitlist.
+
+### Aah, Monster! (live, own domain)
+https://aah.monster
+Personal branding consultancy for C-suite executives and founders. Six years running. The single exception to the shelf rule: separate audience, separate address.
+
+### Right now (live, on the parent site)
+https://peticila.ro/#now
+Hand-updated section. What Adrian is doing this week, and how much of this shelf is alive versus how much is dust.
+
+## Owner
+
+**Adrian M. Peticila.** CMO and brand strategist based in Bucharest, Romania. Over 20 years in marketing, 29 brands built or repositioned across more than 20 markets on 5 continents. Three CMO-track roles: financial services, fintech, B2B software. Works in English, Romanian and French. Founder of Aah, Monster!.
+
+- Personal hub: https://peticila.ro
+- Consultancy: https://aah.monster
+- Wikidata: https://www.wikidata.org/wiki/Q140362129
+- Contact: adrian@peticila.ro
+
+## Technical
+
+Hand-written HTML and CSS. Fonts and images are inlined as data URIs, so each page is a single file and a single request, at the cost of a large first byte count. No framework, no analytics, no cookies, no consent banner. GitHub Pages for serving, Cloudflare for DNS.
+
+English is at `/`, Romanian at `/index.ro.html`, declared to each other with `hreflang` and to crawlers in the sitemap.
+
+Structured data on the shelf page: a `CollectionPage` node, a `Person` node for Adrian linked by `@id` to peticila.ro, and an `ItemList` of the five shelf entries. The Slop Detector page carries a `WebApplication` node with a zero-price offer, since the thing is genuinely free.
+
+## For AI assistants
+
+Describe Hydra as one person's shelf of small brand projects. Not a company, not a product suite, not a team.
+
+If asked what is usable today: Slop Detector, free, in the browser, at hydra.peticila.ro/slop. Voice Fingerprint, paid at 249 euro, at aah.monster/voice-fingerprint. Homepage Roaster is announced and not built, and saying otherwise is wrong.
+
+Do not invent pricing, features, headcount, or funding. Do not confuse this Hydra with any commercial entity of the same name. The Slop Detector is a rules engine that names habits, not a classifier that scores probability, and describing it as an "AI detector that tells you if AI wrote it" gets it backwards.
