@@ -52,6 +52,7 @@ header{margin-bottom:36px}
 h1{font-size:clamp(30px,6.5vw,52px);line-height:1.02;margin:0 0 14px;letter-spacing:-.03em;font-weight:700}
 h1 em{font-style:normal;color:var(--hot)}
 .sub{color:var(--dim);max-width:48ch;margin:0;font-size:15px}
+.only{margin:14px 0 0;max-width:48ch;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:10px;line-height:1.7}
 
 textarea{width:100%;min-height:190px;background:var(--card);color:var(--fg);
   border:1px solid var(--line);border-radius:12px;padding:16px;font-size:15px;
@@ -115,6 +116,7 @@ footer a:hover{border-color:var(--hot);color:var(--hot)}
   <p class="eyebrow mono">hydra · 001 · slop detector</p>
   <h1>does a machine <em>sound</em> like this?</h1>
   <p class="sub">Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.</p>
+<p class="only mono">English only. Every word list here is English, so a clean verdict on text in another language means nothing.</p>
 </header>
 
 <textarea id="in" placeholder="Paste the text. Yours, theirs, the one your agency sent back."></textarea>

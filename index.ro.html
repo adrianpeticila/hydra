@@ -144,6 +144,7 @@ h1 { font-family: var(--name); font-weight: 900; margin: 0 0 1.8rem;
 .standfirst { font-family: var(--name); font-weight: 700; letter-spacing: -.025em;
               font-size: clamp(1.3rem, 3vw, 2.1rem); line-height: 1.16;
               max-width: 24ch; margin: 0 0 1.2rem; }
+.nb { white-space: nowrap; }
 .lede { font-size: 1.06rem; max-width: 48ch; margin: 0; }
 
 .cols { display: grid; grid-template-columns: minmax(0,1fr) 13rem; gap: 3.5rem;
@@ -193,6 +194,29 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         font-family: var(--mono); font-size: .68rem; line-height: 1.85;
         color: var(--mid); max-width: 62ch; }
 
+/* random pick dialog */
+.pick { border: 0; padding: 0; max-width: 34rem; width: calc(100% - 2rem);
+        background: var(--bg); color: var(--fg); }
+.pick::backdrop { background: rgba(6,6,6,.72); }
+.pick .pick-in { border: 1px solid var(--fg); padding: 1.6rem 1.5rem 1.4rem; }
+.pick .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em;
+                 color: var(--red); margin: 0 0 1rem; }
+.pick h3 { font-family: var(--name); font-weight: 800; letter-spacing: -.02em;
+           font-size: 1.5rem; line-height: 1.1; margin: 0 0 .7rem; }
+.pick .pick-dek { margin: 0 0 .6rem; font-size: 1rem; }
+.pick .pick-why { margin: 0 0 1.3rem; color: var(--mid); font-size: .92rem; }
+.pick .pick-meta { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em;
+                   color: var(--mid); margin: 0 0 1.3rem; }
+.pick .pick-act { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.pick .go { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
+            text-decoration: none; border: 1px solid var(--red); color: var(--bg);
+            background: var(--red); padding: .55rem 1rem; }
+.pick .go:hover { background: var(--bg); color: var(--red); }
+.pick .again, .pick .shut { font-family: var(--mono); font-size: .72rem;
+            letter-spacing: .12em; border: 1px solid var(--rule); background: none;
+            color: var(--fg); padding: .55rem 1rem; cursor: pointer; }
+.pick .again:hover, .pick .shut:hover { border-color: var(--fg); }
+
 .soon { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em;
         color: var(--red); border: 1px solid var(--red); border-radius: 2px;
         padding: .1rem .4rem; margin-left: .6rem; vertical-align: middle; }
@@ -211,7 +235,7 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
   <div class="masthead">
     <p class="kicker">P. 002 / HYDRA</p>
     <h1>hydra</h1>
-    <p class="standfirst">Am obosit să argumentez, așa că le-am făcut.</p>
+    <p class="standfirst">Am obosit să argumentez, așa că <span class="nb">le-am</span> făcut.</p>
     <p class="lede">Unelte mici de brand care rulează în browser. Fiecare e o discuție pe care n-am mai vrut să o port a suta oară. Deschizi, folosești, pleci. Niciuna nu-ți cere emailul.</p>
   </div>
 
@@ -285,7 +309,7 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         <div class="card-no">005</div>
       </article>
 
-      <p class="note">Culoarea și tipografia sunt tokenii proprii peticila.ro, citiți de pe site-ul live: <code>#F5F4EF</code> / <code>#060606</code> / <code>#D42020</code>, Unbounded + Bricolage Grotesque + DM Mono. Nimic de aici nu e importat de pe alt site. Gravura hero: Hans Sebald Beham, 1545, Cleveland Museum of Art, domeniu public. Vinietele de la carduri sunt gravuri de bancnotă Bureau of Engraving and Printing, domeniu public (PD US Treasury), restaurate de Godot13 sub CC BY-SA 3.0, creditate ca atare.</p>
+      <p class="note">Gravura mare: Hans Sebald Beham, 1545, Cleveland Museum of Art, domeniu public. Viniete: Bureau of Engraving and Printing, domeniu public, restaurate de Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>.</p>
     </main>
 
     <aside class="side">
@@ -294,13 +318,56 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
     </aside>
   </div>
 
+  <dialog class="pick" id="pick" aria-labelledby="pick-title">
+    <div class="pick-in">
+      <p class="eyebrow">UNUL LA NIMEREALĂ</p>
+      <h3 id="pick-title"></h3>
+      <p class="pick-dek"></p>
+      <p class="pick-why"></p>
+      <p class="pick-meta"></p>
+      <div class="pick-act">
+        <a class="go" href="#">DESCHIDE</a>
+        <button class="again" type="button">MAI TRAGE</button>
+        <button class="shut" type="button">ÎNCHIDE</button>
+      </div>
+    </div>
+  </dialog>
+
   <script>
-    document.getElementById('surprise-btn').addEventListener('click', function () {
-      var cards = document.querySelectorAll('.card[data-href]');
-      var pick = cards[Math.floor(Math.random() * cards.length)];
-      var href = pick.getAttribute('data-href');
-      window.open(href, 'hydra-surprise', 'width=480,height=640,noopener,noreferrer');
-    });
+    (function () {
+      var dlg = document.getElementById('pick');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.card[data-href]'));
+      var last = -1;
+
+      function draw() {
+        var i = Math.floor(Math.random() * cards.length);
+        if (cards.length > 1) { while (i === last) i = Math.floor(Math.random() * cards.length); }
+        last = i;
+        var c = cards[i];
+        dlg.querySelector('#pick-title').textContent = c.getAttribute('data-title');
+        dlg.querySelector('.pick-dek').textContent = c.querySelector('.dek').textContent;
+        dlg.querySelector('.pick-why').textContent = c.querySelector('.wherein').textContent;
+        dlg.querySelector('.pick-meta').textContent =
+          c.querySelector('.addr').textContent + '  ·  ' +
+          c.querySelector('.meta span:last-child').textContent;
+        dlg.querySelector('.go').setAttribute('href', c.getAttribute('data-href'));
+      }
+
+      function open() {
+        draw();
+        if (dlg.showModal) { dlg.showModal(); } else { dlg.setAttribute('open', ''); }
+        dlg.querySelector('.go').focus();
+      }
+
+      document.getElementById('surprise-btn').addEventListener('click', open);
+      dlg.querySelector('.again').addEventListener('click', draw);
+      dlg.querySelector('.shut').addEventListener('click', function () {
+        if (dlg.close) { dlg.close(); } else { dlg.removeAttribute('open'); }
+      });
+      dlg.addEventListener('click', function (e) {
+        if (e.target === dlg && dlg.close) { dlg.close(); }
+      });
+    }());
   </script>
 
 </body>

@@ -39,7 +39,9 @@ https://hydra.peticila.ro/slop/
 
 Free. Runs entirely in the browser. Nothing is sent anywhere, nothing is stored, there is no account and no API key. The whole thing is one HTML file.
 
-**English only.** Every word list and most of the structural regexes are English. Text in another language scores near zero regardless of how machine-written it is, so a clean verdict on non-English text means nothing.
+**English only.** Seven of the thirteen checks are English phrase lists or English-grammar regexes, which is 61% of the total weight. Four checks are language-independent: dashes, emoji, hashtags, typography.
+
+Measured on one slop paragraph and its Romanian translation: the English text scored 27.0, band 5 of 5, on seven checks. The same text in Romanian, keeping its emoji and English loanwords, scored 13.0, band 4. Stripped of emoji, hashtags and loanwords, the Romanian scored 2.5, band 2, on a single accidental hit, because "vibrant" is spelled the same in both languages. So a low score on non-English text says nothing about the text.
 
 ## How the Slop Detector works
 
