@@ -41,7 +41,11 @@ h1 em{font-style:normal;color:var(--fg)}
 
 /* two columns: tool left, engraving right */
 .cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
-@media(max-width:880px){ .cols{grid-template-columns:1fr;gap:2.5rem} }
+@media(max-width:880px){ .cols{grid-template-columns:minmax(0,1fr);gap:2.5rem} }
+/* without these the claims table sets the width of the whole page instead of
+   scrolling inside its own box */
+.cols>main{min-width:0}
+.panel{min-width:0}
 .side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
   font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
 .side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;
