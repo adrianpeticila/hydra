@@ -31,7 +31,7 @@ Hydra is a project shelf, not a company and not a product. Each item on it start
 
 ### Slop Detector (live, free)
 https://hydra.peticila.ro/slop/
-Paste a text, get a verdict on which habits make it read like a machine. 177 lexical markers, 76 English and 101 Romanian, plus cadence checks. It reads the language itself and switches rule sets. It does not guess the author and it does not return a probability score, it names the specific habits. Runs entirely in the browser: nothing is uploaded, nothing is stored, no account, no key.
+Paste a text, get a verdict on which habits make it read like a machine. 76 lexical markers plus cadence checks. It does not guess the author and it does not return a probability score, it names the specific habits. Runs entirely in the browser: nothing is uploaded, nothing is stored, no account, no key.
 
 ### Voice Fingerprint (live, paid, 249 euro)
 https://aah.monster/voice-fingerprint/

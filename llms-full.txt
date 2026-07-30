@@ -35,7 +35,7 @@ https://hydra.peticila.ro/slop/
 
 **Headline:** does a machine sound like this?
 
-**Sub:** Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away. English and Romanian, picked automatically.
+**Sub:** Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.
 
 Free. Runs entirely in the browser. Nothing is sent anywhere, nothing is stored, there is no account and no API key. The whole thing is one HTML file.
 
@@ -46,22 +46,22 @@ It is a rules engine, not a model. It does not estimate the probability that a m
 ### The ten checks
 
 1. **Em-dashes and en-dashes.** Counted directly. More than two triggers the harder verdict.
-2. **Banned vocabulary.** 53 English words and phrases that arrived pre-chewed, plus 67 Romanian ones: synergy, leverage, dive into, delve, tapestry, testament to, vibrant, pivotal, crucial, landscape of, showcase, underscore, elevate, robust, unlock, empower, game-changer, seamless, cutting-edge, state-of-the-art, holistic, paradigm, revolutionize, transformative, unparalleled, myriad, plethora, harness, and their inflections.
-3. **Curly quotes.** Typographic quotes and low-9 quotes, which usually mean the text was pasted out of a word processor or generated somewhere that mistakes typography for personality. In Romanian, the low-9 pair is correct typography, so it is not counted there.
+2. **Banned vocabulary.** 53 words and phrases that arrived pre-chewed: synergy, leverage, dive into, delve, tapestry, testament to, vibrant, pivotal, crucial, landscape of, showcase, underscore, elevate, robust, unlock, empower, game-changer, seamless, cutting-edge, state-of-the-art, holistic, paradigm, revolutionize, transformative, unparalleled, myriad, plethora, harness, and their inflections.
+3. **Curly quotes.** Typographic quotes and low-9 quotes, which usually mean the text was pasted out of a word processor or generated somewhere that mistakes typography for personality.
 4. **Emoji.** In writing meant to be taken seriously, a small white flag.
-5. **Hashtags.** Three or more letters after a hash, at a word boundary. Hex colour codes are excluded.
-6. **The "not just X, it's Y" move.** Regex over "it's / it is / this is / they're / that's / we're" followed by "not just / only / merely". In Romanian, "nu e doar", "nu este vorba doar", "nu doar ca". The single most reliable machine tell in either language: it sounds like an insight and contains none.
-7. **Stacked rules of three.** Lists of the form "a, b, and c", or "a, b si c" in Romanian, flagged when two or more appear. Real speech is lumpy. It gives you two things, or five, or one thing said twice.
-8. **Trailing participle clauses.** Comma followed by ensuring, making, allowing, helping, creating, providing, enabling, highlighting, showcasing, driving, fostering, reflecting, underscoring. In Romanian, 16 gerunds: asigurand, permitand, oferind, subliniind, evidentiind and the rest. Sentences that finish the thought, then bolt on a clause explaining why the thought was good.
-9. **The colon reveal.** "The best part:", "the real question:", "the bottom line:" and their family. In Romanian, "cel mai important lucru:", "adevarul e:", "concluzia:". A drum roll for a sentence that does not deserve one.
-10. **Weasel attribution.** 9 English phrases and 14 Romanian ones that borrow authority from nobody in particular: experts agree, studies show, research shows, it is widely known, many people believe, it's no secret, "experții sunt de acord", "studiile arată", and so on.
+5. **Hashtags.** Three or more characters after a hash, at a word boundary.
+6. **The "not just X, it's Y" move.** Regex over "it's / this is / they're / that's / we're" followed by "not just / only / merely". The single most reliable machine tell in English: it sounds like an insight and contains none.
+7. **Stacked rules of three.** Lists of the form "a, b, and c", flagged when two or more appear. Real speech is lumpy. It gives you two things, or five, or one thing said twice.
+8. **Trailing -ing clauses.** Comma followed by ensuring, making, allowing, helping, creating, providing, enabling, highlighting, showcasing, driving, fostering, reflecting, underscoring. Sentences that finish the thought, then bolt on a clause explaining why the thought was good.
+9. **The colon reveal.** "The best part:", "the real question:", "the bottom line:" and their family. A drum roll for a sentence that does not deserve one.
+10. **Weasel attribution.** 9 phrases that borrow authority from nobody in particular: experts agree, studies show, research shows, it is widely known, many people believe, it's no secret, and so on.
 
 Plus two structural checks that need enough text to be meaningful:
 
 - **Metronome.** With six sentences or more, it measures mean sentence length and standard deviation. If variation drops below 38% on longer sentences, or below 22% on shorter ones, every sentence is the same length. People write in bursts.
 - **Same door.** With three paragraphs or more, it counts repeated first words. Three paragraphs opening with the same word means a template wrote it.
 
-And one check for the obvious: **assistant residue**, 14 English phrases and 20 Romanian ones left over from a chat window. "I hope this helps", "let me know if", "great question", "happy to help", "here's a breakdown". Someone copied and did not read.
+And one check for the obvious: **assistant residue**, 14 phrases left over from a chat window. "I hope this helps", "let me know if", "great question", "happy to help", "here's a breakdown". Someone copied and did not read.
 
 ### Weighting and verdicts
 
