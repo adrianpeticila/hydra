@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Adrian M. Peticila / Hydra</title>
-<meta name="description" content="Hydra e raftul de proiecte de brand al lui Adrian M. Peticila: un detector de slop care rulează în browser, o amprentă de voce, un roaster de homepage.">
+<meta name="description" content="Unelte mici de brand care rulează în browser: detector de slop, amprentă de voce, roaster de homepage. Făcute de Adrian M. Peticila. Nu-ți cer emailul.">
 <link rel="canonical" href="https://hydra.peticila.ro/index.ro.html">
 <link rel="alternate" hreflang="en" href="https://hydra.peticila.ro/">
 <link rel="alternate" hreflang="ro" href="https://hydra.peticila.ro/index.ro.html">
@@ -12,7 +12,7 @@
 <link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Adrian M. Peticila / Hydra">
-<meta property="og:description" content="Hydra e raftul de proiecte de brand al lui Adrian M. Peticila: un detector de slop care rulează în browser, o amprentă de voce, un roaster de homepage.">
+<meta property="og:description" content="Unelte mici de brand care rulează în browser: detector de slop, amprentă de voce, roaster de homepage. Făcute de Adrian M. Peticila. Nu-ți cer emailul.">
 <meta property="og:url" content="https://hydra.peticila.ro/index.ro.html">
 <meta property="og:locale" content="ro_RO">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,7 +24,7 @@
       "@id": "https://hydra.peticila.ro/index.ro.html#page",
       "url": "https://hydra.peticila.ro/index.ro.html",
       "name": "Adrian M. Peticila / Hydra",
-      "description": "Hydra e raftul de proiecte de brand al lui Adrian M. Peticila: un detector de slop care rulează în browser, o amprentă de voce, un roaster de homepage.",
+      "description": "Unelte mici de brand care rulează în browser: detector de slop, amprentă de voce, roaster de homepage. Făcute de Adrian M. Peticila. Nu-ți cer emailul.",
       "inLanguage": "ro",
       "isPartOf": { "@type": "WebSite", "@id": "https://peticila.ro/#website",
                     "url": "https://peticila.ro/", "name": "peticila.ro" },
@@ -42,10 +42,10 @@
     {
       "@type": "ItemList",
       "@id": "https://hydra.peticila.ro/index.ro.html#shelf",
-      "name": "PE RAFT",
+      "name": "CE E AICI",
       "numberOfItems": 5,
       "itemListOrder": "https://schema.org/ItemListOrderAscending",
-      "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Slop Detector", "description": "Lipești un text, afli ce obiceiuri te dau de gol.", "url": "https://hydra.peticila.ro/slop/"}, {"@type": "ListItem", "position": 2, "name": "Voice Fingerprint", "description": "15-20 de mostre din scrisul tău, un document care descrie cum scrii.", "url": "https://aah.monster/voice-fingerprint/"}, {"@type": "ListItem", "position": 3, "name": "Homepage Roaster", "description": "Un URL intră, o listă de lucruri rupte iese.", "url": "https://hydra.peticila.ro/index.ro.html"}, {"@type": "ListItem", "position": 4, "name": "Aah, Monster!", "description": "Singurul produs cu cumpărătorul lui. Stă pe domeniul propriu.", "url": "https://aah.monster"}, {"@type": "ListItem", "position": 5, "name": "Chiar acum", "description": "Ce fac în săptămâna asta, actualizat manual, fără scuze.", "url": "https://peticila.ro/#now"}]
+      "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Slop Detector", "description": "Lipești un text, afli ce te dă de gol.", "url": "https://hydra.peticila.ro/slop/"}, {"@type": "ListItem", "position": 2, "name": "Voice Fingerprint", "description": "Trimiți 15-20 de texte, primești un document care spune cum scrii.", "url": "https://aah.monster/voice-fingerprint/"}, {"@type": "ListItem", "position": 3, "name": "Homepage Roaster", "description": "Dai un link, primești lista lucrurilor rupte.", "url": "https://hydra.peticila.ro/index.ro.html"}, {"@type": "ListItem", "position": 4, "name": "Aah, Monster!", "description": "Singurul lucru de aici cu cumpărător propriu. Stă pe domeniul lui.", "url": "https://aah.monster"}, {"@type": "ListItem", "position": 5, "name": "Chiar acum", "description": "Ce fac săptămâna asta. Scris de mână, fără scuze.", "url": "https://peticila.ro/#now"}]
     }
   ]
 }</script>
@@ -184,8 +184,9 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
 
 .side ul { list-style: none; margin: 0; padding: 0; font-family: var(--mono);
            font-size: .72rem; letter-spacing: .08em; line-height: 2.4; }
-.side a { text-decoration: none; display: flex; justify-content: space-between; }
-.side a:hover, .side a.is-active { color: var(--red); }
+.side a, .side li > span { text-decoration: none; display: flex;
+                           justify-content: space-between; }
+.side a:hover, .side a.is-active, .side li > span.is-active { color: var(--red); }
 .side .count { color: var(--faint); }
 
 .note { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
@@ -202,16 +203,16 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
 
   <header class="topbar">
     <a class="brand" href="https://peticila.ro/">peticila.ro</a>
-    <nav><a href="https://peticila.ro/#who">CINE SUNT</a><a href="https://peticila.ro/manifesto/">MANIFESTO</a><a href="https://peticila.ro/work/">CE FAC</a><a href="https://aah.monster">AAH.MONSTER</a></nav>
-    <button class="surprise" id="surprise-btn" type="button">SURPRINDE-MĂ</button>
+    <nav><a href="https://aah.monster">AAH.MONSTER</a></nav>
+    <button class="surprise" id="surprise-btn" type="button">ALEGE TU</button>
     <a class="lang" href="index.html">EN</a>
   </header>
 
   <div class="masthead">
     <p class="kicker">P. 002 / HYDRA</p>
     <h1>hydra</h1>
-    <p class="standfirst">Fac întrebările grele de brand rulabile.</p>
-    <p class="lede">Detectoare, audituri, roast-uri. Despre limbaj, poziționare și distanța dintre ce declară o companie și ce e. Fiecare pornește dintr-o întrebare pe care m-am săturat să o argumentez.</p>
+    <p class="standfirst">Am obosit să argumentez, așa că le-am făcut.</p>
+    <p class="lede">Unelte mici de brand care rulează în browser. Fiecare e o discuție pe care n-am mai vrut să o port a suta oară. Deschizi, folosești, pleci. Niciuna nu-ți cere emailul.</p>
   </div>
 
   <div class="cols">
@@ -221,7 +222,7 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         <figcaption>Hercule și Iolaus ucid Hydra. Hans Sebald Beham, 1545. Cleveland Museum of Art, domeniu public.</figcaption>
       </figure>
 
-      <h2>PE RAFT</h2>
+      <h2>CE E AICI</h2>
       
       <article class="card" data-href="/slop/" data-title="Slop Detector">
         <a class="card-art" href="/slop/" aria-hidden="true" tabindex="-1">
@@ -229,8 +230,8 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         </a>
         <div>
           <h3><a href="/slop/">Slop Detector</a></h3>
-          <p class="dek">Lipești un text, afli ce obiceiuri te dau de gol.</p>
-          <p class="wherein">În care 76 de markeri lexicali, plus verificări de cadență, fac treaba. Nu ghicește autorul, măsoară textura.</p>
+          <p class="dek">Lipești un text, afli ce te dă de gol.</p>
+          <p class="wherein">Nu spune cine l-a scris. Arată obiceiul. Merge doar pe engleză.</p>
           <p class="meta"><span class="addr">hydra.peticila.ro/slop</span><span>UNELTE / SCRIS / AI</span></p>
         </div>
         <div class="card-no">001</div>
@@ -241,8 +242,8 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         </a>
         <div>
           <h3><a href="https://aah.monster/voice-fingerprint/">Voice Fingerprint</a></h3>
-          <p class="dek">15-20 de mostre din scrisul tău, un document care descrie cum scrii.</p>
-          <p class="wherein">În care Stă pe aah.monster fiindcă e muncă plătită, nu jucărie. 249 de euro, 48 de ore.</p>
+          <p class="dek">Trimiți 15-20 de texte, primești un document care spune cum scrii.</p>
+          <p class="wherein">Stă pe aah.monster fiindcă e muncă plătită, nu jucărie. 249 de euro, 48 de ore.</p>
           <p class="meta"><span class="addr">aah.monster/voice-fingerprint</span><span>SCRIS / IDENTITATE / PRODUS</span></p>
         </div>
         <div class="card-no">002</div>
@@ -253,8 +254,8 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         </span>
         <div>
           <h3>Homepage Roaster<span class="soon">ÎN LUCRU</span></h3>
-          <p class="dek">Un URL intră, o listă de lucruri rupte iese.</p>
-          <p class="wherein">În care Fără notă de la 1 la 100. Doar ce pierde vizitatorul și în ce ordine.</p>
+          <p class="dek">Dai un link, primești lista lucrurilor rupte.</p>
+          <p class="wherein">Fără notă de la 1 la 100. Doar ce pierde vizitatorul și în ce ordine.</p>
           <p class="meta"><span class="addr">hydra.peticila.ro/roast</span><span>UNELTE / CRO / WEB</span></p>
         </div>
         <div class="card-no">003</div>
@@ -265,8 +266,8 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         </a>
         <div>
           <h3><a href="https://aah.monster">Aah, Monster!</a></h3>
-          <p class="dek">Singurul produs cu cumpărătorul lui. Stă pe domeniul propriu.</p>
-          <p class="wherein">În care Singura excepție: public separat, adresă separată.</p>
+          <p class="dek">Singurul lucru de aici cu cumpărător propriu. Stă pe domeniul lui.</p>
+          <p class="wherein">Singura excepție de pe raft: alt public, altă adresă.</p>
           <p class="meta"><span class="addr">aah.monster</span><span>PRODUS</span></p>
         </div>
         <div class="card-no">004</div>
@@ -277,8 +278,8 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
         </a>
         <div>
           <h3><a href="https://peticila.ro/#now">Chiar acum</a></h3>
-          <p class="dek">Ce fac în săptămâna asta, actualizat manual, fără scuze.</p>
-          <p class="wherein">În care Pagina care spune cât din raftul ăsta e viu și cât e praf.</p>
+          <p class="dek">Ce fac săptămâna asta. Scris de mână, fără scuze.</p>
+          <p class="wherein">Pagina care spune cât din raft e viu și cât e praf.</p>
           <p class="meta"><span class="addr">peticila.ro/#now</span><span>META</span></p>
         </div>
         <div class="card-no">005</div>
@@ -289,7 +290,7 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
 
     <aside class="side">
       <h2>RAFTURI</h2>
-      <ul><li><a href="#" class="is-active"><span>TOT</span><span class="count">05</span></a></li><li><a href="#" class=""><span>PRODUS</span><span class="count">02</span></a></li><li><a href="#" class=""><span>SCRIS</span><span class="count">02</span></a></li><li><a href="#" class=""><span>UNELTE</span><span class="count">02</span></a></li><li><a href="#" class=""><span>AI</span><span class="count">01</span></a></li><li><a href="#" class=""><span>CRO</span><span class="count">01</span></a></li><li><a href="#" class=""><span>IDENTITATE</span><span class="count">01</span></a></li><li><a href="#" class=""><span>META</span><span class="count">01</span></a></li><li><a href="#" class=""><span>WEB</span><span class="count">01</span></a></li></ul>
+      <ul><li><span class="is-active"><span>TOT</span><span class="count">05</span></span></li><li><span class=""><span>PRODUS</span><span class="count">02</span></span></li><li><span class=""><span>SCRIS</span><span class="count">02</span></span></li><li><span class=""><span>UNELTE</span><span class="count">02</span></span></li><li><span class=""><span>AI</span><span class="count">01</span></span></li><li><span class=""><span>CRO</span><span class="count">01</span></span></li><li><span class=""><span>IDENTITATE</span><span class="count">01</span></span></li><li><span class=""><span>META</span><span class="count">01</span></span></li><li><span class=""><span>WEB</span><span class="count">01</span></span></li></ul>
     </aside>
   </div>
 

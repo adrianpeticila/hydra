@@ -184,8 +184,9 @@ h2 { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
 
 .side ul { list-style: none; margin: 0; padding: 0; font-family: var(--mono);
            font-size: .72rem; letter-spacing: .08em; line-height: 2.4; }
-.side a { text-decoration: none; display: flex; justify-content: space-between; }
-.side a:hover, .side a.is-active { color: var(--red); }
+.side a, .side li > span { text-decoration: none; display: flex;
+                           justify-content: space-between; }
+.side a:hover, .side a.is-active, .side li > span.is-active { color: var(--red); }
 .side .count { color: var(--faint); }
 
 .note { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);

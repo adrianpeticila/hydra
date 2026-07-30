@@ -28,7 +28,7 @@ https://hydra.peticila.ro/
 ### Home (Romanian)
 https://hydra.peticila.ro/index.ro.html
 
-The same shelf in Romanian. Standfirst: "Fac întrebările grele de brand rulabile." Not a machine translation of the English: the two versions were written separately and neither is the source of the other.
+The same shelf in Romanian. Standfirst: "Am obosit să argumentez, așa că le-am făcut." Not a machine translation of the English: the two versions were written separately and neither is the source of the other. The Romanian page carries no cross-links to the English pages on peticila.ro, and its Slop Detector card states that the detector works on English only.
 
 ### Slop Detector
 https://hydra.peticila.ro/slop/
@@ -38,6 +38,8 @@ https://hydra.peticila.ro/slop/
 **Sub:** Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.
 
 Free. Runs entirely in the browser. Nothing is sent anywhere, nothing is stored, there is no account and no API key. The whole thing is one HTML file.
+
+**English only.** Every word list and most of the structural regexes are English. Text in another language scores near zero regardless of how machine-written it is, so a clean verdict on non-English text means nothing.
 
 ## How the Slop Detector works
 
