@@ -25,114 +25,219 @@
   "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
 }</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
 <style>
+/* fonts served by peticila.ro, CORS open, same faces as the shelf */
+@font-face { font-family:'Unbounded'; font-style:normal; font-weight:900; font-display:swap;
+  src:url('https://peticila.ro/fonts/Unbounded-900-normal.woff2') format('woff2'); }
+@font-face { font-family:'DM Mono'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('https://peticila.ro/fonts/DMMono-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'DM Mono'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('https://peticila.ro/fonts/DMMono-500-normal.woff2') format('woff2'); }
+@font-face { font-family:'Bricolage Grotesque'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('https://peticila.ro/fonts/BricolageGrotesque-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'Bricolage Grotesque'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('https://peticila.ro/fonts/BricolageGrotesque-500-normal.woff2') format('woff2'); }
+@font-face { font-family:'Bricolage Grotesque'; font-style:normal; font-weight:600; font-display:swap;
+  src:url('https://peticila.ro/fonts/BricolageGrotesque-600-normal.woff2') format('woff2'); }
+
+/* tokens: identical to peticila.ro and to the shelf */
 :root{
-  --bg:#0f0e11; --fg:#f2efe9; --dim:#8a8378; --line:#26242b;
-  --card:#17161b; --hot:#ff5c38; --ok:#5fc98a; --warn:#e8b13c;
+  --bg:#060606; --bg2:#0F0F0F; --fg:#F0EBE0; --mid:#909088; --faint:#3A3A38;
+  --red:#D42020; --rule:#1A1A1A; --ok:#5FA36B; --warn:#C9A227;
+  --name:'Unbounded',sans-serif; --body:'Bricolage Grotesque',sans-serif; --mono:'DM Mono',monospace;
+  --art-blend:screen; --art-filter:grayscale(1) contrast(1.45) brightness(1.04) invert(1);
 }
 :root[data-theme="light"]{
-  --bg:#f7f5f1; --fg:#14130f; --dim:#6f6a5f; --line:#e0dcd3;
-  --card:#fff; --hot:#c0341a; --ok:#1d6b3c; --warn:#8a6a12;
-}
-@media(prefers-color-scheme:light){
-  :root:not([data-theme="dark"]){
-    --bg:#f7f5f1; --fg:#14130f; --dim:#6f6a5f; --line:#e0dcd3;
-    --card:#fff; --hot:#c0341a; --ok:#1d6b3c; --warn:#8a6a12;
-  }
+  --bg:#F5F4EF; --bg2:#ECEAE4; --fg:#060606; --mid:#555550; --faint:#C0BEB8;
+  --rule:#D8D6D0; --ok:#1D6B3C; --warn:#8A6A12;
+  --art-blend:multiply; --art-filter:grayscale(1) contrast(1.45) brightness(1.04);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);overflow-x:hidden;
-  font:16px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,"Space Mono",monospace}
-.wrap{max-width:780px;margin:0 auto;padding:56px 20px 80px}
+  font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:var(--mono)}
+a{color:inherit}
 
-header{margin-bottom:36px}
-.eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin:0 0 14px}
-h1{font-size:clamp(30px,6.5vw,52px);line-height:1.02;margin:0 0 14px;letter-spacing:-.03em;font-weight:700}
-h1 em{font-style:normal;color:var(--hot)}
-.sub{color:var(--dim);max-width:48ch;margin:0;font-size:15px}
-.only{margin:14px 0 0;max-width:48ch;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:10px;line-height:1.7}
+/* nav, lifted from peticila.ro */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;
+  align-items:center;gap:1rem;padding:1.1rem 2.5rem;border-bottom:1px solid var(--rule);background:var(--bg)}
+.nav-id{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mid);text-decoration:none}
+.nav-id b{color:var(--fg);font-weight:500}
+.nav-r{display:flex;align-items:center;gap:2rem}
+.nav-a{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .15s}
+.nav-a:hover{color:var(--fg)}
+.nav-theme{background:none;border:1px solid var(--faint);padding:.3rem .7rem;font-family:var(--mono);
+  font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);cursor:pointer;
+  transition:border-color .15s,color .15s}
+.nav-theme:hover{border-color:var(--fg);color:var(--fg)}
+@media(max-width:760px){ nav{padding:1rem 1.25rem} .nav-r .nav-a{display:none} }
 
-textarea{width:100%;min-height:190px;background:var(--card);color:var(--fg);
-  border:1px solid var(--line);border-radius:12px;padding:16px;font-size:15px;
-  line-height:1.6;resize:vertical;font-family:inherit;outline:none}
-textarea:focus{border-color:var(--hot)}
-textarea::placeholder{color:var(--dim)}
+.wrap{max-width:78rem;margin:0 auto;padding:0 2rem}
+@media(max-width:700px){ .wrap{padding:0 1.25rem} }
 
-.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0 0}
-button{background:var(--fg);color:var(--bg);border:0;border-radius:999px;
-  padding:11px 24px;font-size:14px;font-weight:650;cursor:pointer;letter-spacing:.01em}
-button:hover{background:var(--hot);color:#fff}
-button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:500}
-button.ghost:hover{color:var(--fg);background:transparent;border-color:var(--fg)}
-.count{color:var(--dim);font-size:12.5px;margin-left:auto}
+/* masthead */
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);
+  line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:52ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:52ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
 
-#out{margin-top:40px}
-.verdict{border:1px solid var(--line);border-left:4px solid var(--hot);
-  background:var(--card);border-radius:12px;padding:24px 26px;margin:0 0 26px}
-.verdict .score{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:0 0 10px}
-.verdict p{margin:0;font-size:clamp(19px,3.4vw,25px);line-height:1.28;letter-spacing:-.015em;font-weight:600}
-.verdict.clean{border-left-color:var(--ok)}
-.verdict.mild{border-left-color:var(--warn)}
+/* two columns: tool left, engraving right */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){ .cols{grid-template-columns:1fr;gap:2.5rem} }
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+.art{margin:2.5rem 0 0;background:var(--bg)}
+.art img{display:block;width:100%;height:auto;mix-blend-mode:var(--art-blend);filter:var(--art-filter)}
+.art figcaption{font-family:var(--mono);font-size:.62rem;letter-spacing:.04em;color:var(--mid);
+  margin-top:.9rem;line-height:1.8}
+@media(max-width:880px){ .art{max-width:16rem} }
 
-.tally{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 26px;padding:0 2px;
-  font-size:12.5px;color:var(--dim)}
-.tally b{color:var(--fg);font-weight:650}
+/* the tool */
+textarea{width:100%;min-height:13rem;background:var(--bg2);color:var(--fg);border:1px solid var(--rule);
+  padding:1.1rem;font-size:1rem;line-height:1.6;resize:vertical;font-family:var(--body);outline:none}
+textarea:focus{border-color:var(--red)}
+textarea::placeholder{color:var(--mid)}
 
-.finding{border-bottom:1px solid var(--line);padding:16px 2px}
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+.count{margin-left:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mid)}
+
+#out{margin-top:3rem}
+.verdict{border-top:1px solid var(--fg);border-bottom:1px solid var(--rule);padding:1.6rem 0 1.8rem;margin:0 0 2rem}
+.verdict .score{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 .9rem}
+.verdict p{font-family:var(--name);font-weight:900;margin:0;font-size:clamp(1.4rem,3.4vw,2.2rem);
+  line-height:1.12;letter-spacing:-.03em;color:var(--red)}
+.verdict.clean p{color:var(--ok)}
+.verdict.mild p{color:var(--fg)}
+
+.tally{display:flex;gap:1.6rem;flex-wrap:wrap;margin:0 0 2rem;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.tally b{color:var(--fg);font-weight:500}
+
+.finding{border-bottom:1px solid var(--rule);padding:1.3rem 0}
 .finding:last-child{border-bottom:none}
-.finding .head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin:0 0 6px}
-.finding .tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--hot);font-weight:700}
-.finding .n{font-size:11px;color:var(--dim)}
-.finding .say{margin:0 0 8px;font-size:15.5px;line-height:1.45}
-.hits{margin:0;padding:0;list-style:none;font-size:13px;color:var(--dim)}
-.hits li{padding:3px 0}
-.hits code{background:var(--bg);border:1px solid var(--line);padding:1px 6px;
-  border-radius:4px;color:var(--fg);font-family:ui-monospace,Menlo,monospace;font-size:12px}
-mark{background:var(--hot);color:#fff;padding:0 2px;border-radius:2px}
+.finding .head{display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;margin:0 0 .5rem}
+.finding .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.finding .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.finding .say{margin:0 0 .7rem;font-size:1rem;line-height:1.55;max-width:56ch}
+.hits{margin:0;padding:0;list-style:none;font-size:.86rem;color:var(--mid)}
+.hits li{padding:.2rem 0}
+.hits code{background:var(--bg2);border:1px solid var(--rule);padding:.1rem .45rem;color:var(--fg);
+  font-family:var(--mono);font-size:.78rem}
+mark{background:var(--red);color:var(--bg);padding:0 2px}
 
-.next{margin:34px 0 0;padding:26px 28px;border:1px solid var(--hot);border-radius:14px;background:var(--card)}
-.next .say{margin:0 0 18px;font-size:16px;line-height:1.5;max-width:56ch}
-.next .cta{display:inline-block;background:var(--fg);color:var(--bg);text-decoration:none;
-  padding:13px 26px;border-radius:999px;font-weight:650;font-size:14.5px}
-.next .cta:hover{background:var(--hot);color:#fff}
-.next .fine{margin:14px 0 0;font-size:12.5px;color:var(--dim)}
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:56ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;
+  padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .15s,color .15s}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+.next .fine{margin:1rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid)}
 
-footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
-  color:var(--dim);font-size:12.5px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-footer a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line)}
-footer a:hover{border-color:var(--hot);color:var(--hot)}
-.theme{margin-left:auto;background:none;border:1px solid var(--line);color:var(--dim);
-  padding:5px 12px;font-size:11px;border-radius:999px;font-weight:500}
-.theme:hover{background:none;color:var(--fg);border-color:var(--fg)}
+/* footer, lifted from peticila.ro */
+footer{padding:2.5rem 0;border-top:1px solid var(--rule)}
+.footer-pages{display:flex;gap:1.5rem;flex-wrap:wrap;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding-bottom:1.5rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1.5rem}
+.footer-pages a{color:var(--mid);text-decoration:none;transition:color .15s}
+.footer-pages a:hover{color:var(--red)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.footer-inner a{color:var(--mid);text-decoration:none;transition:color .15s}
+.footer-inner a:hover{color:var(--red)}
 </style>
 </head>
 <body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· slop detector</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://hydra.peticila.ro/index.ro.html">Română</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
 <div class="wrap">
 
-<header>
-  <p class="eyebrow mono">hydra · 001 · slop detector</p>
+<header class="masthead">
+  <p class="eyebrow">hydra · 001 · slop detector</p>
   <h1>does a machine <em>sound</em> like this?</h1>
   <p class="sub">Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.</p>
-<p class="only mono">English only. Every word list here is English, so a clean verdict on text in another language means nothing.</p>
+  <p class="only">English only. Every word list here is English, so a clean verdict on text in another language means nothing.</p>
 </header>
 
-<textarea id="in" placeholder="Paste the text. Yours, theirs, the one your agency sent back."></textarea>
+<div class="cols">
+  <main>
+    <textarea id="in" placeholder="Paste the text. Yours, theirs, the one your agency sent back."></textarea>
 
-<div class="bar">
-  <button id="go">Read it</button>
-  <button id="clr" class="ghost">Clear</button>
-  <span class="count mono" id="cnt">0 words</span>
+    <div class="bar">
+      <button id="go">Read it</button>
+      <button id="clr" class="ghost">Clear</button>
+      <span class="count" id="cnt">0 words</span>
+    </div>
+
+    <div id="out"></div>
+  </main>
+
+  <aside class="side">
+    <h2>What it reads for</h2>
+    <ul>
+      <li>Em-dashes</li>
+      <li>Pre-chewed vocabulary</li>
+      <li>Curly quotes</li>
+      <li>Emoji, hashtags</li>
+      <li>Not just X, it's Y</li>
+      <li>Lists of three</li>
+      <li>Trailing -ing clauses</li>
+      <li>The colon reveal</li>
+      <li>Sources nobody named</li>
+      <li>Assistant leftovers</li>
+      <li>Metronome sentences</li>
+      <li>Same paragraph opener</li>
+    </ul>
+    <figure class="art">
+      <img src="/art/bep-justice.jpg" width="399" height="760" loading="lazy"
+           alt="Steel engraving of Justice holding scales and a sword, from a United States banknote">
+      <figcaption>Justice, Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. A verdict, which is the only thing this page hands out.</figcaption>
+    </figure>
+  </aside>
 </div>
 
-<div id="out"></div>
-
 <footer>
-  <span>Runs entirely in your browser. Nothing is sent anywhere.</span>
-  <a href="https://hydra.peticila.ro/">hydra.peticila.ro</a>
-  <button class="theme" id="th">theme</button>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://aah.monster/voice-fingerprint/">Voice Fingerprint</a>
+    <a href="https://peticila.ro/#now">Right now</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-07-30">Updated July 2026</time></span>
+  </div>
 </footer>
 
 </div>
@@ -315,11 +420,19 @@ ta.addEventListener('input', ()=>{
 document.getElementById('go').onclick = ()=> render(ta.value);
 document.getElementById('clr').onclick = ()=>{ ta.value=""; cnt.textContent="0 words"; document.getElementById('out').innerHTML=""; ta.focus(); };
 ta.addEventListener('keydown', e=>{ if((e.metaKey||e.ctrlKey) && e.key==='Enter') render(ta.value); });
-document.getElementById('th').onclick = ()=>{
-  const r = document.documentElement;
-  const cur = r.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light':'dark');
-  r.setAttribute('data-theme', cur==='dark' ? 'light':'dark');
-};
+// theme: same behaviour as peticila.ro, light unless told otherwise, remembered
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
 </script>
 </body>
 </html>
