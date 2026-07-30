@@ -196,11 +196,13 @@ function analyze(text){
   push("emoji", "Emoji. In writing meant to be taken seriously, this is a small white flag.", emo, 1.5);
 
   // 5. hashtags
-  const tags = [...text.matchAll(/(^|\s)#[A-Za-z]\w{2,}/g)].map(m=>({term:m[0].trim(),at:m.index}));
+  const hex = /^#(?:[0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
+  const tags = [...text.matchAll(/(^|\s)#[\p{L}][\p{L}\p{N}_]{2,}/gu)]
+    .map(m=>({term:m[0].trim(),at:m.index})).filter(h=>!hex.test(h.term));
   push("hashtags", "Hashtags. It is 2026. These do nothing except announce that someone read a social media guide from 2017.", tags, 1.5);
 
   // 6a. "not just X, it's Y"
-  const notjust = [...text.matchAll(/\b(it'?s|this is|they'?re|that'?s|we'?re)\s+not\s+(just|only|merely)\b[^.!?]{0,90}/gi)]
+  const notjust = [...text.matchAll(/\b(it'?s|it is|this is|they'?re|they are|that'?s|that is|we'?re|we are)\s+not\s+(just|only|merely)\b[^.!?]{0,90}/gi)]
     .map(m=>({term:m[0].slice(0,70),at:m.index}));
   push("not-just", "The \"not just X, it's Y\" move. It sounds like an insight and contains none. It is the single most reliable machine tell in English.", notjust, 3);
 
@@ -245,7 +247,7 @@ function analyze(text){
   // 9. paragraph openers repeat
   const paras = text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
   if(paras.length >= 3){
-    const first = paras.map(p => (p.split(/\s+/)[0]||"").toLowerCase().replace(/[^a-z']/g,''));
+    const first = paras.map(p => (p.split(/\s+/)[0]||"").toLowerCase().replace(/[^\p{L}\p{M}']/gu,''));
     const seen = {}; first.forEach(w=>{ if(w) seen[w]=(seen[w]||0)+1; });
     const rep = Object.entries(seen).filter(([,c])=>c>=3).map(([w,c])=>({term:`"${w}" opens ${c} paragraphs`, at:-1}));
     push("same-door", "Paragraphs that all start through the same door. Vary the entry or admit a template wrote it.", rep, 1.5);
