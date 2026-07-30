@@ -25,11 +25,6 @@ https://hydra.peticila.ro/
 
 **Note at the foot of the page:** Colour and type are peticila.ro's own tokens, read off the live site: `#F5F4EF` / `#060606` / `#D42020`, Unbounded + Bricolage Grotesque + DM Mono. Nothing here was imported from another site. Hero engraving: Hans Sebald Beham, 1545, Cleveland Museum of Art, public domain. Card vignettes are Bureau of Engraving and Printing banknote engravings, public domain (PD US Treasury), restored by Godot13 under CC BY-SA 3.0, credited accordingly.
 
-### Home (Romanian)
-https://hydra.peticila.ro/index.ro.html
-
-The same shelf in Romanian. Standfirst: "Am obosit să argumentez, așa că le-am făcut." Not a machine translation of the English: the two versions were written separately and neither is the source of the other. The Romanian page carries no cross-links to the English pages on peticila.ro, and its Slop Detector card states that the detector works on English only.
-
 ### Slop Detector
 https://hydra.peticila.ro/slop/
 
@@ -120,7 +115,7 @@ Hand-updated section. What Adrian is doing this week, and how much of this shelf
 
 Hand-written HTML and CSS. Fonts and images are inlined as data URIs, so each page is a single file and a single request, at the cost of a large first byte count. No framework, no analytics, no cookies, no consent banner. GitHub Pages for serving, Cloudflare for DNS.
 
-English is at `/`, Romanian at `/index.ro.html`, declared to each other with `hreflang` and to crawlers in the sitemap.
+English only. The shelf and the tools are written in English and there is no translated edition.
 
 Structured data on the shelf page: a `CollectionPage` node, a `Person` node for Adrian linked by `@id` to peticila.ro, and an `ItemList` of the five shelf entries. The Slop Detector page carries a `WebApplication` node with a zero-price offer, since the thing is genuinely free.
 

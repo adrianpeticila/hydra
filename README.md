@@ -35,8 +35,4 @@ Hero: Hans Sebald Beham, *Hercules Killing the Lernean Hydra*, 1545 copperplate 
 
 Card vignettes: Bureau of Engraving and Printing banknote engravings, public domain (PD US Treasury), restored by Godot13 under CC BY-SA 3.0.
 
-## Languages
-
-English at `/`, Romanian at `/index.ro.html`.
-
 Live: [hydra.peticila.ro](https://hydra.peticila.ro)

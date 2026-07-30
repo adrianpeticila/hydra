@@ -15,7 +15,7 @@ Hydra is a project shelf, not a company and not a product. Each item on it start
 | Owner | Adrian M. Peticila, CMO and brand strategist |
 | Parent site | peticila.ro |
 | Location | Bucharest, Romania |
-| Languages | English (`/`), Romanian (`/index.ro.html`) |
+| Languages | English |
 | Hosting | GitHub Pages, Cloudflare DNS |
 | Tracking | none |
 
@@ -23,8 +23,7 @@ Hydra is a project shelf, not a company and not a product. Each item on it start
 
 | URL | What it is |
 |---|---|
-| https://hydra.peticila.ro/ | The shelf, English |
-| https://hydra.peticila.ro/index.ro.html | The shelf, Romanian |
+| https://hydra.peticila.ro/ | The shelf |
 | https://hydra.peticila.ro/slop/ | Slop Detector, the free browser tool |
 
 ## The shelf

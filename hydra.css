@@ -1,0 +1,73 @@
+/* hydra.css — the shared chassis for tools on hydra.peticila.ro
+   Tokens, faces, nav and footer are read off the live peticila.ro inline <style>.
+   Tool pages link this and add only their own rules. Do not fork it. */
+
+/* fonts served by peticila.ro, CORS open, same faces as the shelf */
+@font-face { font-family:'Unbounded'; font-style:normal; font-weight:900; font-display:swap;
+  src:url('https://peticila.ro/fonts/Unbounded-900-normal.woff2') format('woff2'); }
+@font-face { font-family:'DM Mono'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('https://peticila.ro/fonts/DMMono-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'DM Mono'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('https://peticila.ro/fonts/DMMono-500-normal.woff2') format('woff2'); }
+@font-face { font-family:'Bricolage Grotesque'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('https://peticila.ro/fonts/BricolageGrotesque-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'Bricolage Grotesque'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('https://peticila.ro/fonts/BricolageGrotesque-500-normal.woff2') format('woff2'); }
+@font-face { font-family:'Bricolage Grotesque'; font-style:normal; font-weight:600; font-display:swap;
+  src:url('https://peticila.ro/fonts/BricolageGrotesque-600-normal.woff2') format('woff2'); }
+
+/* tokens: identical to peticila.ro and to the shelf. Dark is the root, light overrides. */
+:root{
+  --bg:#060606; --bg2:#0F0F0F; --fg:#F0EBE0; --mid:#909088; --faint:#3A3A38;
+  --red:#D42020; --rule:#1A1A1A; --ok:#5FA36B; --warn:#C9A227;
+  --name:'Unbounded',sans-serif; --body:'Bricolage Grotesque',sans-serif; --mono:'DM Mono',monospace;
+  --art-blend:screen; --art-filter:grayscale(1) contrast(1.45) brightness(1.04) invert(1);
+}
+:root[data-theme="light"]{
+  --bg:#F5F4EF; --bg2:#ECEAE4; --fg:#060606; --mid:#555550; --faint:#C0BEB8;
+  --rule:#D8D6D0; --ok:#1D6B3C; --warn:#8A6A12;
+  --art-blend:multiply; --art-filter:grayscale(1) contrast(1.45) brightness(1.04);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);overflow-x:hidden;
+  font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.mono{font-family:var(--mono)}
+a{color:inherit}
+
+/* nav, lifted from peticila.ro */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;
+  align-items:center;gap:1rem;padding:1.1rem 2.5rem;border-bottom:1px solid var(--rule);background:var(--bg)}
+.nav-id{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mid);text-decoration:none}
+.nav-id b{color:var(--fg);font-weight:500}
+.nav-r{display:flex;align-items:center;gap:2rem}
+.nav-a{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .15s}
+.nav-a:hover{color:var(--fg)}
+.nav-theme{background:none;border:1px solid var(--faint);padding:.3rem .7rem;font-family:var(--mono);
+  font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);cursor:pointer;
+  transition:border-color .15s,color .15s}
+.nav-theme:hover{border-color:var(--fg);color:var(--fg)}
+@media(max-width:760px){ nav{padding:1rem 1.25rem} .nav-r .nav-a{display:none} }
+
+.wrap{max-width:78rem;margin:0 auto;padding:0 2rem}
+@media(max-width:700px){ .wrap{padding:0 1.25rem} }
+
+/* the engraving treatment: plates are baked flat, the blend does the rest */
+.art{margin:0 0 2.5rem;background:var(--bg)}
+.art img{display:block;width:100%;height:auto;mix-blend-mode:var(--art-blend);filter:var(--art-filter)}
+.art figcaption{font-family:var(--mono);font-size:.62rem;letter-spacing:.04em;color:var(--mid);
+  margin-top:.9rem;line-height:1.8}
+
+/* footer, lifted from peticila.ro */
+footer{padding:2.5rem 0;border-top:1px solid var(--rule)}
+.footer-pages{display:flex;gap:1.5rem;flex-wrap:wrap;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding-bottom:1.5rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1.5rem}
+.footer-pages a{color:var(--mid);text-decoration:none;transition:color .15s}
+.footer-pages a:hover{color:var(--red)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.footer-inner a{color:var(--mid);text-decoration:none;transition:color .15s}
+.footer-inner a:hover{color:var(--red)}
