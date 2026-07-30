@@ -190,7 +190,9 @@ button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
 <script src="/hydra-lexicon.js"></script>
 <script>
 const API = 'https://hydra-roast.adipeticila.workers.dev/';
-const CTA_WORDS = /\b(get started|start (free|now|here)|sign up|signup|log in|book (a|your)|buy|try (it|for)|request (a|demo)|talk to|contact (us|sales)|subscribe|download|join|apply|order|shop|demo|get in touch|hire)\b/i;
+/* An ask is anything that invites the visitor to move. Half the web says it in
+   plain English rather than in SaaS, so plain English counts. */
+const CTA_WORDS = /\b(get started|start (free|now|here)|sign up|signup|book (a|your)|buy|try (it|for)|request (a|demo)|talk to|contact (us|sales)?|subscribe|download|join|apply|order|shop|demo|get in touch|hire|see (the|my|our|how|what)|read (the|my|our)|view (the|my|our)|learn more|find out|work with|write to|email me|say hello|let's talk|schedule|watch)\b/i;
 const NAVY = /^(home|about|about us|blog|pricing|features|docs|documentation|careers|jobs|support|help|faq|news|press|team|contact|login|log in|privacy|terms|cookies|imprint|legal)$/i;
 
 const out = document.getElementById('out');
@@ -244,7 +246,9 @@ function roast(d){
   }
 
   /* 2. the ask */
-  const ctas = s.anchors.filter(a => a.text && CTA_WORDS.test(a.text) && !NAVY.test(a.text.trim()));
+  const ctas = s.anchors.filter(a =>
+    (/^(mailto|tel):/i.test(a.href) && a.text) ||
+    (a.text && CTA_WORDS.test(a.text) && !NAVY.test(a.text.trim())));
   const ctaTexts = [...new Set(ctas.map(a => a.text.trim().toLowerCase()))];
   if(!ctas.length && !s.buttons.some(b => CTA_WORDS.test(b))){
     add('no ask',
@@ -304,7 +308,7 @@ function roast(d){
   }
   if(s.thirdPartyHosts.length > 8){
     add('the guest list',
-      `${s.thirdPartyHosts.length} other domains are called from this page. Each one is a lookup, a handshake and someone else's outage becoming yours.`,
+      `${s.thirdPartyHosts.length} other domains are loaded before the page is done. Not links, loads: each one is a lookup, a handshake and someone else's outage becoming yours.`,
       s.thirdPartyHosts.slice(0, 10).map(h => `<code>${esc(h)}</code>`), true);
   }
   if(s.images.total > 4 && s.images.missingDims / s.images.total > 0.5){
