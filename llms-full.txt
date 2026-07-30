@@ -19,7 +19,7 @@ https://hydra.peticila.ro/
 
 **Standfirst:** I turn hard brand questions into things you can run.
 
-**Lede:** Detectors, roasters and audits about language, positioning and the distance between what a company claims and what it is. Each one starts with a question I got tired of arguing about.
+**Lede:** Detectors, roasters, audits. About language, positioning and the distance between what a company claims and what it is. Each one starts with a question I got tired of arguing about.
 
 **Section: On the shelf.** Five cards, each with an address, a one-line description, and a "Wherein" note that says what the thing actually does. A "Surprise me" button in the top bar opens a random live card.
 

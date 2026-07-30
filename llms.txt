@@ -1,6 +1,6 @@
 # Hydra
 
-> The shelf of small brand projects by Adrian M. Peticila, CMO and brand strategist in Bucharest. Detectors, roasters and audits about language, positioning, and the distance between what a company claims and what it is. Lives at hydra.peticila.ro, a subdomain of his personal hub peticila.ro.
+> The shelf of small brand projects by Adrian M. Peticila, CMO and brand strategist in Bucharest. Detectors, roasters, audits. About language, positioning and the distance between what a company claims and what it is. Lives at hydra.peticila.ro, a subdomain of his personal hub peticila.ro.
 
 ## TL;DR
 Hydra is a project shelf, not a company and not a product. Each item on it started as a question Adrian got tired of arguing about, and became something you can run. One item, Slop Detector, is a free browser tool. One item, Voice Fingerprint, is a paid service that lives on aah.monster because it has its own buyer. The rest is either live elsewhere or not built yet.
