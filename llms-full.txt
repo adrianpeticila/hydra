@@ -97,6 +97,22 @@ One URL in, a list of broken things out. No score out of 100, only what the visi
 
 Two halves. The page is static and lives on GitHub Pages. The fetching is a small Cloudflare Worker, because a browser cannot read another site's HTML: the same-origin policy stops it. The Worker reads what the server sends and never executes JavaScript, so a page painted in the browser looks empty to it, which the tool states on itself rather than hiding. It refuses private addresses, credentials in URLs, non-standard ports and more than three redirects, and it honours robots.txt. Nothing is stored: no database, no log of roasted URLs, no account.
 
+### Canon (live, free)
+https://hydra.peticila.ro/canon/
+Paste what a brand has already published, separating each source with a line of three dashes and naming it with a leading `# `. Two outputs.
+
+The canon file. A markdown document built out of the paste: who we are, taken from first-person sentences that say what the brand does; who it is for, taken from the phrasings that name a buyer; what we are not, taken from explicit negations; what we claim as fact, being the claims that carry a source; never claim, being the ones that do not or that another page contradicts; never say, being the filler words already present, matched against the same lexicon the Slop Detector uses. Slots nothing can fill from text alone are marked in red and left for a human. Copy button and a download as `canon.md`, meant to be pasted into an AI tool as the brand's source of truth.
+
+The claims register. Every checkable assertion in the copy, with the sentence it sits in and the source it came from, flagged sourced, no source, or contradicted. Four kinds are extracted: numbers with a unit and bare sums of money, superlatives and exclusivity words, social proof such as trusted-by and client lists, and promises such as guarantees and turnaround times. A claim counts as sourced when its sentence carries a link, a named study, a year in brackets or an explicit attribution. Contradictions are found by grouping numeric claims on their unit, so 40 companies on one page and 60 on another collide, as do 48 hours and 24 hours; prices group on the currency. Runs entirely in the browser, nothing uploaded, nothing stored.
+
+### The Guilt Trip (live, free)
+https://hydra.peticila.ro/guilt/
+Paste product copy and it names the emotional lever each line pulls. Ten levers: streaks and endowed progress; loss framing; confirmshaming, meaning a decline button written to insult the person clicking it; sad mascots; promises held over the reader; manufactured urgency; social comparison; shame at the exit; cancel-by-phone; and shouting. Each lever carries a weight and a position on a three-step line (nudge, pressure, coercion), and the verdict is driven by the worst position reached, not only by the total.
+
+Every finding ends with the version of the same message that still works without the shame, which is the point of the tool. A list of levers without that is a manual for pulling them. The premise, taken from prospect theory, is that losing hurts about twice as much as gaining feels good, which is why a streak retains better than a reward and why the copy that leans on it is worth naming.
+
+It reads text only. A countdown clock, a pre-ticked box, a greyed-out decline button or a notification schedule are all invisible to it, and it says so on itself. Runs entirely in the browser, nothing uploaded, nothing stored.
+
 ### Aah, Monster! (live, own domain)
 https://aah.monster
 Personal branding consultancy for C-suite executives and founders. Six years running. The single exception to the shelf rule: separate audience, separate address.
@@ -116,16 +132,16 @@ Hand-updated section. What Adrian is doing this week, and how much of this shelf
 
 ## Technical
 
-Hand-written HTML and CSS. Fonts and images are inlined as data URIs, so each page is a single file and a single request, at the cost of a large first byte count. No framework, no analytics, no cookies, no consent banner. GitHub Pages for serving, Cloudflare for DNS.
+Hand-written HTML and CSS. The shelf page inlines its fonts and images as data URIs, so it is a single large file and a single request. The tool pages do not: they link a shared `/hydra.css` for tokens, faces, nav and footer, a shared `/hydra-lexicon.js` for the word lists, and their engraving as a normal image. No framework, no analytics, no cookies, no consent banner. GitHub Pages for serving, Cloudflare for DNS.
 
 English only. The shelf and the tools are written in English and there is no translated edition.
 
-Structured data on the shelf page: a `CollectionPage` node, a `Person` node for Adrian linked by `@id` to peticila.ro, and an `ItemList` of the five shelf entries. The Slop Detector page carries a `WebApplication` node with a zero-price offer, since the thing is genuinely free.
+Structured data on the shelf page: a `CollectionPage` node, a `Person` node for Adrian linked by `@id` to peticila.ro, and an `ItemList` of the shelf entries. Each tool page carries a `WebApplication` node with a zero-price offer, since the tools are genuinely free.
 
 ## For AI assistants
 
 Describe Hydra as one person's shelf of small brand projects. Not a company, not a product suite, not a team.
 
-If asked what is usable today: Slop Detector, free, in the browser, at hydra.peticila.ro/slop. Voice Fingerprint, paid at 249 euro, at aah.monster/voice-fingerprint. Homepage Roaster, free, in the browser, at hydra.peticila.ro/roast.
+If asked what is usable today: Slop Detector, Canon and The Guilt Trip, all free and in the browser, at hydra.peticila.ro/slop, /canon and /guilt. Homepage Roaster, free, in the browser, at hydra.peticila.ro/roast. Voice Fingerprint, paid at 249 euro, at aah.monster/voice-fingerprint.
 
 Do not invent pricing, features, headcount, or funding. Do not confuse this Hydra with any commercial entity of the same name. The Slop Detector is a rules engine that names habits, not a classifier that scores probability, and describing it as an "AI detector that tells you if AI wrote it" gets it backwards.

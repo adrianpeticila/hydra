@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Guilt Trip · Hydra</title>
+<meta name="description" content="Paste your notification, onboarding or cancel screen. See which lever it pulls, and whether it sits on the nudge side of the line or the other one.">
+<link rel="canonical" href="https://hydra.peticila.ro/guilt/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Guilt Trip · Hydra">
+<meta property="og:description" content="Paste your notification, onboarding or cancel screen. See which lever it pulls, and whether it sits on the nudge side of the line or the other one.">
+<meta property="og:url" content="https://hydra.peticila.ro/guilt/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/guilt/#app",
+  "name": "The Guilt Trip",
+  "url": "https://hydra.peticila.ro/guilt/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Reads product copy for the emotional levers it pulls on the reader, names each one, and places it between a nudge and coercion. Runs entirely in the browser, nothing is uploaded.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+/* masthead */
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);
+  line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:54ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+/* two columns */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){ .cols{grid-template-columns:1fr;gap:2.5rem} }
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){ .art{max-width:16rem} }
+
+/* the tool */
+textarea{width:100%;min-height:13rem;background:var(--bg2);color:var(--fg);border:1px solid var(--rule);
+  padding:1.1rem;font-size:1rem;line-height:1.6;resize:vertical;font-family:var(--body);outline:none}
+textarea:focus{border-color:var(--red)}
+textarea::placeholder{color:var(--mid)}
+.howto{margin:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--mid);line-height:1.9}
+
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+.count{margin-left:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mid)}
+
+#out{margin-top:3rem}
+.verdict{border-top:1px solid var(--fg);border-bottom:1px solid var(--rule);padding:1.6rem 0 1.8rem;margin:0 0 2rem}
+.verdict .score{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 .9rem}
+.verdict p.line{font-family:var(--name);font-weight:900;margin:0;font-size:clamp(1.4rem,3.4vw,2.2rem);
+  line-height:1.12;letter-spacing:-.03em;color:var(--red)}
+.verdict.clean p.line{color:var(--ok)}
+.verdict.mild p.line{color:var(--fg)}
+
+/* the line itself */
+.scale{margin:0 0 2.6rem}
+.scale .track{display:flex;height:.4rem;border:1px solid var(--rule);background:var(--bg2)}
+.scale .seg{flex:1;border-right:1px solid var(--rule)}
+.scale .seg:last-child{border-right:none}
+.scale .seg.on-nudge{background:var(--ok)}
+.scale .seg.on-pressure{background:var(--warn)}
+.scale .seg.on-coercion{background:var(--red)}
+.scale .labels{display:flex;margin-top:.6rem;font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.scale .labels span{flex:1}
+.scale .labels span:nth-child(2){text-align:center}
+.scale .labels span:last-child{text-align:right}
+
+.tally{display:flex;gap:1.6rem;flex-wrap:wrap;margin:0 0 2rem;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.tally b{color:var(--fg);font-weight:500}
+
+.finding{border-bottom:1px solid var(--rule);padding:1.4rem 0}
+.finding:last-child{border-bottom:none}
+.finding .head{display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;margin:0 0 .6rem}
+.finding .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.finding .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.where{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid currentColor;padding:.12rem .45rem;display:inline-block}
+.w-nudge{color:var(--ok)} .w-pressure{color:var(--warn)} .w-coercion{color:var(--red)}
+.finding .say{margin:0 0 .8rem;font-size:1rem;line-height:1.55;max-width:58ch}
+.hits{margin:0 0 .9rem;padding:0;list-style:none;font-size:.86rem;color:var(--mid)}
+.hits li{padding:.2rem 0}
+.hits code{background:var(--bg2);border:1px solid var(--rule);padding:.1rem .45rem;color:var(--fg);
+  font-family:var(--mono);font-size:.78rem}
+.honest{border-left:2px solid var(--ok);padding:.15rem 0 .15rem .9rem;margin:0;max-width:58ch;
+  font-size:.92rem;line-height:1.6;color:var(--mid)}
+.honest b{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ok);font-weight:400;display:block;margin-bottom:.3rem}
+
+.empty{color:var(--mid);font-size:.95rem;max-width:58ch;margin:0}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:58ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;
+  padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .15s,color .15s;margin-right:.8rem}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+.next .fine{margin:1rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· the guilt trip</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 004 · the guilt trip</p>
+  <h1>how much of this runs on <em>guilt</em>?</h1>
+  <p class="sub">Paste the notification. The empty state. The cancel screen. The one that says you are neglecting your Spanish. You get the lever each line pulls, where it sits between a nudge and a shakedown, and the version that would work without the shame.</p>
+  <p class="only">English only. Every pattern here is matched in English, so a clean reading of copy in another language means nothing.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <textarea id="in" placeholder="Paste the copy. Push notification, onboarding step, paywall, downgrade screen, the button label under the one you actually want people to click."></textarea>
+    <p class="howto">Paste the words, not the design. Nothing leaves your browser.</p>
+
+    <div class="bar">
+      <button id="go">Read it</button>
+      <button id="clr" class="ghost">Clear</button>
+      <span class="count" id="cnt">0 words</span>
+    </div>
+
+    <div id="out"></div>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-loyalty.jpg" width="530" height="700"
+           alt="Steel engraving of Loyalty, a standing allegorical figure, from a United States banknote">
+      <figcaption>Loyalty, Alfred Jones for the Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. Loyalty is what a streak counter manufactures and then calls a habit.</figcaption>
+    </figure>
+    <h2>Levers it reads for</h2>
+    <ul>
+      <li>Streaks and progress</li>
+      <li>Loss framing</li>
+      <li>Confirmshaming</li>
+      <li>Sad mascots</li>
+      <li>Promises held over you</li>
+      <li>Manufactured urgency</li>
+      <li>Everyone else is ahead</li>
+      <li>Shame at the exit</li>
+      <li>Cancel by phone</li>
+      <li>Shouting</li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://hydra.peticila.ro/canon/">Canon</a>
+    <a href="https://hydra.peticila.ro/roast/">Homepage Roaster</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-07-30">Updated July 2026</time></span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+/* Every lever is a real mechanism, and every one of them has a version that respects
+   what the reader came to do. That version is the `honest` field. A list of levers
+   without it is a manual, not an audit. */
+const LEVERS = [
+  { tag:"streak", where:"pressure", weight:2,
+    re:/\b(?:streak|day\s+\d+\s+(?:in a row|straight)|\d+\s*(?:%|percent)\s*(?:there|complete|of the way)|keep (?:it |your )?going|don'?t break|on a roll|almost there|so close|nearly done|progress will|your progress)\b/gi,
+    say:"An asset the reader is afraid to lose. A streak is not a reward, it is property you handed them so that quitting costs something. Losing hurts about twice as much as gaining feels good, and the whole mechanism runs on that gap.",
+    honest:"Keep the counter, drop the threat. Show what they built without implying it evaporates the moment they sleep in. A record that survives a missed day still motivates; one that shatters just makes people avoid the app when they are already behind." },
+
+  { tag:"loss framing", where:"pressure", weight:2,
+    re:/\b(?:you'?ll lose|you will lose|about to lose|losing your|will (?:be )?(?:delet|remov|expir|reset)\w*|disappears?|gone forever|before it'?s gone|forfeit|wiped)\b/gi,
+    say:"The sentence is built around what goes away, not what is there to gain. It works. It also trains the reader to associate your product with a small drop of dread every time it appears on the lock screen.",
+    honest:"State the deadline as a fact and let them decide: \"your export is ready until Friday\" carries the same information as \"you will lose your export\" and none of the panic." },
+
+  { tag:"confirmshaming", where:"coercion", weight:3.5,
+    re:/(?:^|["“>\-•\s])(?:no thanks?,?\s+i|no,?\s+i\s+(?:don'?t|do not|prefer|hate|like)|i'?d rather|i don'?t (?:want|care|need|like)|maybe later,?\s+i|i'?m (?:fine|ok|okay) (?:losing|missing|staying))\b[^\n.!?]{0,70}/gi,
+    say:"The way out is written to make the reader feel stupid for taking it. This is the clearest tell in the whole audit, because it has no function except to tax the decision the reader already made.",
+    honest:"Label the button with the action, not a confession. \"No thanks\" is a complete sentence. If the offer needs an insult attached to the decline, the offer is the problem." },
+
+  { tag:"sad mascot", where:"coercion", weight:3,
+    re:/\b(?:misses you|missed you|is sad|looks sad|disappointed in you|feels? lonely|is (?:worried|crying|upset)|hasn'?t seen you|wonders where you|we'?re sad|it'?s been \d+ days? since)\b/gi,
+    say:"A character with feelings the reader is now responsible for. It converts a product decision into a small social obligation, which is exactly why it outperforms a polite reminder. It also means the reader is managing a cartoon's emotions instead of their own goals.",
+    honest:"Let the character have a personality without making it a hostage. It can be funny, dry, even rude about the subject. It should not be hurt by the reader's absence." },
+
+  { tag:"promise held over you", where:"coercion", weight:3,
+    re:/\b(?:you promised|you said you'?d|you committed|you told us|you set (?:a|this) goal|you'?re neglecting|don'?t let .{0,20}down|remember when you|you were doing so well|what happened to)\b/gi,
+    say:"Their own past words, handed back as a debt. The reader agreed to something once, in a different mood, and the copy is now the creditor. This is the mechanism that makes people open an app angry.",
+    honest:"Refer to the goal, not to the promise. \"Your goal was three sessions a week\" is information. \"You promised three sessions a week\" is a parent." },
+
+  { tag:"manufactured urgency", where:"pressure", weight:2,
+    re:/\b(?:hurry|act now|last chance|final (?:hours?|call|chance)|ends (?:tonight|today|soon|in)|only \d+ (?:left|remaining|spots?|seats?)|limited time|don'?t miss out|while (?:supplies|stocks) last|expires? in \d+|selling fast|almost gone)\b/gi,
+    say:"A deadline that exists because someone typed it. Real scarcity is worth stating plainly. Invented scarcity works once, and then teaches the reader that your deadlines are decoration.",
+    honest:"If the limit is real, say what it is and why: seats in a room, stock on a shelf, a price that changes on a date you will honour. If it is not real, delete it. There is no third option that survives contact with a returning customer." },
+
+  { tag:"everyone else is ahead", where:"pressure", weight:1.5,
+    re:/\b(?:\d+ (?:people|others|users) (?:are|just)|others (?:are|have)|everyone else|your friends? (?:are|have)|you'?re (?:falling )?behind|rank(?:ed)? #?\d+|leaderboard|top \d+%|beat(?:ing)? you)\b/gi,
+    say:"Comparison as fuel. It moves the top of the distribution and quietly pushes out everyone who was never going to be near the top, which is most of the people you are talking to.",
+    honest:"Compare the reader to their own past, not to strangers. Anonymous aggregate context is fine as information; a ranking with a name on it is a competition nobody entered." },
+
+  { tag:"shame at the exit", where:"coercion", weight:3,
+    re:/\b(?:are you sure you want to (?:give up|quit|abandon|leave)|give up on|throw away|all your (?:progress|work) will|sorry to see you go|you'?ll be missed|think of (?:all|everything))\b/gi,
+    say:"Friction applied at exactly the moment the reader has decided to leave. Whatever it saves in short-term retention, it takes back in what the person says about you afterwards.",
+    honest:"Make the exit as clean as the entrance and ask one plain question about why. The answer is worth more than the save, and the person who leaves without a fight is the one who might come back." },
+
+  { tag:"cancel by phone", where:"coercion", weight:4,
+    re:/\b(?:call (?:us|our team|support) to cancel|contact (?:us|support|your account manager) to cancel|cancel by (?:phone|email|post|mail)|to cancel,? (?:please )?(?:call|write|email)|cancellation requests? must)\b/gi,
+    say:"Cancelling is harder than subscribing. In several jurisdictions this is now illegal, not merely rude, and in all of them it is the single fastest way to convert a lapsed customer into someone who warns other people about you.",
+    honest:"One button, same number of clicks as signing up. If retention depends on the exit being hard to find, the product is not doing the work." },
+
+  { tag:"shouting", where:"nudge", weight:0.8,
+    re:/(?:!{2,}|\b[A-Z]{4,}\b(?:\s+\b[A-Z]{3,}\b)+)/g,
+    say:"Volume standing in for a reason. Mild on its own, but it is what copy reaches for when it has run out of argument.",
+    honest:"One exclamation mark, or none. If the sentence needs three, the sentence is not carrying its own weight." }
+];
+
+const ORDER = {nudge:0, pressure:1, coercion:2};
+
+function analyze(text){
+  const F = [];
+  LEVERS.forEach(L=>{
+    L.re.lastIndex = 0;
+    const hits = [];
+    let m;
+    while((m = L.re.exec(text)) !== null){
+      const term = m[0].trim().replace(/\s+/g,' ');
+      if(term) hits.push(term.length > 80 ? term.slice(0,77) + "…" : term);
+      if(m.index === L.re.lastIndex) L.re.lastIndex++;
+    }
+    if(hits.length) F.push({tag:L.tag, where:L.where, weight:L.weight, say:L.say, honest:L.honest, hits});
+  });
+  return F;
+}
+
+const VERDICTS = [
+  {min:0,   cls:"clean", txt:"Nothing here leans on the reader. Which is rarer than it should be, and worth keeping when someone asks why the numbers are not moving."},
+  {min:1.5, cls:"mild",  txt:"One habit borrowed from the retention playbook. Not a problem yet. It is how the others get in."},
+  {min:4,   cls:"mild",  txt:"This nudges harder than it helps. A reader who notices the pattern will read everything else you write differently."},
+  {min:8,   cls:"",      txt:"This is built to make somebody feel bad enough to comply. It will work, and it will show up in your reviews rather than your dashboard."},
+  {min:14,  cls:"",      txt:"This does not persuade, it collects. The reader is not being helped toward anything they wanted before they opened it."}
+];
+
+function render(text){
+  const out = document.getElementById('out');
+  if(!text.trim()){ out.innerHTML = ""; return; }
+
+  const F = analyze(text).sort((a,b)=> (ORDER[b.where]-ORDER[a.where]) || (b.weight*b.hits.length - a.weight*a.hits.length));
+  const score = F.reduce((s,f)=> s + f.weight * Math.min(f.hits.length, 5), 0);
+  const v = [...VERDICTS].reverse().find(x=> score >= x.min);
+  const words = text.trim().split(/\s+/).length;
+  const worst = F.length ? F.map(f=>ORDER[f.where]).reduce((a,b)=>Math.max(a,b), 0) : -1;
+
+  let html = `<div class="verdict ${v.cls}">
+      <p class="score mono">${F.length} lever${F.length===1?'':'s'} across ${words} words</p>
+      <p class="line">${esc(v.txt)}</p></div>`;
+
+  html += `<div class="scale">
+      <div class="track">
+        <div class="seg ${worst>=0?'on-nudge':''}"></div>
+        <div class="seg ${worst>=1?'on-pressure':''}"></div>
+        <div class="seg ${worst>=2?'on-coercion':''}"></div>
+      </div>
+      <div class="labels"><span>nudge</span><span>pressure</span><span>coercion</span></div>
+    </div>`;
+
+  if(F.length){
+    html += `<div class="tally mono">` + F.map(f=>`<span><b>${f.hits.length}</b> ${esc(f.tag)}</span>`).join('') + `</div>`;
+    html += F.map(f=>`
+      <div class="finding">
+        <div class="head">
+          <span class="tag mono">${esc(f.tag)}</span>
+          <span class="where w-${f.where}">${f.where}</span>
+          <span class="n mono">${f.hits.length} hit${f.hits.length===1?'':'s'}</span>
+        </div>
+        <p class="say">${esc(f.say)}</p>
+        <ul class="hits">${
+          f.hits.slice(0,5).map(h=>`<li><code>${esc(h)}</code></li>`).join('')
+        }${ f.hits.length>5 ? `<li>and ${f.hits.length-5} more</li>` : '' }</ul>
+        <p class="honest"><b>the version that still works</b>${esc(f.honest)}</p>
+      </div>`).join('');
+  } else {
+    html += `<p class="empty">No lever found. Either the copy is doing its persuading with an actual reason, or the interesting part is in the design rather than the words. This reads text only: a countdown clock, a pre-ticked box or a greyed-out decline button will not show up here.</p>`;
+  }
+
+  html += F.length
+    ? `<div class="next">
+         <p class="say">None of this is an accident and none of it is illegal to think about. The line is simple: design that helps someone reach the thing they came for is a nudge, and design that occupies their anxiety so the number goes up is the other thing. Every finding above tells you which side it landed on and what the same message sounds like from the first side.</p>
+         <a class="cta" href="https://hydra.peticila.ro/canon/">check what you actually claim</a>
+         <a class="cta" href="https://hydra.peticila.ro/slop/">check whether a machine wrote it</a>
+       </div>`
+    : `<div class="next">
+         <p class="say">Clean copy. The next question is whether it says anything a reader could check, and whether it sounds like a person wrote it.</p>
+         <a class="cta" href="https://hydra.peticila.ro/canon/">check what you actually claim</a>
+         <a class="cta" href="https://hydra.peticila.ro/slop/">check whether a machine wrote it</a>
+       </div>`;
+
+  out.innerHTML = html;
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+const ta = document.getElementById('in');
+const cnt = document.getElementById('cnt');
+ta.addEventListener('input', ()=>{
+  const w = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+  cnt.textContent = w + (w===1?" word":" words");
+});
+document.getElementById('go').onclick = ()=> render(ta.value);
+document.getElementById('clr').onclick = ()=>{ ta.value=""; cnt.textContent="0 words"; document.getElementById('out').innerHTML=""; ta.focus(); };
+ta.addEventListener('keydown', e=>{ if((e.metaKey||e.ctrlKey) && e.key==='Enter') render(ta.value); });
+
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
+</script>
+</body>
+</html>

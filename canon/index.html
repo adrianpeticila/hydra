@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canon · Hydra</title>
+<meta name="description" content="Paste what you have published. Get a canon file for your AI tools, and the list of claims your own pages disagree about.">
+<link rel="canonical" href="https://hydra.peticila.ro/canon/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Canon · Hydra">
+<meta property="og:description" content="Paste what you have published. Get a canon file for your AI tools, and the list of claims your own pages disagree about.">
+<meta property="og:url" content="https://hydra.peticila.ro/canon/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/canon/#app",
+  "name": "Canon",
+  "url": "https://hydra.peticila.ro/canon/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Builds a canon file from your published copy and lists every factual claim in it, flagging the ones with no source and the ones your own pages contradict. Runs entirely in the browser, nothing is uploaded.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+/* masthead */
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);
+  line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:54ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+/* two columns: tool left, engraving right */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){ .cols{grid-template-columns:1fr;gap:2.5rem} }
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){ .art{max-width:16rem} }
+
+/* the tool */
+textarea{width:100%;min-height:15rem;background:var(--bg2);color:var(--fg);border:1px solid var(--rule);
+  padding:1.1rem;font-size:1rem;line-height:1.6;resize:vertical;font-family:var(--body);outline:none}
+textarea:focus{border-color:var(--red)}
+textarea::placeholder{color:var(--mid)}
+.howto{margin:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--mid);line-height:1.9}
+.howto code{background:var(--bg2);border:1px solid var(--rule);padding:.05rem .4rem;color:var(--fg);font-size:.72rem}
+
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+.count{margin-left:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mid)}
+
+#out{margin-top:3rem}
+.verdict{border-top:1px solid var(--fg);border-bottom:1px solid var(--rule);padding:1.6rem 0 1.8rem;margin:0 0 2rem}
+.verdict .score{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 .9rem}
+.verdict p.line{font-family:var(--name);font-weight:900;margin:0;font-size:clamp(1.4rem,3.4vw,2.2rem);
+  line-height:1.12;letter-spacing:-.03em;color:var(--red)}
+.verdict.clean p.line{color:var(--ok)}
+.verdict.mild p.line{color:var(--fg)}
+
+/* tabs */
+.tabs{display:flex;gap:0;margin:0 0 2rem;border-bottom:1px solid var(--rule)}
+.tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--mid);
+  padding:.7rem 1.1rem .6rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;cursor:pointer;transition:color .15s,border-color .15s}
+.tab:hover{background:none;color:var(--fg)}
+.tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--red)}
+.panel[hidden]{display:none}
+
+/* canon file */
+pre.md{background:var(--bg2);border:1px solid var(--rule);padding:1.2rem;overflow-x:auto;
+  font-family:var(--mono);font-size:.78rem;line-height:1.8;white-space:pre-wrap;word-break:break-word;margin:0}
+pre.md .slot{color:var(--red)}
+.mdbar{display:flex;gap:.8rem;flex-wrap:wrap;margin:0 0 1.2rem;align-items:center}
+.mdbar .fine{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--mid)}
+
+/* claims table */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:44rem;font-size:.88rem}
+th,td{text-align:left;padding:.75rem .9rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mid);font-weight:400;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.q{max-width:30rem}
+td.where{font-family:var(--mono);font-size:.72rem;color:var(--mid);white-space:nowrap}
+.flag{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid currentColor;padding:.12rem .45rem;white-space:nowrap;display:inline-block}
+.f-conflict{color:var(--red)}
+.f-nosource{color:var(--warn)}
+.f-ok{color:var(--ok)}
+mark{background:var(--red);color:var(--bg);padding:0 2px}
+
+.group{border-bottom:1px solid var(--rule);padding:1.3rem 0}
+.group:last-child{border-bottom:none}
+.group .head{display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;margin:0 0 .5rem}
+.group .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.group .say{margin:0 0 .7rem;font-size:1rem;line-height:1.55;max-width:56ch}
+.group ul{margin:0;padding:0;list-style:none;font-size:.86rem;color:var(--mid)}
+.group li{padding:.2rem 0}
+.group code{background:var(--bg2);border:1px solid var(--rule);padding:.1rem .45rem;color:var(--fg);
+  font-family:var(--mono);font-size:.78rem}
+.empty{color:var(--mid);font-size:.95rem;max-width:56ch;margin:0}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:56ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;
+  padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .15s,color .15s}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+.next .fine{margin:1rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· canon</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 003 · canon</p>
+  <h1>your brand, <em>on the record</em></h1>
+  <p class="sub">Paste what you have already published. You get back two things: a canon file you can hand to any AI so it stops inventing, and every factual claim in your own copy, with the ones nobody sourced and the ones your pages disagree about marked in red.</p>
+  <p class="only">English only. The patterns and the word lists here are English, so a clean reading of copy in another language means nothing.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <textarea id="in" placeholder="Paste your homepage. Then your about page, your bio, a deck, two posts. Separate each one with a line containing only --- and give it a name if you like."></textarea>
+    <p class="howto">Separate sources with a line of <code>---</code>. Start a source with <code># about page</code> to name it. Nothing leaves your browser.</p>
+
+    <div class="bar">
+      <button id="go">Read it</button>
+      <button id="clr" class="ghost">Clear</button>
+      <span class="count" id="cnt">0 words</span>
+    </div>
+
+    <div id="out"></div>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-concordia.jpg" width="700" height="652"
+           alt="Steel engraving of Concordia, a seated figure holding a staff, from a United States banknote">
+      <figcaption>Concordia, Charles Burt for the Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. Concord: everyone telling the same story. The thing most brands only claim to have.</figcaption>
+    </figure>
+    <h2>What it pulls out</h2>
+    <ul>
+      <li>Numbers and percentages</li>
+      <li>First, only, leading</li>
+      <li>Client and partner names</li>
+      <li>Awards and certifications</li>
+      <li>Timeframes and guarantees</li>
+      <li>Who you say it is for</li>
+      <li>What you say you do</li>
+      <li>Claims with no source</li>
+      <li>Numbers that disagree</li>
+      <li>Words your canon should ban</li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://hydra.peticila.ro/guilt/">The Guilt Trip</a>
+    <a href="https://aah.monster/voice-fingerprint/">Voice Fingerprint</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-07-30">Updated July 2026</time></span>
+  </div>
+</footer>
+
+</div>
+
+<script src="/hydra-lexicon.js"></script>
+<script>
+/* esc() and findAll() come from /hydra-lexicon.js */
+
+/* ---- splitting the paste into named sources ---- */
+function sources(raw){
+  const parts = raw.split(/^\s*-{3,}\s*$/m).map(p=>p.trim()).filter(Boolean);
+  return parts.map((p,i)=>{
+    let name = "source " + (i+1), body = p;
+    const m = p.match(/^#\s*(.+)\n?/);
+    if(m){ name = m[1].trim().slice(0,40); body = p.slice(m[0].length).trim(); }
+    return {name, body};
+  }).filter(s=>s.body);
+}
+
+function sentenceAround(text, at){
+  let a = text.lastIndexOf('.', at), b = text.indexOf('.', at);
+  const nlA = text.lastIndexOf('\n', at);
+  a = Math.max(a, nlA);
+  a = a < 0 ? 0 : a + 1;
+  b = b < 0 ? text.length : b + 1;
+  return text.slice(a, b).trim().replace(/\s+/g,' ');
+}
+
+const STOP = new Set(["the","a","an","of","in","on","for","to","and","or","our","your","their","its",
+  "we","us","with","by","from","at","as","that","this","these","those","more","than","over","under",
+  "up","down","new","all","every","each","per","been","have","has","had","is","are","was","were"]);
+
+/* ---- claim extraction ---- */
+const NUM = /\d[\d.,]*\s*(?:%|percent|x\b|×|k\b|m\b|bn\b|billion|million|thousand|euros?|dollars?|pounds?|years?|months?|weeks?|days?|hours?|minutes?|clients?|customers?|users?|companies|teams?|countries|markets?|projects?|people|employees|seats?|installs?|downloads?)/gi;
+const MONEY = /(?:€|\$|£)\s?\d[\d.,]*(?:\s*(?:k|m|bn|million|billion))?/gi;
+const SUPER = /\b(?:the\s+)?(?:first|only|leading|largest|biggest|best|fastest|cheapest|most\s+\w+|number\s+one|#1|world[- ]class|award[- ]winning|top[- ]rated|industry[- ]standard|market\s+leader)\b/gi;
+const PROOF = /\b(?:trusted by|worked with|clients include|used by|partnered with|customers include|backed by|certified|ISO\s?\d+|GDPR[- ]compliant|SOC\s?2)\b[^.!?]{0,90}/gi;
+const PROMISE = /\b(?:guarantee[d]?|money[- ]back|no questions asked|within\s+\d+\s+(?:hours?|days?|weeks?)|same[- ]day|24\/7|unlimited|lifetime)\b/gi;
+const SOURCED = /(https?:\/\/|www\.|according to|source:|sources:|per the|based on (?:a|our|the)\s+(?:study|survey|report|audit|analysis)|\(\d{4}\)|study by|report by|survey of)/i;
+
+const AUDIENCE = /\b(?:built|made|designed|written|priced)\s+for\s+([a-z][\w'-]*(?:\s+[a-z][\w'-]*){0,3})|\bwe\s+(?:work|partner)\s+with\s+([a-z][\w'-]*(?:\s+[a-z][\w'-]*){0,3})|\bour\s+(?:clients|customers)\s+are\s+([a-z][\w'-]*(?:\s+[a-z][\w'-]*){0,3})|\b(?:we|i)\s+(?:help|serve|advise|coach|train)\s+([a-z][\w'-]*(?:\s+[a-z][\w'-]*){0,2})|\bfor\s+((?:founders|ceos|cmos|ctos|executives|marketers|agencies|startups|smes|smbs|freelancers|teams|developers|designers|writers|coaches|consultants)[\w\s'-]{0,20})/gi;
+const DOES = /\b(?:we|i)\s+(?:help|build|make|write|run|turn|design|ship|fix|teach|advise|audit|are|do)\s+(?!not\b|never\b)[^.!?]{0,110}/gi;
+const NOTUS = /\b(?:we\s+(?:are|do)\s+not|we\s+don'?t|not\s+an?\s+\w+|never\s+\w+|no\s+(?:calls|meetings|retainers|contracts|agencies|fluff|jargon))\b[^.!?]{0,80}/gi;
+
+function collect(re, body, kind, srcName, out){
+  re.lastIndex = 0;
+  let m;
+  while((m = re.exec(body)) !== null){
+    const at = m.index;
+    const sent = sentenceAround(body, at);
+    const term = m[0].trim().replace(/\s+/g,' ').replace(/[.,;:]+$/,'');
+    out.push({kind, term, sentence: sent, source: srcName, at});
+    if(m.index === re.lastIndex) re.lastIndex++;
+  }
+}
+
+function numericKey(claim){
+  /* claims about the same thing share a key. The unit carries it when there is one
+     ("40 companies" and "60 companies" both key on companies); a bare percentage or
+     sum has to borrow the two content words that follow it. */
+  if(/^[€$£]/.test(claim.term)){
+    /* prices: group everything the copy calls a price, so two different ones collide */
+    const before = claim.sentence.slice(0, claim.sentence.indexOf(claim.term)).toLowerCase();
+    const words = (before.match(/[a-z][a-z'-]+/g) || []).filter(w=>!STOP.has(w));
+    const last = words[words.length-1] || '';
+    const PRICEY = /^(price|priced|pricing|cost|costs|fee|fees|from|starts|starting|only|just|pay|invest)$/;
+    return claim.term[0] + ' ' + (PRICEY.test(last) ? 'price' : (last || 'price'));
+  }
+  const unit = (claim.term.toLowerCase().match(/\d[\d.,]*\s*([a-z%×]+)/) || [,''])[1];
+  const generic = !unit || unit === '%' || /^(k|m|bn|million|billion|thousand|percent)$/.test(unit);
+  if(!generic) return unit;
+  const after = claim.sentence.slice(claim.sentence.indexOf(claim.term) + claim.term.length);
+  const words = (after.toLowerCase().match(/[a-z][a-z'-]+/g) || []).filter(w=>!STOP.has(w));
+  return words.slice(0,2).join(' ');
+}
+function numericValue(term){
+  const n = term.replace(/[€$£]/g,'').match(/\d[\d.,]*/);
+  if(!n) return null;
+  return n[0].replace(/,(?=\d{3}\b)/g,'');
+}
+
+function analyze(raw){
+  const srcs = sources(raw);
+  const claims = [];
+  const audience = [], does = [], notus = [];
+
+  srcs.forEach(s=>{
+    collect(NUM, s.body, "number", s.name, claims);
+    collect(MONEY, s.body, "number", s.name, claims);
+    collect(SUPER, s.body, "superlative", s.name, claims);
+    collect(PROOF, s.body, "proof", s.name, claims);
+    collect(PROMISE, s.body, "promise", s.name, claims);
+
+    let m;
+    AUDIENCE.lastIndex = 0;
+    while((m = AUDIENCE.exec(s.body)) !== null){
+      const hit = (m[1]||m[2]||m[3]||m[4]||"").trim();
+      if(hit) audience.push(hit.replace(/\s+/g,' '));
+      if(m.index === AUDIENCE.lastIndex) AUDIENCE.lastIndex++;
+    }
+    DOES.lastIndex = 0;
+    while((m = DOES.exec(s.body)) !== null){
+      does.push(m[0].trim().replace(/\s+/g,' '));
+      if(m.index === DOES.lastIndex) DOES.lastIndex++;
+    }
+    NOTUS.lastIndex = 0;
+    while((m = NOTUS.exec(s.body)) !== null){
+      notus.push(m[0].trim().replace(/\s+/g,' '));
+      if(m.index === NOTUS.lastIndex) NOTUS.lastIndex++;
+    }
+  });
+
+  /* sourced or not */
+  claims.forEach(c=>{ c.sourced = SOURCED.test(c.sentence); });
+
+  /* conflicts among numbers */
+  const groups = {};
+  claims.filter(c=>c.kind==="number").forEach(c=>{
+    const k = numericKey(c);
+    c.key = k;
+    (groups[k] = groups[k] || []).push(c);
+  });
+  const conflicts = [];
+  Object.entries(groups).forEach(([k, list])=>{
+    const vals = [...new Set(list.map(c=>numericValue(c.term)).filter(Boolean))];
+    if(vals.length > 1 && k){
+      list.forEach(c=> c.conflict = true);
+      conflicts.push({key:k, values:vals, list});
+    }
+  });
+
+  /* words the canon should ban, from the shared lexicon */
+  const banned = findAll(srcs.map(s=>s.body).join("\n\n"), BANNED);
+
+  return {srcs, claims, audience:[...new Set(audience)], does:[...new Set(does)],
+          notus:[...new Set(notus)], conflicts, banned};
+}
+
+/* ---- the canon file ---- */
+const SLOT = t => `<span class="slot">${esc(t)}</span>`;
+
+function canonFile(a, plain){
+  const S = plain ? (t=>t) : SLOT;          /* slots: red in the panel, plain in the file */
+  const E = plain ? (t=>String(t)) : esc;   /* everything lifted out of the paste */
+  const bullets = (arr, fallback) => arr.length
+    ? arr.map(x => "- " + E(x)).join("\n")
+    : "- " + S(fallback);
+
+  const solid = a.claims.filter(c => c.sourced && !c.conflict);
+  const shaky = a.claims.filter(c => !c.sourced || c.conflict);
+  const banned = [...new Set(a.banned.map(b => b.term.toLowerCase()))];
+
+  let md = "# Canon\n\n";
+  md += "Hand this to any writer, human or machine. Nothing outside this file is true about us until it is added here.\n\n";
+  md += "Built from " + a.srcs.length + " source" + (a.srcs.length === 1 ? "" : "s") + " on "
+      + new Date().toISOString().slice(0,10) + ". Slots marked " + S("[like this]")
+      + " are the ones no tool can fill for you.\n\n";
+
+  md += "## Who we are\n\n"
+      + bullets(a.does.slice(0,4), "[one sentence: what you do, for whom]") + "\n\n";
+
+  md += "## Who it is for\n\n"
+      + bullets(a.audience.slice(0,6), "[the buyer, named the way they would name themselves]") + "\n\n";
+
+  md += "## What we are not\n\n"
+      + bullets(a.notus.slice(0,5), "[the nearest thing you get mistaken for, and why you are not it]") + "\n\n";
+
+  md += "## What we claim as fact\n\n";
+  md += "Repeat these verbatim. Do not round them, do not improve them.\n\n";
+  md += bullets(solid.slice(0,15).map(c => c.term + ", " + c.source),
+        "[nothing in your copy carries a source yet. Put the sourced claims here.]") + "\n\n";
+
+  md += "## Never claim\n\n";
+  md += "These are in your copy right now and should not be repeated until they are fixed.\n\n";
+  md += bullets(shaky.slice(0,15).map(c => c.term + " (" + c.source + "), "
+        + (c.conflict ? "your own pages disagree on this number" : "no source anywhere")),
+        "[nothing unsourced found. Unusual.]") + "\n\n";
+
+  md += "## Never say\n\n";
+  md += "Words already in your copy that read as filler:\n\n";
+  md += bullets(banned.slice(0,14), "[none found. Keep it that way.]") + "\n\n";
+
+  md += "## Tone\n\n- " + S("[three adjectives, and one thing you would never sound like]") + "\n";
+  return md;
+}
+
+/* ---- rendering ---- */
+function render(raw){
+  const out = document.getElementById('out');
+  if(!raw.trim()){ out.innerHTML = ""; return; }
+
+  const a = analyze(raw);
+  const unsourced = a.claims.filter(c=>!c.sourced).length;
+  const conflicting = a.claims.filter(c=>c.conflict).length;
+  const total = a.claims.length;
+
+  let cls = "clean", line = "Nothing here claims anything a reader could check. That is its own problem: a page with no falsifiable claim asks for no trust.";
+  if(total && !unsourced && !conflicting){ cls = "clean"; line = "Every claim in here carries a source and none of your pages disagree. Rare."; }
+  else if(conflicting){ cls = ""; line = "Your own pages give different numbers for the same thing. Whoever reads both stops believing either."; }
+  else if(unsourced >= 5){ cls = ""; line = "Most of what you assert here rests on nothing a reader can check."; }
+  else if(unsourced){ cls = "mild"; line = "A few claims float free of any source. They are the ones that get quoted back at you."; }
+
+  let html = `<div class="verdict ${cls}">
+      <p class="score mono">${a.srcs.length} source${a.srcs.length===1?'':'s'} · ${total} claim${total===1?'':'s'} · ${unsourced} unsourced · ${conflicting} contradicted</p>
+      <p class="line">${esc(line)}</p></div>`;
+
+  html += `<div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-md" aria-selected="true" aria-controls="p-md">canon file</button>
+      <button class="tab" role="tab" id="t-cl" aria-selected="false" aria-controls="p-cl">claims register</button>
+    </div>`;
+
+  /* panel 1: canon file */
+  html += `<div class="panel" id="p-md" role="tabpanel" aria-labelledby="t-md">
+      <div class="mdbar">
+        <button id="cp">Copy</button>
+        <button id="dl" class="ghost">Download canon.md</button>
+        <span class="fine">Red slots are yours to fill. Everything else came out of your own copy.</span>
+      </div>
+      <pre class="md">${canonFile(a, false)}</pre>
+    </div>`;
+
+  /* panel 2: claims */
+  let claimsHtml = "";
+  if(total){
+    claimsHtml += `<div class="tablewrap"><table>
+      <thead><tr><th>Claim</th><th>Where it appears</th><th>Kind</th><th>Status</th></tr></thead><tbody>`;
+    claimsHtml += a.claims.slice(0,80).map(c=>{
+      const flag = c.conflict ? `<span class="flag f-conflict">contradicted</span>`
+                 : !c.sourced ? `<span class="flag f-nosource">no source</span>`
+                 : `<span class="flag f-ok">sourced</span>`;
+      const sent = esc(c.sentence.length > 180 ? c.sentence.slice(0,177) + "…" : c.sentence)
+        .replace(esc(c.term), `<mark>${esc(c.term)}</mark>`);
+      return `<tr><td class="q">${sent}</td><td class="where">${esc(c.source)}</td>
+              <td class="where">${c.kind}</td><td>${flag}</td></tr>`;
+    }).join('');
+    claimsHtml += `</tbody></table></div>`;
+    if(a.claims.length > 80) claimsHtml += `<p class="howto">Showing the first 80 of ${a.claims.length}.</p>`;
+  } else {
+    claimsHtml += `<p class="empty">No checkable claim found. No number, no superlative, no named client, no guarantee. Copy that asserts nothing is safe from contradiction and useless as evidence.</p>`;
+  }
+
+  if(a.conflicts.length){
+    claimsHtml += a.conflicts.map(c=>`
+      <div class="group">
+        <div class="head"><span class="tag mono">contradiction · ${esc(c.key)}</span></div>
+        <p class="say">Same subject, ${c.values.length} different numbers. A reader who sees two of these stops trusting the third.</p>
+        <ul>${c.list.slice(0,6).map(x=>`<li><code>${esc(x.term)}</code> in ${esc(x.source)}</li>`).join('')}</ul>
+      </div>`).join('');
+  }
+  if(a.banned.length){
+    const uniq = [...new Set(a.banned.map(b=>b.term.toLowerCase()))];
+    claimsHtml += `<div class="group">
+        <div class="head"><span class="tag mono">filler in your own copy</span></div>
+        <p class="say">These are in the canon file under "never say". They are not wrong, they are weightless, and they are what a machine reaches for when it has nothing to add.</p>
+        <ul>${uniq.slice(0,12).map(w=>`<li><code>${esc(w)}</code></li>`).join('')}</ul>
+      </div>`;
+  }
+
+  html += `<div class="panel" id="p-cl" role="tabpanel" aria-labelledby="t-cl" hidden>${claimsHtml}</div>`;
+
+  html += `<div class="next">
+      <p class="say">A canon says what is true. It does not say how you sound. Two people can both stay inside this file and still write nothing like each other, which is exactly the problem the moment someone else writes with your name on it.</p>
+      <a class="cta" href="https://aah.monster/voice-fingerprint/">get your voice fingerprint</a>
+      <p class="fine">A written record of how you write. 48 hours, €249, no calls.</p>
+    </div>`;
+
+  out.innerHTML = html;
+
+  /* tabs */
+  const tMd = document.getElementById('t-md'), tCl = document.getElementById('t-cl');
+  const pMd = document.getElementById('p-md'), pCl = document.getElementById('p-cl');
+  function pick(which){
+    const md = which === 'md';
+    tMd.setAttribute('aria-selected', md); tCl.setAttribute('aria-selected', !md);
+    pMd.hidden = !md; pCl.hidden = md;
+  }
+  tMd.onclick = ()=>pick('md'); tCl.onclick = ()=>pick('cl');
+
+  /* copy and download use the plain-text canon, no markup */
+  const plain = canonFile(a, true);
+  document.getElementById('cp').onclick = function(){
+    navigator.clipboard.writeText(plain).then(()=>{
+      this.textContent = "Copied"; setTimeout(()=>{ this.textContent = "Copy"; }, 1600);
+    });
+  };
+  document.getElementById('dl').onclick = ()=>{
+    const blob = new Blob([plain], {type:'text/markdown'});
+    const url = URL.createObjectURL(blob);
+    const a2 = document.createElement('a');
+    a2.href = url; a2.download = 'canon.md'; a2.click();
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+  };
+
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+const ta = document.getElementById('in');
+const cnt = document.getElementById('cnt');
+ta.addEventListener('input', ()=>{
+  const w = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+  cnt.textContent = w + (w===1?" word":" words");
+});
+document.getElementById('go').onclick = ()=> render(ta.value);
+document.getElementById('clr').onclick = ()=>{ ta.value=""; cnt.textContent="0 words"; document.getElementById('out').innerHTML=""; ta.focus(); };
+ta.addEventListener('keydown', e=>{ if((e.metaKey||e.ctrlKey) && e.key==='Enter') render(ta.value); });
+
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
+</script>
+</body>
+</html>
