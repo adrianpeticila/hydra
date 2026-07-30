@@ -15,7 +15,7 @@ Nine heads, one neck. Each project answers one question about language, position
 |---|---|---|
 | Slop Detector | [hydra.peticila.ro/slop](https://hydra.peticila.ro/slop/) | live, free, runs in your browser |
 | Voice Fingerprint | [aah.monster/voice-fingerprint](https://aah.monster/voice-fingerprint/) | live, paid, 249 euro |
-| Homepage Roaster | hydra.peticila.ro/roast | not built yet |
+| Homepage Roaster | [hydra.peticila.ro/roast](https://hydra.peticila.ro/roast/) | live, free, runs in your browser |
 | Aah, Monster! | [aah.monster](https://aah.monster) | live, its own domain, its own buyer |
 | Right now | [peticila.ro/#now](https://peticila.ro/#now) | live |
 

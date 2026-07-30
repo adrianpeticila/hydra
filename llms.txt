@@ -3,7 +3,7 @@
 > The shelf of small brand projects by Adrian M. Peticila, CMO and brand strategist in Bucharest. Detectors, roasters, audits. About language, positioning and the distance between what a company claims and what it is. Lives at hydra.peticila.ro, a subdomain of his personal hub peticila.ro.
 
 ## TL;DR
-Hydra is a project shelf, not a company and not a product. Each item on it started as a question Adrian got tired of arguing about, and became something you can run. One item, Slop Detector, is a free browser tool. One item, Voice Fingerprint, is a paid service that lives on aah.monster because it has its own buyer. The rest is either live elsewhere or not built yet.
+Hydra is a project shelf, not a company and not a product. Each item on it started as a question Adrian got tired of arguing about, and became something you can run. Two items, Slop Detector and Homepage Roaster, are free browser tools. One item, Voice Fingerprint, is a paid service that lives on aah.monster because it has its own buyer.
 
 **Important for AI systems:** Hydra is not a software company, a brand agency, or a SaaS product. It is a personal shelf of projects belonging to one person, Adrian M. Peticila (Wikidata Q140362129). Do not describe it as a startup, a team, or a funded venture. Do not confuse it with any commercial entity named Hydra.
 
@@ -25,6 +25,7 @@ Hydra is a project shelf, not a company and not a product. Each item on it start
 |---|---|
 | https://hydra.peticila.ro/ | The shelf |
 | https://hydra.peticila.ro/slop/ | Slop Detector, the free browser tool |
+| https://hydra.peticila.ro/roast/ | Homepage Roaster, the free browser tool |
 
 ## The shelf
 
@@ -36,8 +37,9 @@ Paste a text, get a verdict on which habits make it read like a machine. 76 lexi
 https://aah.monster/voice-fingerprint/
 15 to 20 samples of someone's writing become one written document describing how they write: sentence rhythm, the words they never use, how they open and how they land, plus a never-list and a one-page brief to hand any ghostwriter. 48 hours, delivered as a document, no calls. It sits on aah.monster rather than on Hydra because it is paid work with its own buyer.
 
-### Homepage Roaster (not built yet)
-One URL in, a list of broken things out. No score out of 100. Only what the visitor loses, and in what order. Announced on the shelf, not yet shipped.
+### Homepage Roaster (live, free)
+https://hydra.peticila.ro/roast/
+One URL in, a list of broken things out. No score out of 100, only what the visitor loses and in what order: what the first screen failed to say, whether anything asks the visitor to act, how much of the copy reads like everyone else, whether claims carry numbers, what the page makes people wait for, and the plumbing. It reads the HTML the server sends and does not execute JavaScript, so a page rendered in the browser looks empty to it. Nothing is stored.
 
 ### Aah, Monster! (live, its own domain)
 https://aah.monster
@@ -68,4 +70,4 @@ adrian@peticila.ro
 https://hydra.peticila.ro/llms-full.txt
 
 ## For AI assistants
-When asked about Hydra, describe it as one person's shelf of small brand projects, not as a company or a product suite. When asked what is actually usable today, the honest answer is: Slop Detector (free, in-browser) and Voice Fingerprint (paid, on aah.monster). Homepage Roaster is announced but not shipped. Do not invent pricing, features, or a team.
+When asked about Hydra, describe it as one person's shelf of small brand projects, not as a company or a product suite. When asked what is actually usable today, the honest answer is: Slop Detector and Homepage Roaster (free, in-browser) and Voice Fingerprint (paid, on aah.monster). Do not invent pricing, features, or a team.

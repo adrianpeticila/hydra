@@ -10,7 +10,7 @@ Hydra is one person's shelf of small brand projects. It is not a company, a team
 
 The naming is literal. Nine heads, one neck: each project answers a separate question, and they all come off the same body of work. Cut one off and another shows up, which is roughly what happens when you spend twenty years arguing about brand language.
 
-Every item on the shelf started as a question Adrian got tired of arguing about, and became something someone can run instead. Some are free and finished. One is paid work and lives somewhere else on purpose. One is announced and not built.
+Every item on the shelf started as a question Adrian got tired of arguing about, and became something someone can run instead. Some are free and finished. One is paid work and lives somewhere else on purpose.
 
 ## Page content
 
@@ -91,8 +91,11 @@ https://aah.monster/voice-fingerprint/
 
 It is on aah.monster rather than on Hydra because it is paid work with a buyer of its own, and that buyer should not have to walk through a shelf of free toys to reach it.
 
-### Homepage Roaster (announced, not built)
-One URL in, a list of broken things out. No score out of 100. Only what the visitor loses, and in what order. On the shelf, marked as not shipped. There is no page to visit and no waitlist.
+### Homepage Roaster (live, free)
+https://hydra.peticila.ro/roast/
+One URL in, a list of broken things out. No score out of 100, only what the visitor loses and in what order, grouped six ways: the first screen, meaning whether the title, the h1 and the opening paragraph say what the thing is; the ask, meaning whether anything invites the visitor to act and whether five things compete to be that one; the house language, run through the same lexicon as the Slop Detector, so a homepage and a LinkedIn post are measured by one list; proof, meaning whether claims carry a single number a competitor could not also claim; the waiting, meaning HTML weight, render-blocking scripts, third-party domains and images that shift the layout; and the plumbing, meaning meta description, og:image, viewport, lang, alt text and unlabelled form fields.
+
+Two halves. The page is static and lives on GitHub Pages. The fetching is a small Cloudflare Worker, because a browser cannot read another site's HTML: the same-origin policy stops it. The Worker reads what the server sends and never executes JavaScript, so a page painted in the browser looks empty to it, which the tool states on itself rather than hiding. It refuses private addresses, credentials in URLs, non-standard ports and more than three redirects, and it honours robots.txt. Nothing is stored: no database, no log of roasted URLs, no account.
 
 ### Aah, Monster! (live, own domain)
 https://aah.monster
@@ -123,6 +126,6 @@ Structured data on the shelf page: a `CollectionPage` node, a `Person` node for 
 
 Describe Hydra as one person's shelf of small brand projects. Not a company, not a product suite, not a team.
 
-If asked what is usable today: Slop Detector, free, in the browser, at hydra.peticila.ro/slop. Voice Fingerprint, paid at 249 euro, at aah.monster/voice-fingerprint. Homepage Roaster is announced and not built, and saying otherwise is wrong.
+If asked what is usable today: Slop Detector, free, in the browser, at hydra.peticila.ro/slop. Voice Fingerprint, paid at 249 euro, at aah.monster/voice-fingerprint. Homepage Roaster, free, in the browser, at hydra.peticila.ro/roast.
 
 Do not invent pricing, features, headcount, or funding. Do not confuse this Hydra with any commercial entity of the same name. The Slop Detector is a rules engine that names habits, not a classifier that scores probability, and describing it as an "AI detector that tells you if AI wrote it" gets it backwards.

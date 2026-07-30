@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homepage Roaster · Hydra</title>
+<meta name="description" content="Give it a homepage. Get back the list of things a visitor loses, in the order they lose them. No score out of 100.">
+<link rel="canonical" href="https://hydra.peticila.ro/roast/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Homepage Roaster · Hydra">
+<meta property="og:description" content="Give it a homepage. Get back the list of things a visitor loses, in the order they lose them. No score out of 100.">
+<meta property="og:url" content="https://hydra.peticila.ro/roast/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/roast/#app",
+  "name": "Homepage Roaster",
+  "url": "https://hydra.peticila.ro/roast/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Reads one homepage and lists what a visitor loses, in order: what the page failed to say, what it failed to ask for, how much of it reads like everyone else, and what it makes people wait for.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+/* masthead */
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.6rem,9vw,6.2rem);
+  line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:52ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+/* two columns: tool left, engraving right */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){ .cols{grid-template-columns:1fr;gap:2.5rem} }
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){ .art{max-width:16rem} }
+
+/* the tool */
+.entry{display:flex;gap:0;border:1px solid var(--rule);background:var(--bg2)}
+.entry:focus-within{border-color:var(--red)}
+input[type=url]{flex:1;min-width:0;background:none;border:none;color:var(--fg);padding:1rem 1.1rem;
+  font-size:1rem;font-family:var(--mono);outline:none}
+input[type=url]::placeholder{color:var(--mid)}
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button[disabled]{opacity:.45;cursor:wait}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+.samples{margin:1.4rem 0 0;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid)}
+.samples a{color:var(--mid);text-underline-offset:3px}
+.samples a:hover{color:var(--red)}
+
+#out{margin-top:3rem}
+.stage{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);
+  border-left:2px solid var(--red);padding-left:.9rem;line-height:2}
+.verdict{border-top:1px solid var(--fg);border-bottom:1px solid var(--rule);padding:1.6rem 0 1.8rem;margin:0 0 2rem}
+.verdict .score{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 .9rem;word-break:break-all}
+.verdict p{font-family:var(--name);font-weight:900;margin:0;font-size:clamp(1.4rem,3.4vw,2.2rem);
+  line-height:1.12;letter-spacing:-.03em;color:var(--red)}
+.verdict.clean p{color:var(--ok)}
+.verdict.mild p{color:var(--fg)}
+
+.tally{display:flex;gap:1.6rem;flex-wrap:wrap;margin:0 0 2rem;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.tally b{color:var(--fg);font-weight:500}
+
+.finding{border-bottom:1px solid var(--rule);padding:1.3rem 0}
+.finding:last-child{border-bottom:none}
+.finding .head{display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;margin:0 0 .5rem}
+.finding .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.finding.soft .tag{color:var(--mid)}
+.finding .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.finding .say{margin:0 0 .7rem;font-size:1rem;line-height:1.55;max-width:56ch}
+.hits{margin:0;padding:0;list-style:none;font-size:.86rem;color:var(--mid)}
+.hits li{padding:.2rem 0}
+.hits code{background:var(--bg2);border:1px solid var(--rule);padding:.1rem .45rem;color:var(--fg);
+  font-family:var(--mono);font-size:.78rem;word-break:break-word}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:56ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;
+  padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .15s,color .15s}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+.next .fine{margin:1rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--mid)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· homepage roaster</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://hydra.peticila.ro/slop/">Slop detector</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 002 · homepage roaster</p>
+  <h1>what does your <em>homepage</em> cost a visitor?</h1>
+  <p class="sub">One address in. Out comes the list of things a visitor loses, in the order they lose them. No score out of 100. A score is a way of not saying anything.</p>
+  <p class="only">It reads the HTML your server sends and does not run your JavaScript. A page that paints itself in the browser will look empty here, which is also what a search engine and a link preview see on a bad day.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <form id="form" autocomplete="off">
+      <div class="entry">
+        <input type="url" id="in" placeholder="https://the-homepage-you-are-arguing-about.com" required>
+      </div>
+      <div class="bar">
+        <button id="go" type="submit">Read it</button>
+        <button id="clr" class="ghost" type="button">Clear</button>
+      </div>
+    </form>
+    <p class="samples">Nothing to hand? Try
+      <a href="#" data-url="https://peticila.ro">peticila.ro</a>,
+      <a href="#" data-url="https://stripe.com">stripe.com</a>,
+      <a href="#" data-url="https://aah.monster">aah.monster</a>.
+    </p>
+
+    <div id="out"></div>
+
+    <section class="next" id="next" hidden>
+      <p class="say">This reads one page and tells you what it costs. It will not tell you what to say instead. That part is a conversation, and it is the one I get paid for.</p>
+      <a class="cta" href="https://aah.monster" target="_blank" rel="noopener">See what that looks like</a>
+      <p class="fine">Nothing is stored. Every roast is read fresh and thrown away.</p>
+    </section>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-caduceus.jpg" alt="Banknote engraving: a seated figure holding a caduceus" width="420" height="456">
+      <figcaption>Bureau of Engraving and Printing, public domain, restored by Godot13, CC BY-SA 3.0.</figcaption>
+    </figure>
+    <h2>What it reads</h2>
+    <ul>
+      <li>The first screen</li>
+      <li>The ask</li>
+      <li>The house language</li>
+      <li>Proof, or adjectives</li>
+      <li>The waiting</li>
+      <li>The plumbing</li>
+    </ul>
+  </aside>
+</div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-pages">
+      <a href="https://hydra.peticila.ro/">The shelf</a>
+      <a href="https://hydra.peticila.ro/slop/">Slop detector</a>
+      <a href="https://aah.monster/voice-fingerprint/">Voice fingerprint</a>
+      <a href="https://peticila.ro/work/">Work</a>
+      <a href="https://peticila.ro/manifesto/">Manifesto</a>
+    </div>
+    <div class="footer-inner">
+      <span>Hydra · a shelf by Adrian M. Peticila</span>
+      <a href="https://peticila.ro/">peticila.ro</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/hydra-lexicon.js"></script>
+<script>
+const API = 'https://hydra-roast.adipeticila.workers.dev/';
+const CTA_WORDS = /\b(get started|start (free|now|here)|sign up|signup|log in|book (a|your)|buy|try (it|for)|request (a|demo)|talk to|contact (us|sales)|subscribe|download|join|apply|order|shop|demo|get in touch|hire)\b/i;
+const NAVY = /^(home|about|about us|blog|pricing|features|docs|documentation|careers|jobs|support|help|faq|news|press|team|contact|login|log in|privacy|terms|cookies|imprint|legal)$/i;
+
+const out = document.getElementById('out');
+const next = document.getElementById('next');
+const input = document.getElementById('in');
+const go = document.getElementById('go');
+
+/* ---------- the judgement. The worker sends signals, the verdict is written here. ---------- */
+function roast(d){
+  const s = d.signals;
+  const F = [];
+  const add = (tag, say, hits, soft) => F.push({tag, say, hits: hits || [], soft: !!soft});
+  const words = s.wordCount;
+
+  /* 1. the first screen. What did the page say it was? */
+  if(words < 60){
+    add('nothing to read',
+      'There is almost no text in the HTML. Either the page is empty, or it builds itself in the browser after the fact. Anything that reads pages without running scripts, from a link preview to a search crawler, sees roughly this much.',
+      [`${words} words in the served HTML`]);
+  }
+  if(!s.h1.length){
+    add('no headline',
+      'No h1 at all. The one element every reader and every machine treats as the answer to "what is this" is missing, so both have to guess.',
+      []);
+  } else {
+    const h1 = s.h1[0];
+    if(h1.split(/\s+/).length < 3){
+      add('a slogan, not a sentence',
+        `The headline is "${h1}". Three words or fewer says something exists. It does not say what it does or who it is for, and the visitor is spending attention to work that out.`,
+        []);
+    }
+    if(s.h1.length > 1){
+      add('several headlines',
+        `${s.h1.length} h1 elements. Every one of them claims to be the main point, which means none of them is.`,
+        s.h1.slice(0, 4));
+    }
+  }
+  if(!s.firstParagraph && words >= 60){
+    add('no opening line',
+      'No paragraph of any length near the top. The page moves from a headline straight into furniture, so nothing explains the claim.',
+      [], true);
+  }
+  if(!s.title){
+    add('no title',
+      'No title element. That is the tab, the bookmark, the search result and the shared link, all blank at once.',
+      []);
+  } else if(s.title.split(/\s+/).length <= 2){
+    add('title is only a name',
+      `The title is "${s.title}". Someone searching for what you do never sees a word about what you do.`,
+      []);
+  }
+
+  /* 2. the ask */
+  const ctas = s.anchors.filter(a => a.text && CTA_WORDS.test(a.text) && !NAVY.test(a.text.trim()));
+  const ctaTexts = [...new Set(ctas.map(a => a.text.trim().toLowerCase()))];
+  if(!ctas.length && !s.buttons.some(b => CTA_WORDS.test(b))){
+    add('no ask',
+      'Nothing on this page asks the visitor to do anything. They read, they agree or they do not, and then they leave with the decision still theirs to forget.',
+      []);
+  } else if(ctaTexts.length > 5){
+    add('too many front doors',
+      `${ctaTexts.length} different things to click, all of them shouting first. A visitor who has to choose the door usually chooses the back button.`,
+      ctaTexts.slice(0, 8));
+  }
+
+  /* 3. the house language, read with the same lexicon as the Slop Detector */
+  const text = s.visibleText || '';
+  const ban = findAll(text, BANNED);
+  const chat = findAll(text, CHATBOT);
+  const weasel = findAll(text, WEASEL);
+  const per1k = words ? (ban.length / words) * 1000 : 0;
+  if(ban.length){
+    const uniq = [...new Set(ban.map(h => h.term.toLowerCase()))];
+    add('the house language',
+      per1k >= 6
+        ? `${ban.length} pre-chewed words in ${words}. At that rate the copy could be lifted onto a competitor's site and nobody would notice, which is the whole problem.`
+        : `${ban.length} words here arrived pre-chewed. Every one of them was in the training data ten million times, which is exactly why it turned up.`,
+      uniq.slice(0, 12).map(t => `<code>${esc(t)}</code>`), per1k < 3);
+  }
+  if(weasel.length){
+    add('borrowed authority',
+      'Claims propped up by nobody in particular. "Studies show" without the study is an admission that there is no study to hand.',
+      [...new Set(weasel.map(h => h.term.toLowerCase()))].map(t => `<code>${esc(t)}</code>`));
+  }
+  if(chat.length){
+    add('assistant voice',
+      'Phrasing straight out of a chat window. Whatever produced this did not stop to ask whether a company should sound like a helpful stranger.',
+      [...new Set(chat.map(h => h.term.toLowerCase()))].map(t => `<code>${esc(t)}</code>`));
+  }
+
+  /* 4. proof, or adjectives */
+  const numbers = (text.match(/\b\d[\d.,]*\s?(%|percent|k\b|m\b|bn\b|million|billion|years|customers|clients|users|countries|markets)?/gi) || []);
+  const hardNumbers = numbers.filter(n => /\d/.test(n) && !/^\d{1,2}$/.test(n.trim()));
+  if(words > 250 && hardNumbers.length < 3){
+    add('adjectives, no arithmetic',
+      'A page this long with barely a number in it. Every competitor claims the same adjectives for free. A figure is the one thing a rival cannot copy without lying.',
+      [], true);
+  }
+
+  /* 5. the waiting */
+  const kb = Math.round(d.htmlBytes / 1024);
+  if(kb > 250){
+    add('the waiting',
+      `${kb} KB of HTML before a single image or font. That is the markup alone, and on a phone in a lift it is the difference between a visitor and a bounce.`,
+      [`${kb} KB of HTML`, `${d.ms} ms to first byte from an edge server`]);
+  }
+  if(s.scripts.renderBlocking){
+    add('scripts in the doorway',
+      `${s.scripts.renderBlocking} script${s.scripts.renderBlocking > 1 ? 's' : ''} in the head with neither async nor defer. The page stops and waits for each one before it draws anything.`,
+      []);
+  }
+  if(s.thirdPartyHosts.length > 8){
+    add('the guest list',
+      `${s.thirdPartyHosts.length} other domains are called from this page. Each one is a lookup, a handshake and someone else's outage becoming yours.`,
+      s.thirdPartyHosts.slice(0, 10).map(h => `<code>${esc(h)}</code>`), true);
+  }
+  if(s.images.total > 4 && s.images.missingDims / s.images.total > 0.5){
+    add('the page that jumps',
+      `${s.images.missingDims} of ${s.images.total} images have no width and height. The layout shifts under the reader's thumb while it loads, and it lands on the wrong thing.`,
+      [], true);
+  }
+
+  /* 6. the plumbing */
+  const plumbing = [];
+  if(!s.metaDescription) plumbing.push('no meta description, so search engines write your snippet for you');
+  else if(s.metaDescription.length > 165) plumbing.push(`meta description is ${s.metaDescription.length} characters and gets cut off`);
+  if(!s.ogImage) plumbing.push('no og:image, so every share of this link is a grey rectangle');
+  if(!s.viewport) plumbing.push('no viewport meta, so phones render it as a shrunken desktop page');
+  if(!s.lang) plumbing.push('no lang attribute, so screen readers guess the pronunciation');
+  if(!s.canonical) plumbing.push('no canonical link');
+  if(s.images.missingAlt) plumbing.push(`${s.images.missingAlt} image${s.images.missingAlt > 1 ? 's' : ''} without alt text`);
+  if(s.forms.unlabelled) plumbing.push(`${s.forms.unlabelled} form field${s.forms.unlabelled > 1 ? 's' : ''} with nothing naming it`);
+  if(d.redirects.length) plumbing.push(`${d.redirects.length} redirect${d.redirects.length > 1 ? 's' : ''} before the page even starts`);
+  if(plumbing.length){
+    add('the plumbing',
+      'None of this loses a visitor on its own. Together it is the sound of a house nobody has walked through in a while.',
+      plumbing, true);
+  }
+
+  return F;
+}
+
+/* ---------- rendering ---------- */
+function render(d){
+  const F = roast(d);
+  const hard = F.filter(f => !f.soft).length;
+  const cls = !F.length ? 'clean' : hard === 0 ? 'mild' : '';
+  const line = !F.length
+    ? 'Nothing here costs a visitor anything. That is rare enough to be suspicious, so read it yourself before you believe me.'
+    : hard === 0
+      ? 'Nothing serious. What is left is the sort of thing that only shows up once the page has traffic worth losing.'
+      : `${hard} thing${hard > 1 ? 's' : ''} a visitor pays for, in the order they hit them.`;
+
+  const host = (() => { try { return new URL(d.finalUrl).host; } catch { return d.finalUrl; } })();
+
+  out.innerHTML = `
+    <div class="verdict ${cls}">
+      <p class="score">verdict · ${esc(host)} · ${d.signals.wordCount} words of served copy</p>
+      <p>${esc(line)}</p>
+    </div>
+    <div class="tally">
+      <span><b>${Math.round(d.htmlBytes / 1024)}</b> KB html</span>
+      <span><b>${d.ms}</b> ms</span>
+      <span><b>${d.signals.links.total}</b> links</span>
+      <span><b>${d.signals.images.total}</b> images</span>
+      <span><b>${d.signals.thirdPartyHosts.length}</b> other domains</span>
+      ${d.htmlTruncated ? '<span><b>read</b> partially, the page is enormous</span>' : ''}
+    </div>
+    ${F.map((f, i) => `
+      <div class="finding${f.soft ? ' soft' : ''}">
+        <div class="head"><span class="tag">${esc(f.tag)}</span><span class="n">${String(i + 1).padStart(2, '0')}</span></div>
+        <p class="say">${esc(f.say)}</p>
+        ${f.hits.length ? `<ul class="hits">${f.hits.map(h => `<li>${/^<code>/.test(h) ? h : esc(h)}</li>`).join('')}</ul>` : ''}
+      </div>`).join('')}
+  `;
+  next.hidden = false;
+}
+
+function fail(msg){
+  out.innerHTML = `<div class="verdict"><p class="score">no roast</p><p>${esc(msg)}</p></div>`;
+  next.hidden = true;
+}
+
+async function run(raw){
+  const url = raw.trim();
+  if(!url) return;
+  out.innerHTML = '<p class="stage">Fetching the page the way a stranger would...</p>';
+  next.hidden = true;
+  go.disabled = true;
+  try{
+    const res = await fetch(API + '?url=' + encodeURIComponent(url), { headers: { 'Accept': 'application/json' } });
+    const data = await res.json();
+    if(!data.ok){ fail(data.error); return; }
+    render(data);
+  }catch(err){
+    fail('The reader itself did not answer. That one is on me, not on the page.');
+  }finally{
+    go.disabled = false;
+  }
+}
+
+document.getElementById('form').addEventListener('submit', e => {
+  e.preventDefault();
+  let v = input.value.trim();
+  if(v && !/^https?:\/\//i.test(v)){ v = 'https://' + v; input.value = v; }
+  run(v);
+});
+document.getElementById('clr').addEventListener('click', () => {
+  input.value = ''; out.innerHTML = ''; next.hidden = true; input.focus();
+});
+document.querySelectorAll('.samples a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    input.value = a.dataset.url;
+    run(a.dataset.url);
+  });
+});
+
+/* theme, remembered across the shelf */
+const th = document.getElementById('th');
+const paint = () => { th.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; };
+th.addEventListener('click', () => {
+  const now = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', now);
+  localStorage.setItem('hydra-theme', now);
+  paint();
+});
+paint();
+</script>
+</body>
+</html>
