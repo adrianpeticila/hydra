@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nothing here · Hydra</title>
+<meta name="description" content="This address is not on the shelf.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);
+  line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+.lede{font-size:1.15rem;max-width:34rem;margin:0 0 3rem;color:var(--fg)}
+.shelf{list-style:none;padding:0;margin:0 0 6rem;max-width:34rem;
+  border-top:1px solid var(--rule)}
+.shelf li{border-bottom:1px solid var(--rule)}
+.shelf a{display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;
+  padding:1rem 0;text-decoration:none;transition:color .15s}
+.shelf a:hover{color:var(--red)}
+.shelf b{font-weight:500;font-size:1rem}
+.shelf span{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mid)}
+@media(max-width:700px){ .masthead{padding:6.5rem 0 0} }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· 404</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="masthead">
+    <p class="eyebrow">404</p>
+    <h1>nothing here</h1>
+    <p class="lede">You cut off a head that was never on the shelf. The ones that are:</p>
+    <ul class="shelf">
+      <li><a href="https://hydra.peticila.ro/slop/"><b>Slop Detector</b> <span>free</span></a></li>
+      <li><a href="https://hydra.peticila.ro/roast/"><b>Homepage Roaster</b> <span>free</span></a></li>
+      <li><a href="https://hydra.peticila.ro/canon/"><b>Canon</b> <span>free</span></a></li>
+      <li><a href="https://hydra.peticila.ro/guilt/"><b>The Guilt Trip</b> <span>free</span></a></li>
+      <li><a href="https://aah.monster/voice-fingerprint/"><b>Voice Fingerprint</b> <span>paid</span></a></li>
+      <li><a href="https://hydra.peticila.ro/"><b>The shelf itself</b> <span>index</span></a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/canon/">Canon</a>
+    <a href="https://hydra.peticila.ro/guilt/">The Guilt Trip</a>
+    <a href="https://aah.monster/voice-fingerprint/">Voice Fingerprint</a>
+    <a href="https://peticila.ro/#now">Right now</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-07-31">Updated July 2026</time></span>
+  </div>
+</footer>
+
+<script>
+var th = document.getElementById('th');
+function sync(){ th.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; }
+sync();
+th.addEventListener('click', function(){
+  var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('hydra-theme', next);
+  sync();
+});
+</script>
+
+</body>
+</html>
