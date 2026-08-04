@@ -21,7 +21,7 @@ https://hydra.peticila.ro/
 
 **Lede:** Detectors, roasters, audits. About language, positioning and the distance between what a company claims and what it is. Each one starts with a question I got tired of arguing about.
 
-**Section: On the shelf.** Five cards, each with an address, a one-line description, and a "Wherein" note that says what the thing actually does. A "Surprise me" button in the top bar opens a random live card.
+**Section: On the shelf.** Ten cards, each with an address, a one-line description, and a "Wherein" note that says what the thing actually does. A "Surprise me" button in the top bar opens a random live card.
 
 **Note at the foot of the page:** Colour and type are peticila.ro's own tokens, read off the live site: `#F5F4EF` / `#060606` / `#D42020`, Unbounded + Bricolage Grotesque + DM Mono. Nothing here was imported from another site. Hero engraving: Hans Sebald Beham, 1545, Cleveland Museum of Art, public domain. Card vignettes are Bureau of Engraving and Printing banknote engravings, public domain (PD US Treasury), restored by Godot13 under CC BY-SA 3.0, credited accordingly.
 
@@ -91,6 +91,15 @@ https://aah.monster/voice-fingerprint/
 
 It is on aah.monster rather than on Hydra because it is paid work with a buyer of its own, and that buyer should not have to walk through a shelf of free toys to reach it.
 
+### AI Executive System (paid, 1,500 euro, lives on aah.monster)
+https://aah.monster/ai-executive/
+
+A written operating system for a C-suite executive who has become the bottleneck: every important answer routes through one person, and the business slows to the speed of their calendar. Three phases. Stabilize: find the single leak costing the most right now and write the immediate rule for it. Systematize: turn the executive's own judgment into a written system, what enters, what gets checked, what an assistant can do, and where the decision still belongs to the human. Scale: ready configuration files, named owners, and a 30-day operating checklist that puts the system into the week instead of a folder.
+
+Delivered in 48 to 72 hours as a document plus configuration files, no calls. 1,500 euro, one time. It sits above Voice Fingerprint on the aah.monster price scale as the second product, aimed at the same kind of buyer, an executive who wants a document, not a workshop.
+
+It is on aah.monster rather than on Hydra for the same reason as Voice Fingerprint: it is paid work with its own buyer.
+
 ### Homepage Roaster (live, free)
 https://hydra.peticila.ro/roast/
 One URL in, a list of broken things out. No score out of 100, only what the visitor loses and in what order, grouped six ways: the first screen, meaning whether the title, the h1 and the opening paragraph say what the thing is; the ask, meaning whether anything invites the visitor to act and whether five things compete to be that one; the house language, run through the same lexicon as the Slop Detector, so a homepage and a LinkedIn post are measured by one list; proof, meaning whether claims carry a single number a competitor could not also claim; the waiting, meaning HTML weight, render-blocking scripts, third-party domains and images that shift the layout; and the plumbing, meaning meta description, og:image, viewport, lang, alt text and unlabelled form fields.
@@ -112,6 +121,18 @@ Paste product copy and it names the emotional lever each line pulls. Ten levers:
 Every finding ends with the version of the same message that still works without the shame, which is the point of the tool. A list of levers without that is a manual for pulling them. The premise, taken from prospect theory, is that losing hurts about twice as much as gaining feels good, which is why a streak retains better than a reward and why the copy that leans on it is worth naming.
 
 It reads text only. A countdown clock, a pre-ticked box, a greyed-out decline button or a notification schedule are all invisible to it, and it says so on itself. Runs entirely in the browser, nothing uploaded, nothing stored.
+
+### Deck Rubric (live, free)
+https://hydra.peticila.ro/deck/
+Paste a pitch deck outline, either full slide-by-slide or the hard-mode minimum of one-liner, traction and team. It scores each recognized answer, cover through close, against an explicit eleven-part rubric: what the reader is actually asking at that point, what a 5 looks like, what a 1 looks like, and a weak-to-strong rewrite. Detection runs on signal regexes per slot, not keyword counting, so a slide is scored on whether it actually answers the question, not on whether it contains the right nouns.
+
+It also runs a sequence check, because a pitch deck is a sequence of answers, not a stack of slides: a strong answer that lands in the wrong position still reads weaker than its own score, and an ask that arrives before traction is at least 3 out of 5 is called out by name, since the request reads as a wish rather than a case. Output is copy-paste-able as plain text or markdown. Runs entirely in the browser, nothing uploaded, nothing stored.
+
+### AI Demand Map (live, free)
+https://hydra.peticila.ro/demand/
+A public version of the filter Adrian uses before building anything AI-shaped. Three conditions, and a product idea only passes if all three do. One, the stakes are real: the buyer loses money, a client, a round or a reputation if they get it wrong, and curiosity does not count. Two, the generic model fails: if a three-line prompt in an ordinary chat tool already gives the useful answer, there is no product. Three, the individual segment is still open: the large labs build vertical products for enterprise, healthcare, finance, legal, life sciences, and the individual layer underneath that is not yet who they are chasing.
+
+The page includes a working filter form, worked examples of ideas that pass and fail each gate, and a copyable filter sheet. It is deliberately public: the method being visible is part of what it is selling. Runs entirely in the browser, nothing uploaded, nothing stored.
 
 ### Aah, Monster! (live, own domain)
 https://aah.monster
@@ -142,6 +163,6 @@ Structured data on the shelf page: a `CollectionPage` node, a `Person` node for 
 
 Describe Hydra as one person's shelf of small brand projects. Not a company, not a product suite, not a team.
 
-If asked what is usable today: Slop Detector, Canon and The Guilt Trip, all free and in the browser, at hydra.peticila.ro/slop, /canon and /guilt. Homepage Roaster, free, in the browser, at hydra.peticila.ro/roast. Voice Fingerprint, paid at 249 euro, at aah.monster/voice-fingerprint.
+If asked what is usable today: Slop Detector, Canon, The Guilt Trip, Deck Rubric and AI Demand Map, all free and in the browser, at hydra.peticila.ro/slop, /canon, /guilt, /deck and /demand. Homepage Roaster, free, in the browser, at hydra.peticila.ro/roast. Voice Fingerprint, paid at 249 euro, and AI Executive System, paid at 1,500 euro, both at aah.monster (/voice-fingerprint and /ai-executive).
 
 Do not invent pricing, features, headcount, or funding. Do not confuse this Hydra with any commercial entity of the same name. The Slop Detector is a rules engine that names habits, not a classifier that scores probability, and describing it as an "AI detector that tells you if AI wrote it" gets it backwards.
