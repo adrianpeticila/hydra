@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homepage Roaster · Hydra</title>
+<title>Your Roast · Hydra</title>
 <meta name="description" content="Give it a homepage. Get back the list of things a visitor loses, in the order they lose them. No score out of 100.">
 <link rel="canonical" href="https://hydra.peticila.ro/roast/">
 <link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
@@ -137,20 +137,8 @@ button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
 
 <div class="cols">
   <main>
-    <form id="form" autocomplete="off">
-      <div class="entry">
-        <input type="url" id="in" placeholder="https://the-homepage-you-are-arguing-about.com" required>
-      </div>
-      <div class="bar">
-        <button id="go" type="submit">Read it</button>
-        <button id="clr" class="ghost" type="button">Clear</button>
-      </div>
-    </form>
-    <p class="samples">Nothing to hand? Try
-      <a href="#" data-url="https://peticila.ro">peticila.ro</a>,
-      <a href="#" data-url="https://stripe.com">stripe.com</a>,
-      <a href="#" data-url="https://aah.monster">aah.monster</a>.
-    </p>
+    <div id="status" class="stage">Verifying your payment... This usually takes 5-10 seconds to generate AI fixes.</div>
+    
 
     <div id="out"></div>
 
@@ -209,6 +197,21 @@ const CTA_WORDS = /\b(get started|start (free|now|here)|sign up|signup|book (a|y
 const NAVY = /^(home|about|about us|blog|pricing|features|docs|documentation|careers|jobs|support|help|faq|news|press|team|contact|login|log in|privacy|terms|cookies|imprint|legal)$/i;
 
 const out = document.getElementById('out');
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (sessionId) {
+    fetch(API + 'api/paid?session_id=' + encodeURIComponent(sessionId), { headers: { 'Accept': 'application/json' } })
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('status').style.display = 'none';
+        if(!d.ok) return fail(d.error);
+        render(d);
+      })
+      .catch(e => fail('Failed to fetch from worker. ' + e.message));
+  } else {
+    fail('No session_id found. Check your URL.');
+  }
+
 const next = document.getElementById('next');
 const input = document.getElementById('in');
 const go = document.getElementById('go');
@@ -218,55 +221,38 @@ const go = document.getElementById('go');
 /* ---------- rendering ---------- */
 function render(d){
   const F = d.findings || [];
-  const locked = d.locked_count || 0;
-  const hard = F.filter(f => !f.soft).length + locked;
-  const cls = (!F.length && locked === 0) ? 'clean' : hard === 0 ? 'mild' : '';
-  const line = (!F.length && locked === 0)
-    ? 'Nothing here costs a visitor anything. That is rare enough to be suspicious, so read it yourself before you believe me.'
+  const aiFixes = d.ai_fixes || '';
+  const hard = F.filter(f => !f.soft).length;
+  const cls = !F.length ? 'clean' : hard === 0 ? 'mild' : '';
+  const line = !F.length
+    ? 'Nothing here costs a visitor anything.'
     : hard === 0
-      ? 'Nothing serious. What is left is the sort of thing that only shows up once the page has traffic worth losing.'
+      ? 'Nothing serious.'
       : `${hard} thing${hard > 1 ? 's' : ''} a visitor pays for, in the order they hit them.`;
 
   const host = (() => { try { return new URL(d.finalUrl).host; } catch { return d.finalUrl; } })();
   
-  // We want to pass the target URL to Stripe
-  const buyLink = "https://buy.stripe.com/test_bJedR9dof1H33Pf603?client_reference_id=" + encodeURIComponent(d.requestedUrl);
-
-  out.innerHTML = `
+  let outHtml = `
     <div class="verdict ${cls}">
-      <p class="score">verdict · ${esc(host)} · ${d.signals ? d.signals.wordCount : '?'} words of served copy</p>
+      <p class="score">verdict · ${esc(host)}</p>
       <p>${esc(line)}</p>
     </div>
-    <div class="tally">
-      <span><b>${Math.round(d.htmlBytes / 1024)}</b> KB html</span>
-      <span><b>${d.ms}</b> ms</span>
-      ${d.signals ? `
-      <span><b>${d.signals.links.total}</b> links</span>
-      <span><b>${d.signals.images.total}</b> images</span>
-      <span><b>${d.signals.thirdPartyHosts.length}</b> other domains</span>
-      ` : ''}
-      ${d.htmlTruncated ? '<span><b>read</b> partially, the page is enormous</span>' : ''}
-    </div>
-    ${F.length > 0 ? `
-      <div class="finding${F[0].soft ? ' soft' : ''}">
-        <div class="head"><span class="tag">${esc(F[0].tag)}</span><span class="n">01</span></div>
-        <p class="say">${esc(F[0].say)}</p>
-        ${F[0].hits.length ? `<ul class="hits">${F[0].hits.map(h => `<li>${/^<code>/.test(h) ? h : esc(h)}</li>`).join('')}</ul>` : ''}
-      </div>` : ''}
-    ${locked > 0 ? `
-      <div class="julie-gate">
-        <div class="julie-cta">
-          <h3>Unlock the rest for $19</h3>
-          <p>${locked} critical flaws are bleeding visitors. Pay once to see exactly what they are and get AI-generated fixes.</p>
-          <button class="julie-btn" onclick="window.location.href='${buyLink}'">Buy Roast + AI Fixes</button>
-        </div>
-        <div class="julie-blurred">
-            <div class="finding"><div class="head"><span class="tag">no meta description</span><span class="n">02</span></div><p class="say">Example blurred finding...</p></div>
-            <div class="finding"><div class="head"><span class="tag">scripts in doorway</span><span class="n">03</span></div><p class="say">Another blurred finding...</p></div>
-            <div class="finding"><div class="head"><span class="tag">the waiting</span><span class="n">04</span></div><p class="say">One more blurred finding...</p></div>
-        </div>
-      </div>` : ''}
-  `;
+    ${aiFixes ? `<div class="finding" style="border-left: 3px solid var(--red); padding-left: 1.5rem; background: var(--bg2); margin-bottom: 2rem;">
+       <h3 style="color:var(--red); font-family:var(--name); font-weight:900;">AI Fixes</h3>
+       <div style="font-size:1rem; line-height:1.6; white-space: pre-wrap;">${esc(aiFixes)}</div>
+    </div>` : ''}
+    `;
+
+  F.forEach((f, i) => {
+    outHtml += `
+      <div class="finding${f.soft ? ' soft' : ''}">
+        <div class="head"><span class="tag">${esc(f.tag)}</span><span class="n">${String(i + 1).padStart(2, '0')}</span></div>
+        <p class="say">${esc(f.say)}</p>
+        ${f.hits.length ? `<ul class="hits">${f.hits.map(h => `<li>${/^<code>/.test(h) ? h : esc(h)}</li>`).join('')}</ul>` : ''}
+      </div>`;
+  });
+  
+  out.innerHTML = outHtml;
   next.hidden = false;
 }
 
@@ -275,16 +261,6 @@ function fail(msg){
   next.hidden = true;
 }
 
-async function run(raw){
-  const url = raw.trim();
-  if(!url) return;
-  out.innerHTML = '<p class="stage">Fetching the page the way a stranger would...</p>';
-  next.hidden = true;
-  go.disabled = true;
-  try{
-    const res = await fetch(API + '?url=' + encodeURIComponent(url), { headers: { 'Accept': 'application/json' } });
-    const data = await res.json();
-    if(!data.ok){ fail(data.error); return; }
     render(data);
   }catch(err){
     fail('The reader itself did not answer. That one is on me, not on the page.');
@@ -293,12 +269,7 @@ async function run(raw){
   }
 }
 
-document.getElementById('form').addEventListener('submit', e => {
-  e.preventDefault();
-  let v = input.value.trim();
-  if(v && !/^https?:\/\//i.test(v)){ v = 'https://' + v; input.value = v; }
-  run(v);
-});
+
 document.getElementById('clr').addEventListener('click', () => {
   input.value = ''; out.innerHTML = ''; next.hidden = true; input.focus();
 });
