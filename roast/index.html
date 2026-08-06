@@ -230,7 +230,7 @@ function render(d){
   const host = (() => { try { return new URL(d.finalUrl).host; } catch { return d.finalUrl; } })();
   
   // We want to pass the target URL to Stripe
-  const buyLink = "https://buy.stripe.com/test_bJedR9dof1H33Pf603?client_reference_id=" + encodeURIComponent(d.requestedUrl);
+  const buyLink = "https://buy.stripe.com/4gM8wP3V7gkCb6w2RjaIM05?client_reference_id=" + encodeURIComponent(d.requestedUrl);
 
   out.innerHTML = `
     <div class="verdict ${cls}">
