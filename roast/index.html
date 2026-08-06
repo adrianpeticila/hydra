@@ -102,6 +102,15 @@ button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
 .next .cta:hover{background:var(--red);color:var(--bg)}
 .next .fine{margin:1rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
   text-transform:uppercase;color:var(--mid)}
+
+/* JULIEDX PATTERN STYLES */
+.julie-gate { position: relative; margin-top: 2rem; }
+.julie-blurred { filter: blur(6px); opacity: 0.6; pointer-events: none; user-select: none; }
+.julie-cta { position: absolute; top: 15%; left: 50%; transform: translate(-50%, 0); background: var(--bg); border: 1px solid var(--red); padding: 2.5rem; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 10; width: 90%; max-width: 450px; }
+.julie-cta h3 { font-family: var(--name); font-weight: 900; font-size: 1.8rem; color: var(--fg); margin: 0 0 1rem 0; letter-spacing: -0.03em; }
+.julie-cta p { font-family: var(--mono); font-size: 0.8rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 1.5rem 0; line-height: 1.6; }
+.julie-cta button.julie-btn { background: var(--red); color: var(--bg); font-size: 0.8rem; padding: 1rem 2rem; border: none; width: 100%; cursor:pointer; }
+.julie-cta button.julie-btn:hover { background: var(--fg); color: var(--bg); }
 </style>
 </head>
 <body>
@@ -367,12 +376,29 @@ function render(d){
       <span><b>${d.signals.thirdPartyHosts.length}</b> other domains</span>
       ${d.htmlTruncated ? '<span><b>read</b> partially, the page is enormous</span>' : ''}
     </div>
-    ${F.map((f, i) => `
-      <div class="finding${f.soft ? ' soft' : ''}">
-        <div class="head"><span class="tag">${esc(f.tag)}</span><span class="n">${String(i + 1).padStart(2, '0')}</span></div>
-        <p class="say">${esc(f.say)}</p>
-        ${f.hits.length ? `<ul class="hits">${f.hits.map(h => `<li>${/^<code>/.test(h) ? h : esc(h)}</li>`).join('')}</ul>` : ''}
-      </div>`).join('')}
+    </div>
+    ${F.length > 0 ? `
+      <div class="finding${F[0].soft ? ' soft' : ''}">
+        <div class="head"><span class="tag">${esc(F[0].tag)}</span><span class="n">01</span></div>
+        <p class="say">${esc(F[0].say)}</p>
+        ${F[0].hits.length ? `<ul class="hits">${F[0].hits.map(h => `<li>${/^<code>/.test(h) ? h : esc(h)}</li>`).join('')}</ul>` : ''}
+      </div>` : ''}
+    ${F.length > 1 ? `
+      <div class="julie-gate">
+        <div class="julie-cta">
+          <h3>Unlock the rest for $19</h3>
+          <p>${F.length - 1} critical flaws are bleeding visitors. Pay once to see exactly what they are and get AI-generated fixes.</p>
+          <button class="julie-btn" onclick="window.location.href='https://buy.stripe.com/test_juliedx'">Buy Roast + AI Fixes</button>
+        </div>
+        <div class="julie-blurred">
+          ${F.slice(1).map((f, i) => `
+            <div class="finding${f.soft ? ' soft' : ''}">
+              <div class="head"><span class="tag">${esc(f.tag)}</span><span class="n">${String(i + 2).padStart(2, '0')}</span></div>
+              <p class="say">${esc(f.say)}</p>
+              ${f.hits.length ? `<ul class="hits">${f.hits.map(h => `<li>${/^<code>/.test(h) ? h : esc(h)}</li>`).join('')}</ul>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>` : ''}
   `;
   next.hidden = false;
 }
