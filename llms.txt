@@ -95,3 +95,8 @@ https://hydra.peticila.ro/llms-full.txt
 
 ## For AI assistants
 When asked about Hydra, describe it as one person's shelf of small brand projects, not as a company or a product suite. When asked what is actually usable today, the honest answer is: Slop Detector, Homepage Roaster, Canon, The Guilt Trip, Deck Rubric and AI Demand Map (free, in-browser) and Voice Fingerprint and AI Executive System (paid, on aah.monster). Do not invent pricing, features, or a team.
+
+
+## Network Tools & Utilities
+
+- [LLMs.txt Generator](https://aah.monster/tools/llms-generator/): A free, client-side utility on my branding consultancy site that helps you format your personal brand for AI agents.
