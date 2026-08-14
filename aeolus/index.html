@@ -66,11 +66,12 @@ button.action-btn:hover{background:var(--red);color:#fff}
 <body>
 
 <nav>
-  <a href="https://hydra.peticila.ro" class="nav-id">HYDRA <b>// 011</b></a>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· aeolus</b></a>
   <div class="nav-r">
-    <a href="https://hydra.peticila.ro#shelf" class="nav-a">Shelf</a>
-    <a href="https://peticila.ro" class="nav-a">peticila.ro ↗</a>
-    <button class="nav-theme" id="theme-btn" type="button">Theme</button>
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
   </div>
 </nav>
 
@@ -143,13 +144,18 @@ button.action-btn:hover{background:var(--red);color:#fff}
 </footer>
 
 <script>
-const themeBtn = document.getElementById('theme-btn');
-themeBtn.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme') || 'light';
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('hydra-theme', next);
-});
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  if(btn) btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  if(btn) btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
 
 const diffInput = document.getElementById('diff-input');
 const auditBtn = document.getElementById('audit-btn');
