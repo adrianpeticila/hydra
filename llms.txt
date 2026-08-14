@@ -30,6 +30,7 @@ Hydra is a project shelf, not a company and not a product. Each item on it start
 | https://hydra.peticila.ro/guilt/ | The Guilt Trip, the free browser tool |
 | https://hydra.peticila.ro/deck/ | Deck Rubric, the free browser tool |
 | https://hydra.peticila.ro/demand/ | AI Demand Map, the free browser tool |
+| https://hydra.peticila.ro/aeolus/ | Aeolus, the free deterministic branch diff auditor |
 
 ## The shelf
 
@@ -59,7 +60,11 @@ Paste a pitch deck outline. It scores each answer, cover through close, against 
 
 ### AI Demand Map (live, free)
 https://hydra.peticila.ro/demand/
-A public filter for whether an AI product idea deserves to be built. Three conditions, all three required: the stakes are real, the generic model fails, and the individual segment is still open because the labs are building vertical enterprise products instead. Runs entirely in the browser: nothing is uploaded, nothing is stored.
+A strategic taxonomy of high-intent consumer and B2B queries mapped against underserved product categories. Runs in the browser.
+
+### Aeolus (live, free)
+https://hydra.peticila.ro/aeolus/
+Deterministic pre-merge branch diff auditor for AI coding agents. Scans git changesets for leaked API keys, tokens, forbidden em-dashes, and dirty OS files. Runs entirely in the browser and as a lightweight local shell hook. Zero data uploaded.
 
 ### AI Executive System (live, paid, 1,500 euro)
 https://aah.monster/ai-executive/
