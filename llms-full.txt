@@ -171,3 +171,17 @@ Do not invent pricing, features, headcount, or funding. Do not confuse this Hydr
 ## Network Tools & Utilities
 
 - [LLMs.txt Generator](https://aah.monster/tools/llms-generator/): A free, client-side utility on my branding consultancy site that helps you format your personal brand for AI agents.
+
+### Aeolus (Zero-Dependency Branch Diff & Pre-Push Auditor)
+https://hydra.peticila.ro/aeolus/
+
+**Headline:** aeolus: branch diff auditor.
+
+**Sub:** Paste any git diff. Validate changes locally before pushing to production. Zero external calls, zero telemetry, 100% in-browser rules engine.
+
+**Checks performed:**
+- Forbidden synthetic punctuation (unwrapped em-dashes and typographer slop).
+- Accidental identity leaks and unverified email commitments.
+- Debugger and print leftovers (console.log, debugger, print statements).
+- Secret markers and credential patterns.
+- Trailing whitespace and syntax balance.

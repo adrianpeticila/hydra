@@ -15,6 +15,7 @@ Nine heads, one neck. Each project answers one question about language, position
 |---|---|---|
 | B2B Bullshit Detector | [hydra.peticila.ro/bullshit-detector](https://hydra.peticila.ro/bullshit-detector/) | live, free, runs in your browser |
 | Slop Detector | [hydra.peticila.ro/slop](https://hydra.peticila.ro/slop/) | live, free, runs in your browser |
+| Aeolus | [hydra.peticila.ro/aeolus](https://hydra.peticila.ro/aeolus/) | live, free, runs in your browser |
 | Voice Fingerprint | [aah.monster/voice-fingerprint](https://aah.monster/voice-fingerprint/) | live, paid, 249 euro |
 | Homepage Roaster | [hydra.peticila.ro/roast](https://hydra.peticila.ro/roast/) | live, freemium (19 euro paywall), CF Workers + AI backend |
 | Canon | [hydra.peticila.ro/canon](https://hydra.peticila.ro/canon/) | live, free, runs in your browser |
