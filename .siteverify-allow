@@ -1,5 +1,5 @@
 # Fisiere care ajung in setul de publicare dar sunt legitime.
-# Verificat cu curl inainte de a fi trecute aici — nu presupune, probeaza.
+# Verificat cu curl inainte de a fi trecute aici - nu presupune, probeaza.
 
 # GitHub Pages serveste continutul repo-ului, deci README.md ajunge la
 # https://hydra.peticila.ro/README.md ca text servit 200. Nu contine nimic
@@ -11,3 +11,9 @@ README.md
 # Acest fisier se publica pe sine, din acelasi motiv. E o lista de decizii, nu
 # un secret. Aceeasi situatie ca pe zerohypelab.com.
 .siteverify-allow
+
+# Public CLI scripts companion utilities
+athena/athena.py
+cadmus/cadmus.py
+chasm/chasm.py
+tyche/tyche.py
