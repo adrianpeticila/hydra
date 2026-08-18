@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Athena · Brand Assets & OG Generator · Hydra</title>
+<meta name="description" content="Generate deterministic OpenGraph cards and editorial brand covers directly from design tokens in pure SVG. Zero Figma at runtime, zero Canva subscriptions.">
+<link rel="canonical" href="https://hydra.peticila.ro/athena/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Athena · Brand Assets & OG Generator · Hydra">
+<meta property="og:description" content="Generate deterministic OpenGraph cards and editorial brand covers directly from design tokens in pure SVG. Zero Figma at runtime, zero Canva subscriptions.">
+<meta property="og:url" content="https://hydra.peticila.ro/athena/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/athena/#app",
+  "name": "Athena",
+  "url": "https://hydra.peticila.ro/athena/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Deterministic brand asset and OpenGraph card generator. Outputs pure vector SVG and high-resolution PNGs directly in browser.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:54ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){.cols{grid-template-columns:minmax(0,1fr);gap:2.5rem}}
+.cols>main{min-width:0}
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){.art{max-width:16rem}}
+
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem}
+@media(max-width:640px){.editor-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:.35rem}
+.field label{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.field input, .field select{background:var(--bg2);color:var(--fg);border:1px solid var(--rule);padding:.75rem;font-size:.92rem;font-family:var(--body);outline:none}
+.field input:focus, .field select:focus{border-color:var(--red)}
+
+.preview-container{margin:2rem 0;border:1px solid var(--rule);background:var(--bg2);padding:1rem;display:flex;justify-content:center}
+.svg-wrap{width:100%;max-width:700px;box-shadow:0 10px 30px rgba(0,0,0,0.15)}
+.svg-wrap svg{width:100%;height:auto;display:block}
+
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1.2rem 0 2rem}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:58ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s,color .15s;margin-right:.8rem;margin-bottom:.6rem}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· athena</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 015 · athena</p>
+  <h1>brand assets without the design <em>tax</em></h1>
+  <p class="sub">Generate deterministic OpenGraph cards and editorial brand covers directly from design tokens in pure SVG. Zero Figma at runtime, zero Canva subscriptions, zero cloud latency. Download SVG or render high-res PNG directly in your browser.</p>
+  <p class="only">Pure vector SVG generator. All design tokens, variable sizing, and typography scales run client-side.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <div class="editor-grid">
+      <div class="field" style="grid-column: span 2;">
+        <label>Main Headline</label>
+        <input type="text" id="og-title" value="Brand Assets Without The Design Tax">
+      </div>
+      <div class="field">
+        <label>Kicker / Eyebrow</label>
+        <input type="text" id="og-kicker" value="HYDRA · 015 · ATHENA">
+      </div>
+      <div class="field">
+        <label>Colorway Scheme</label>
+        <select id="og-colorway">
+          <option value="light">Clean Paper (Light Cream / Red Accent)</option>
+          <option value="dark">Dark Obsidian (Charcoal / Red Accent)</option>
+          <option value="crimson">Crimson Impact (Solid Red / White)</option>
+          <option value="slate">Minimal Slate (Deep Slate / Neutral)</option>
+        </select>
+      </div>
+      <div class="field" style="grid-column: span 2;">
+        <label>Sub-Headline / Descriptor</label>
+        <input type="text" id="og-desc" value="Deterministic vector card generator running entirely in pure code.">
+      </div>
+      <div class="field">
+        <label>Author / Domain Stamp</label>
+        <input type="text" id="og-stamp" value="ADRIAN M. PETICILA · PETICILA.RO">
+      </div>
+      <div class="field">
+        <label>Category Label</label>
+        <input type="text" id="og-cat" value="OPERATING SYSTEM">
+      </div>
+    </div>
+
+    <div class="preview-container">
+      <div class="svg-wrap" id="svg-host">
+        <!-- SVG injected here -->
+      </div>
+    </div>
+
+    <div class="bar">
+      <button id="btn-dl-svg">Download SVG</button>
+      <button id="btn-dl-png" class="ghost">Download PNG (1200x630)</button>
+      <button id="btn-dl-cli" class="ghost">Download athena.py</button>
+    </div>
+
+    <div class="next">
+      <p class="say">Next steps: Run your article draft through the Chasm editorial gate and optimize opening lines with Tyche.</p>
+      <a class="cta" href="https://hydra.peticila.ro/chasm/">editorial gate (chasm)</a>
+      <a class="cta" href="https://hydra.peticila.ro/tyche/">hook bank (tyche)</a>
+      <a class="cta" href="https://hydra.peticila.ro/slop/">slop detector</a>
+    </div>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-truth.jpg" width="400" height="200" alt="Steel engraving of Truth, an allegorical figure">
+      <figcaption>Truth, Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. Athena encodes brand rules into code so visual identity generates itself without design debt.</figcaption>
+    </figure>
+    <h2>Design Token Rules</h2>
+    <ul>
+      <li>Exact 1200×630 OG Standard</li>
+      <li>4 Operator Colorways</li>
+      <li>Dynamic Typography Scales</li>
+      <li>Monospace Metadata Stamps</li>
+      <li>Vector Export Pipeline</li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/athena/">Athena</a>
+    <a href="https://hydra.peticila.ro/cadmus/">Cadmus</a>
+    <a href="https://hydra.peticila.ro/tyche/">Tyche</a>
+    <a href="https://hydra.peticila.ro/chasm/">Chasm</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://hydra.peticila.ro/canon/">Canon</a>
+    <a href="https://hydra.peticila.ro/guilt/">The Guilt Trip</a>
+    <a href="https://hydra.peticila.ro/roast/">Homepage Roaster</a>
+    <a href="https://hydra.peticila.ro/deck/">Deck Rubric</a>
+    <a href="https://hydra.peticila.ro/demand/">AI Demand Map</a>
+    <a href="https://hydra.peticila.ro/aeolus/">Aeolus</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-08-18">Updated August 2026</time></span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const COLORWAYS = {
+  light: { bg: "#F5F4EF", bg2: "#ECEAE4", fg: "#060606", mid: "#555550", accent: "#D42020", rule: "#D8D6D0" },
+  dark: { bg: "#060606", bg2: "#0F0F0F", fg: "#F0EBE0", mid: "#909088", accent: "#D42020", rule: "#1A1A1A" },
+  crimson: { bg: "#D42020", bg2: "#B01818", fg: "#FFFFFF", mid: "#FFD6D6", accent: "#FFFFFF", rule: "#E04040" },
+  slate: { bg: "#181818", bg2: "#222222", fg: "#F5F4EF", mid: "#909088", accent: "#F5F4EF", rule: "#333333" }
+};
+
+function generateSVG(title, kicker, desc, stamp, cat, cwKey){
+  const cw = COLORWAYS[cwKey] || COLORWAYS.light;
+  
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&amp;family=DM+Mono:wght@400;500&amp;family=Unbounded:wght@900&amp;display=swap');
+      .title { font-family: 'Unbounded', sans-serif; font-weight: 900; fill: ${cw.accent}; text-transform: lowercase; letter-spacing: -0.04em; }
+      .desc { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500; fill: ${cw.fg}; }
+      .mono { font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; fill: ${cw.mid}; }
+      .tag { font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; fill: ${cw.accent}; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="${cw.bg}"/>
+  <rect x="30" y="30" width="1140" height="570" fill="none" stroke="${cw.rule}" stroke-width="1.5"/>
+  
+  <!-- Corner Crosses -->
+  <path d="M 22 30 L 38 30 M 30 22 L 30 38" stroke="${cw.accent}" stroke-width="2"/>
+  <path d="M 1162 30 L 1178 30 M 1170 22 L 1170 38" stroke="${cw.accent}" stroke-width="2"/>
+  <path d="M 22 600 L 38 600 M 30 592 L 30 608" stroke="${cw.accent}" stroke-width="2"/>
+  <path d="M 1162 600 L 1178 600 M 1170 592 L 1170 608" stroke="${cw.accent}" stroke-width="2"/>
+
+  <!-- Top Metadata Bar -->
+  <text x="70" y="85" class="mono">${kicker}</text>
+  <rect x="1000" y="66" width="130" height="28" fill="${cw.bg2}" stroke="${cw.rule}"/>
+  <text x="1065" y="85" text-anchor="middle" class="tag">${cat}</text>
+
+  <line x1="70" y1="115" x2="1130" y2="115" stroke="${cw.rule}" stroke-width="1"/>
+
+  <!-- Main Headline (Calculated wrap) -->
+  <text x="70" y="240" font-size="52" class="title">${title}</text>
+  
+  <!-- Subtitle -->
+  <text x="70" y="360" font-size="24" class="desc" opacity="0.9">${desc}</text>
+
+  <line x1="70" y1="515" x2="1130" y2="515" stroke="${cw.rule}" stroke-width="1"/>
+
+  <!-- Bottom Stamp -->
+  <text x="70" y="555" class="mono">${stamp}</text>
+  <text x="1130" y="555" text-anchor="end" class="mono">VERIFIED OPERATOR ASSET</text>
+</svg>`;
+}
+
+function updatePreview(){
+  const title = document.getElementById('og-title').value || "Headline";
+  const kicker = document.getElementById('og-kicker').value || "KICKER";
+  const desc = document.getElementById('og-desc').value || "Description text goes here.";
+  const stamp = document.getElementById('og-stamp').value || "STAMP";
+  const cat = document.getElementById('og-cat').value || "SYSTEM";
+  const cwKey = document.getElementById('og-colorway').value;
+
+  const svg = generateSVG(title, kicker, desc, stamp, cat, cwKey);
+  document.getElementById('svg-host').innerHTML = svg;
+}
+
+document.querySelectorAll('.editor-grid input, .editor-grid select').forEach(el => {
+  el.addEventListener('input', updatePreview);
+});
+
+document.getElementById('btn-dl-svg').onclick = () => {
+  const svgData = document.getElementById('svg-host').innerHTML;
+  const blob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'og-card-athena.svg';
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+document.getElementById('btn-dl-png').onclick = () => {
+  const svgEl = document.getElementById('svg-host').querySelector('svg');
+  const svgData = new XMLSerializer().serializeToString(svgEl);
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 630;
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0);
+    const pngUrl = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = pngUrl;
+    a.download = 'og-card-athena.png';
+    a.click();
+  };
+  img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+};
+
+document.getElementById('btn-dl-cli').onclick = () => {
+  window.location.href = "https://github.com/adrianpeticila/hydra/blob/main/athena/athena.py";
+};
+
+// Initialize
+updatePreview();
+
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
+</script>
+</body>
+</html>

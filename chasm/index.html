@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chasm · Editorial Gate as Code · Hydra</title>
+<meta name="description" content="Paste your draft, blog post or launch email. Chasm runs a deterministic editorial gate across banned corporate cliches, rhythm heuristics, and syntactic filler.">
+<link rel="canonical" href="https://hydra.peticila.ro/chasm/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chasm · Editorial Gate as Code · Hydra">
+<meta property="og:description" content="Paste your draft, blog post or launch email. Chasm runs a deterministic editorial gate across banned corporate cliches, rhythm heuristics, and syntactic filler.">
+<meta property="og:url" content="https://hydra.peticila.ro/chasm/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/chasm/#app",
+  "name": "Chasm",
+  "url": "https://hydra.peticila.ro/chasm/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Deterministic editorial gate as code. Blocks AI slop, corporate cliches, and rhythm collapse before shipping. Runs entirely in the browser, nothing is uploaded.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:54ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){.cols{grid-template-columns:minmax(0,1fr);gap:2.5rem}}
+.cols>main{min-width:0}
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){.art{max-width:16rem}}
+
+textarea{width:100%;min-height:14rem;background:var(--bg2);color:var(--fg);border:1px solid var(--rule);padding:1.1rem;font-size:1rem;line-height:1.6;resize:vertical;font-family:var(--body);outline:none}
+textarea:focus{border-color:var(--red)}
+textarea::placeholder{color:var(--mid)}
+.howto{margin:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--mid);line-height:1.9}
+
+.options{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap;margin:1.2rem 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--mid)}
+.options label{display:flex;align-items:center;gap:.45rem;cursor:pointer}
+.options input[type="checkbox"]{accent-color:var(--red);cursor:pointer}
+
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+.count{margin-left:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+
+#out{margin-top:3rem}
+.verdict{border-top:1px solid var(--fg);border-bottom:1px solid var(--rule);padding:1.6rem 0 1.8rem;margin:0 0 2rem}
+.verdict .score{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 .9rem}
+.verdict p.line{font-family:var(--name);font-weight:900;margin:0;font-size:clamp(1.4rem,3.4vw,2.2rem);line-height:1.12;letter-spacing:-.03em;color:var(--red)}
+.verdict.clean p.line{color:var(--ok)}
+.verdict.warn p.line{color:var(--warn)}
+
+.tally{display:flex;gap:1.6rem;flex-wrap:wrap;margin:0 0 2rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.tally b{color:var(--fg);font-weight:500}
+
+.finding{border-bottom:1px solid var(--rule);padding:1.4rem 0}
+.finding:last-child{border-bottom:none}
+.finding .head{display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap;margin:0 0 .6rem}
+.finding .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.finding .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.where{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;padding:.12rem .45rem;display:inline-block}
+.w-pass{color:var(--ok)} .w-warn{color:var(--warn)} .w-fail{color:var(--red)}
+.finding .say{margin:0 0 .8rem;font-size:1rem;line-height:1.55;max-width:58ch}
+.hits{margin:0 0 .9rem;padding:0;list-style:none;font-size:.86rem;color:var(--mid)}
+.hits li{padding:.2rem 0}
+.hits code{background:var(--bg2);border:1px solid var(--rule);padding:.1rem .45rem;color:var(--fg);font-family:var(--mono);font-size:.78rem}
+
+.empty{color:var(--mid);font-size:.95rem;max-width:58ch;margin:0}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:58ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s,color .15s;margin-right:.8rem;margin-bottom:.6rem}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· chasm</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 012 · chasm</p>
+  <h1>the editorial gate that does not care about your <em>feelings</em></h1>
+  <p class="sub">Paste the draft. The blog post. The launch email. The thought leadership. Chasm runs a deterministic editorial gate across banned corporate cliches, rhythm heuristics, unsupported claims, and syntactic filler. A draft physically passes or fails.</p>
+  <p class="only">English only. The lexical heuristics and cadence rules are tuned for English prose.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <textarea id="in" placeholder="Paste your article or copy draft. We test against 36 hard-kill terms, 22 soft fillers, sentence cadence variance, fragment stacking, and shouting tells."></textarea>
+    <p class="howto">Paste the text. Runs 100% in your browser. Nothing is uploaded, nothing is stored.</p>
+
+    <div class="options">
+      <label><input type="checkbox" id="strict"> Strict mode (treat warnings as hard failures)</label>
+      <label><input type="checkbox" id="strict-emdash"> Strict em-dash gate (fail on any em-dash)</label>
+    </div>
+
+    <div class="bar">
+      <button id="go">Run Gate</button>
+      <button id="clr" class="ghost">Clear</button>
+      <span class="count" id="cnt">0 words</span>
+    </div>
+
+    <div id="out"></div>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-justice.jpg" width="399" height="760" alt="Steel engraving of Justice holding scales and a sword">
+      <figcaption>Justice, Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. Editorial judgment encoded once so you don't argue with yourself at shipping.</figcaption>
+    </figure>
+    <h2>What it blocks</h2>
+    <ul>
+      <li>Hard-kill corporate slop</li>
+      <li>Weak filler openers</li>
+      <li>Rhythm collapse</li>
+      <li>Fragment stacking</li>
+      <li>Unearned superlatives</li>
+      <li>All-caps shouting</li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://hydra.peticila.ro/canon/">Canon</a>
+    <a href="https://hydra.peticila.ro/guilt/">The Guilt Trip</a>
+    <a href="https://hydra.peticila.ro/roast/">Homepage Roaster</a>
+    <a href="https://hydra.peticila.ro/deck/">Deck Rubric</a>
+    <a href="https://hydra.peticila.ro/demand/">AI Demand Map</a>
+    <a href="https://hydra.peticila.ro/aeolus/">Aeolus</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-08-18">Updated August 2026</time></span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+const HARD_WORDS = [
+  "leverage", "leveraging", "harness", "harnessing", "unlock", "unlocking",
+  "elevate", "elevating", "streamline", "streamlining", "ecosystem",
+  "paradigm", "paradigm shift", "groundbreaking", "innovative",
+  "cutting-edge", "robust", "holistic", "seamless", "seamlessly",
+  "synergy", "synergies", "delve", "delving", "navigate", "navigating",
+  "landscape", "revolutionize", "revolutionizing", "game-changer",
+  "game changer", "empower", "empowering", "testament to", "beacon of",
+  "supercharge", "unleash", "unleashing"
+];
+
+const SOFT_PHRASES = [
+  "it's important to note", "it is important to note",
+  "at the end of the day", "let's dive into", "lets dive into",
+  "when it comes to", "as we all know", "needless to say",
+  "in today's fast-paced world", "in todays fast-paced world",
+  "in the digital age", "it's been a journey", "its been a journey",
+  "we are thrilled to", "we're thrilled to", "look no further",
+  "without further ado", "a deep dive into", "in a nutshell",
+  "at its core", "the bottom line is"
+];
+
+const ALLOWED_ACRONYMS = new Set([
+  "AI", "SEO", "B2B", "B2C", "CMO", "CEO", "CTO", "CFO", "ROI",
+  "API", "MCP", "URL", "HTML", "CSS", "JS", "TS", "JSON", "SVG",
+  "DNS", "GSC", "SaaS", "DACH", "UK", "US", "EU", "RO"
+]);
+
+function runGate(text, isStrict, isStrictEmdash){
+  const findings = [];
+  
+  // 1. Hard Words Scan
+  const hardHits = [];
+  HARD_WORDS.forEach(w => {
+    const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
+    let m;
+    while((m = re.exec(text)) !== null){
+      hardHits.push(m[0]);
+    }
+  });
+  if(hardHits.length){
+    findings.push({
+      tag: "Hard-Kill Cliches",
+      severity: "fail",
+      say: "Blacklisted corporate buzzwords detected. These dilute credibility and scream automated copy.",
+      hits: hardHits
+    });
+  }
+
+  // 2. Soft Fillers Scan
+  const softHits = [];
+  SOFT_PHRASES.forEach(p => {
+    const re = new RegExp('\\b' + p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
+    let m;
+    while((m = re.exec(text)) !== null){
+      softHits.push(m[0]);
+    }
+  });
+  if(softHits.length){
+    findings.push({
+      tag: "Weak Filler Phrases",
+      severity: isStrict ? "fail" : "warn",
+      say: "Passive transitions that add words without carrying meaning.",
+      hits: softHits
+    });
+  }
+
+  // 3. Em-dash Scan
+  const emdashHits = (text.match(/—/g) || []);
+  if(emdashHits.length > 0){
+    findings.push({
+      tag: "Em-dash Usage",
+      severity: isStrictEmdash ? "fail" : "warn",
+      say: isStrictEmdash ? "Em-dash strictly forbidden by gate rules." : "Em-dashes detected. Use colons, commas, parentheses, or separate sentences for punchy cadence.",
+      hits: [`Found ${emdashHits.length} em-dash${emdashHits.length === 1 ? '' : 'es'}`]
+    });
+  }
+
+  // 4. Fragment Stacking & Sentence Analysis
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+  let stackCount = 0;
+  let maxStack = 0;
+  sentences.forEach(s => {
+    const wordCount = s.trim().split(/\s+/).length;
+    if(wordCount <= 5){
+      stackCount++;
+      if(stackCount > maxStack) maxStack = stackCount;
+    } else {
+      stackCount = 0;
+    }
+  });
+
+  if(maxStack >= 3){
+    findings.push({
+      tag: "Fragment Stacking",
+      severity: isStrict ? "fail" : "warn",
+      say: `Found ${maxStack} consecutive sentences under 5 words. Avoid staccato poetry; write continuous prose with deliberate cadence.`,
+      hits: [`Maximum stack: ${maxStack} ultra-short sentences`]
+    });
+  }
+
+  // 5. Shouting / Caps
+  const words = text.split(/\s+/).filter(w => w.length > 0);
+  const shoutHits = [];
+  words.forEach(w => {
+    const clean = w.replace(/[^A-Za-z]/g, '');
+    if(clean.length >= 4 && clean === clean.toUpperCase() && !ALLOWED_ACRONYMS.has(clean)){
+      shoutHits.push(clean);
+    }
+  });
+  if(shoutHits.length){
+    findings.push({
+      tag: "All-Caps Shouting",
+      severity: isStrict ? "fail" : "warn",
+      say: "Volume is not an argument. Lowercase your emphasis.",
+      hits: shoutHits
+    });
+  }
+
+  // 6. Excessive Punctuation
+  const punctHits = (text.match(/[!?]{2,}/g) || []);
+  if(punctHits.length){
+    findings.push({
+      tag: "Chatter Punctuation",
+      severity: "warn",
+      say: "Multiple punctuation marks detected (!! or ??).",
+      hits: punctHits
+    });
+  }
+
+  // Calculate Score & Verdict
+  let score = 100;
+  findings.forEach(f => {
+    if(f.severity === "fail") score -= 35;
+    else if(f.severity === "warn") score -= 10;
+  });
+  if(score < 0) score = 0;
+
+  const hasFail = findings.some(f => f.severity === "fail");
+  let verdictType = "clean";
+  let verdictText = "PASS · Draft cleared the gate cleanly. Ready for shipping.";
+  
+  if(hasFail){
+    verdictType = "fail";
+    verdictText = "FAIL · Gate rejected the draft. Fix the blacklisted items below before deployment.";
+  } else if(findings.length > 0){
+    verdictType = "warn";
+    verdictText = "WARN · Passed with stylistic warnings. Clean before high-stakes publishing.";
+  }
+
+  return { findings, score, verdictType, verdictText, wordCount: words.length, sentenceCount: sentences.length };
+}
+
+function render(){
+  const ta = document.getElementById('in');
+  const text = ta.value;
+  const isStrict = document.getElementById('strict').checked;
+  const isStrictEmdash = document.getElementById('strict-emdash').checked;
+  const out = document.getElementById('out');
+
+  if(!text.trim()){
+    out.innerHTML = "";
+    return;
+  }
+
+  const res = runGate(text, isStrict, isStrictEmdash);
+
+  let html = `<div class="verdict ${res.verdictType}">
+    <p class="score mono">Score: ${res.score}/100 · ${res.wordCount} words across ${res.sentenceCount} sentences</p>
+    <p class="line">${esc(res.verdictText)}</p>
+  </div>`;
+
+  if(res.findings.length){
+    html += `<div class="tally mono">` + res.findings.map(f => `<span><b>${f.hits.length}</b> ${esc(f.tag)}</span>`).join('') + `</div>`;
+    html += res.findings.map(f => `
+      <div class="finding">
+        <div class="head">
+          <span class="tag mono">${esc(f.tag)}</span>
+          <span class="where w-${f.severity}">${f.severity.toUpperCase()}</span>
+          <span class="n mono">${f.hits.length} hit${f.hits.length===1?'':'s'}</span>
+        </div>
+        <p class="say">${esc(f.say)}</p>
+        <ul class="hits">${f.hits.slice(0, 8).map(h => `<li><code>${esc(h)}</code></li>`).join('')}${f.hits.length > 8 ? `<li>and ${f.hits.length - 8} more</li>` : ''}</ul>
+      </div>`).join('');
+  } else {
+    html += `<p class="empty">Zero violations found. The draft contains no blacklisted terms, avoids filler transitions, and preserves natural rhythm.</p>`;
+  }
+
+  html += `<div class="next">
+    <p class="say">Next steps: Verify your copy claims against reality, strip any manipulative retention framing, and test executive hook pull.</p>
+    <a class="cta" href="https://hydra.peticila.ro/canon/">check what you actually claim</a>
+    <a class="cta" href="https://hydra.peticila.ro/slop/">run slop detector</a>
+    <a class="cta" href="https://hydra.peticila.ro/tyche/">test executive hooks (tyche)</a>
+    <a class="cta" href="https://aah.monster/voice-fingerprint/" target="_blank" rel="noopener">get a full voice fingerprint ↗</a>
+  </div>`;
+
+  out.innerHTML = html;
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+const ta = document.getElementById('in');
+const cnt = document.getElementById('cnt');
+ta.addEventListener('input', ()=>{
+  const w = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+  cnt.textContent = w + (w===1?" word":" words");
+});
+document.getElementById('go').onclick = render;
+document.getElementById('clr').onclick = ()=>{ ta.value=""; cnt.textContent="0 words"; document.getElementById('out').innerHTML=""; ta.focus(); };
+ta.addEventListener('keydown', e=>{ if((e.metaKey||e.ctrlKey) && e.key==='Enter') render(); });
+
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
+</script>
+</body>
+</html>

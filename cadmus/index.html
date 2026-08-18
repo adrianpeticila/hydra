@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadmus · Content ROI on Behavior · Hydra</title>
+<meta name="description" content="Audit your content on high-intent behavior (saves, shares, qualified inquiries) rather than vanity views. Discover compounding assets and kill dead weight.">
+<link rel="canonical" href="https://hydra.peticila.ro/cadmus/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cadmus · Content ROI on Behavior · Hydra">
+<meta property="og:description" content="Audit your content on high-intent behavior (saves, shares, qualified inquiries) rather than vanity views. Discover compounding assets and kill dead weight.">
+<meta property="og:url" content="https://hydra.peticila.ro/cadmus/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/cadmus/#app",
+  "name": "Cadmus",
+  "url": "https://hydra.peticila.ro/cadmus/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Content ROI calculator and distribution canvas based on high-intent user behavior. Evaluates saves, shares, and qualified responses without vanity metrics.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:54ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){.cols{grid-template-columns:minmax(0,1fr);gap:2.5rem}}
+.cols>main{min-width:0}
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){.art{max-width:16rem}}
+
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:.3rem}
+.form-group label{font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.form-group input{background:var(--bg2);color:var(--fg);border:1px solid var(--rule);padding:.7rem;font-size:.92rem;font-family:var(--body);outline:none}
+.form-group input:focus{border-color:var(--red)}
+
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1.2rem 0 2rem}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+
+.data-table-wrap{overflow-x:auto;margin:1.5rem 0;border:1px solid var(--rule)}
+table.data-table{width:100%;border-collapse:collapse;font-size:.88rem;text-align:left}
+table.data-table th{background:var(--bg2);padding:.8rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);border-bottom:1px solid var(--rule)}
+table.data-table td{padding:.8rem;border-bottom:1px solid var(--rule);color:var(--fg)}
+table.data-table tr:last-child td{border-bottom:none}
+.tag-quad{display:inline-block;padding:.15rem .45rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor}
+.q-core{color:var(--ok)}
+.q-gold{color:var(--fg);border-color:var(--fg)}
+.q-bubble{color:var(--warn)}
+.q-dead{color:var(--red)}
+
+.quadrant-summary{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+@media(max-width:600px){.quadrant-summary{grid-template-columns:1fr}}
+.quad-card{background:var(--bg2);border:1px solid var(--rule);padding:1.2rem}
+.quad-card h4{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .4rem}
+.quad-card p{font-size:.88rem;color:var(--mid);margin:0;line-height:1.5}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:58ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s,color .15s;margin-right:.8rem;margin-bottom:.6rem}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· cadmus</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 014 · cadmus</p>
+  <h1>content roi on behavior, not <em>applause</em></h1>
+  <p class="sub">An in-browser audit and distribution canvas that evaluates content performance on high-intent actions (saves, shares, qualified replies, bookmarking) rather than vanity impressions. Derived from operator-level telemetry.</p>
+  <p class="only">Client-side only. Zero telemetry uploaded. Designed to uncover silent compounding assets.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <div class="form-grid">
+      <div class="form-group" style="grid-column: span 2;">
+        <label>Post Title or Topic</label>
+        <input type="text" id="post-title" placeholder="e.g. Why B2B Positioning Fails in 48h">
+      </div>
+      <div class="form-group">
+        <label>Total Views / Imp</label>
+        <input type="number" id="post-views" placeholder="3200">
+      </div>
+      <div class="form-group">
+        <label>Saves / Bookmarks</label>
+        <input type="number" id="post-saves" placeholder="112">
+      </div>
+      <div class="form-group">
+        <label>Shares / Reposts</label>
+        <input type="number" id="post-shares" placeholder="28">
+      </div>
+      <div class="form-group">
+        <label>Qualified Inquiries</label>
+        <input type="number" id="post-inquiries" placeholder="4">
+      </div>
+    </div>
+
+    <div class="bar">
+      <button id="btn-add">Add to Audit</button>
+      <button id="btn-load-sample" class="ghost">Load Sample Data</button>
+      <button id="btn-reset" class="ghost">Reset</button>
+    </div>
+
+    <div id="out">
+      <div class="data-table-wrap">
+        <table class="data-table" id="matrix-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Views</th>
+              <th>Saves</th>
+              <th>Save Rate (per 1k)</th>
+              <th>Quadrant</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="quadrant-summary">
+        <div class="quad-card">
+          <h4 style="color:var(--ok);">Core Compounding Asset</h4>
+          <p>High save rate & high intent. Turn this into evergreen articles, lead magnets, or core landing page copy.</p>
+        </div>
+        <div class="quad-card">
+          <h4 style="color:var(--fg);">Quiet Goldmine</h4>
+          <p>High utility, low distribution. Strong save rate but poor hook. Rerun the opening line through Tyche.</p>
+        </div>
+        <div class="quad-card">
+          <h4 style="color:var(--warn);">Viral Bubble</h4>
+          <p>Loud reach, near-zero saves. Ephemeral attention with zero buyer conviction. Do not boost or replicate.</p>
+        </div>
+        <div class="quad-card">
+          <h4 style="color:var(--red);">Dead Weight</h4>
+          <p>Low reach and low utility. Delete or fundamentally rethink the premise from scratch.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="next">
+      <p class="say">Next steps: Generate better opening tension for Quiet Goldmines in Tyche, and clean draft prose with Chasm.</p>
+      <a class="cta" href="https://hydra.peticila.ro/tyche/">run tyche hook engine</a>
+      <a class="cta" href="https://hydra.peticila.ro/chasm/">verify with chasm</a>
+      <a class="cta" href="https://aah.monster" target="_blank" rel="noopener">executive consulting on aah.monster ↗</a>
+    </div>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-loyalty.jpg" width="530" height="700" alt="Steel engraving of Loyalty, a standing allegorical figure">
+      <figcaption>Loyalty, Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. Cadmus sowed the dragon's teeth and built a city from what took root. Measure what survives, not what was briefly loud.</figcaption>
+    </figure>
+    <h2>High-Intent Telemetry</h2>
+    <ul>
+      <li>Save & Bookmark Density</li>
+      <li>Direct & Qualified Inquiries</li>
+      <li>Unassisted Dark Shares</li>
+      <li>Pipeline Intent Signals</li>
+      <li>Compounding Half-Life</li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/tyche/">Tyche</a>
+    <a href="https://hydra.peticila.ro/chasm/">Chasm</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://hydra.peticila.ro/canon/">Canon</a>
+    <a href="https://hydra.peticila.ro/guilt/">The Guilt Trip</a>
+    <a href="https://hydra.peticila.ro/roast/">Homepage Roaster</a>
+    <a href="https://hydra.peticila.ro/deck/">Deck Rubric</a>
+    <a href="https://hydra.peticila.ro/demand/">AI Demand Map</a>
+    <a href="https://hydra.peticila.ro/aeolus/">Aeolus</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-08-18">Updated August 2026</time></span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+let items = [];
+
+const SAMPLES = [
+  { title: "29 Brands Built: The Zero-Waste Operating System", views: 4800, saves: 195, shares: 42, inquiries: 7 },
+  { title: "Why Most B2B Landing Pages Convert at 0.4%", views: 1200, saves: 88, shares: 19, inquiries: 3 },
+  { title: "Look At This Inspiring Startup Milestone Quote", views: 14200, saves: 12, shares: 6, inquiries: 0 },
+  { title: "Random Friday Marketing Musings", views: 850, saves: 3, shares: 1, inquiries: 0 }
+];
+
+function classify(views, saves, shares, inquiries){
+  const saveRate = views > 0 ? (saves / views) * 1000 : 0;
+  
+  if(saveRate >= 25 && views >= 2000){
+    return { quad: "Core Asset", cls: "q-core", rec: "Evergreen Anchor" };
+  } else if(saveRate >= 25 && views < 2000){
+    return { quad: "Quiet Goldmine", cls: "q-gold", rec: "Rewrite Hook" };
+  } else if(saveRate < 10 && views >= 3000){
+    return { quad: "Viral Bubble", cls: "q-bubble", rec: "Do Not Boost" };
+  } else {
+    return { quad: "Dead Weight", cls: "q-dead", rec: "Archive / Kill" };
+  }
+}
+
+function renderTable(){
+  const body = document.getElementById('matrix-body');
+  if(!items.length){
+    body.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--mid);padding:2rem;">No content items in audit. Add a post above or load sample data.</td></tr>`;
+    return;
+  }
+
+  body.innerHTML = items.map((item, idx) => {
+    const c = classify(item.views, item.saves, item.shares, item.inquiries);
+    const sRate = item.views > 0 ? ((item.saves / item.views) * 1000).toFixed(1) : "0.0";
+    return `<tr>
+      <td><b>${esc(item.title)}</b></td>
+      <td>${item.views.toLocaleString()}</td>
+      <td>${item.saves.toLocaleString()}</td>
+      <td>${sRate}/1k</td>
+      <td><span class="tag-quad ${c.cls}">${esc(c.quad)}</span></td>
+      <td><span style="font-family:var(--mono);font-size:.75rem;">${esc(c.rec)}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+document.getElementById('btn-add').onclick = () => {
+  const title = document.getElementById('post-title').value.trim();
+  const views = parseInt(document.getElementById('post-views').value, 10) || 0;
+  const saves = parseInt(document.getElementById('post-saves').value, 10) || 0;
+  const shares = parseInt(document.getElementById('post-shares').value, 10) || 0;
+  const inquiries = parseInt(document.getElementById('post-inquiries').value, 10) || 0;
+
+  if(!title){ alert("Please enter a title or topic."); return; }
+  items.push({ title, views, saves, shares, inquiries });
+  document.getElementById('post-title').value = '';
+  document.getElementById('post-views').value = '';
+  document.getElementById('post-saves').value = '';
+  document.getElementById('post-shares').value = '';
+  document.getElementById('post-inquiries').value = '';
+  renderTable();
+};
+
+document.getElementById('btn-load-sample').onclick = () => {
+  items = [...SAMPLES];
+  renderTable();
+};
+
+document.getElementById('btn-reset').onclick = () => {
+  items = [];
+  renderTable();
+};
+
+// Initial render
+renderTable();
+
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
+</script>
+</body>
+</html>

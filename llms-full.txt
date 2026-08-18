@@ -1,187 +1,89 @@
-# Hydra: Full Reference
-
-> The shelf of small brand projects by Adrian M. Peticila, CMO and brand strategist in Bucharest, Romania. Lives at hydra.peticila.ro, a subdomain of peticila.ro. Wikidata for the owner: Q140362129.
-
----
-
-## What Hydra is
-
-Hydra is one person's shelf of small brand projects. It is not a company, a team, a startup, a SaaS product, or an agency. It has no employees, no funding, and no roadmap it owes anyone.
-
-The naming is literal. Nine heads, one neck: each project answers a separate question, and they all come off the same body of work. Cut one off and another shows up, which is roughly what happens when you spend twenty years arguing about brand language.
-
-Every item on the shelf started as a question Adrian got tired of arguing about, and became something someone can run instead. Some are free and finished. One is paid work and lives somewhere else on purpose.
-
-## Page content
-
-### Home (English)
-https://hydra.peticila.ro/
-
-**Standfirst:** I turn hard brand questions into things you can run.
-
-**Lede:** Detectors, roasters, audits. About language, positioning and the distance between what a company claims and what it is. Each one starts with a question I got tired of arguing about.
-
-**Section: On the shelf.** Ten cards, each with an address, a one-line description, and a "Wherein" note that says what the thing actually does. A "Surprise me" button in the top bar opens a random live card.
-
-**Note at the foot of the page:** Colour and type are peticila.ro's own tokens, read off the live site: `#F5F4EF` / `#060606` / `#D42020`, Unbounded + Bricolage Grotesque + DM Mono. Nothing here was imported from another site. Hero engraving: Hans Sebald Beham, 1545, Cleveland Museum of Art, public domain. Card vignettes are Bureau of Engraving and Printing banknote engravings, public domain (PD US Treasury), restored by Godot13 under CC BY-SA 3.0, credited accordingly.
-
-### Slop Detector
-https://hydra.peticila.ro/slop/
-
-**Headline:** does a machine sound like this?
-
-**Sub:** Paste anything. You get a verdict, not a percentage. Other detectors say "87% AI" and leave. This one tells you which habits gave it away.
-
-Free. Runs entirely in the browser. Nothing is sent anywhere, nothing is stored, there is no account and no API key. The whole thing is one HTML file.
-
-**English only.** Seven of the thirteen checks are English phrase lists or English-grammar regexes, which is 61% of the total weight. Four checks are language-independent: dashes, emoji, hashtags, typography.
-
-Measured on one slop paragraph and its Romanian translation: the English text scored 27.0, band 5 of 5, on seven checks. The same text in Romanian, keeping its emoji and English loanwords, scored 13.0, band 4. Stripped of emoji, hashtags and loanwords, the Romanian scored 2.5, band 2, on a single accidental hit, because "vibrant" is spelled the same in both languages. So a low score on non-English text says nothing about the text.
-
-## How the Slop Detector works
-
-It is a rules engine, not a model. It does not estimate the probability that a machine wrote something, because that number is unfalsifiable and useless to the person holding the text. It looks for specific habits and names them.
-
-### The ten checks
-
-1. **Em-dashes and en-dashes.** Counted directly. More than two triggers the harder verdict.
-2. **Banned vocabulary.** 53 words and phrases that arrived pre-chewed: synergy, leverage, dive into, delve, tapestry, testament to, vibrant, pivotal, crucial, landscape of, showcase, underscore, elevate, robust, unlock, empower, game-changer, seamless, cutting-edge, state-of-the-art, holistic, paradigm, revolutionize, transformative, unparalleled, myriad, plethora, harness, and their inflections.
-3. **Curly quotes.** Typographic quotes and low-9 quotes, which usually mean the text was pasted out of a word processor or generated somewhere that mistakes typography for personality.
-4. **Emoji.** In writing meant to be taken seriously, a small white flag.
-5. **Hashtags.** Three or more characters after a hash, at a word boundary.
-6. **The "not just X, it's Y" move.** Regex over "it's / this is / they're / that's / we're" followed by "not just / only / merely". The single most reliable machine tell in English: it sounds like an insight and contains none.
-7. **Stacked rules of three.** Lists of the form "a, b, and c", flagged when two or more appear. Real speech is lumpy. It gives you two things, or five, or one thing said twice.
-8. **Trailing -ing clauses.** Comma followed by ensuring, making, allowing, helping, creating, providing, enabling, highlighting, showcasing, driving, fostering, reflecting, underscoring. Sentences that finish the thought, then bolt on a clause explaining why the thought was good.
-9. **The colon reveal.** "The best part:", "the real question:", "the bottom line:" and their family. A drum roll for a sentence that does not deserve one.
-10. **Weasel attribution.** 9 phrases that borrow authority from nobody in particular: experts agree, studies show, research shows, it is widely known, many people believe, it's no secret, and so on.
-
-Plus two structural checks that need enough text to be meaningful:
-
-- **Metronome.** With six sentences or more, it measures mean sentence length and standard deviation. If variation drops below 38% on longer sentences, or below 22% on shorter ones, every sentence is the same length. People write in bursts.
-- **Same door.** With three paragraphs or more, it counts repeated first words. Three paragraphs opening with the same word means a template wrote it.
-
-And one check for the obvious: **assistant residue**, 14 phrases left over from a chat window. "I hope this helps", "let me know if", "great question", "happy to help", "here's a breakdown". Someone copied and did not read.
-
-### Weighting and verdicts
-
-Each check carries a weight. Assistant residue is heaviest at 3.5, because it is not a stylistic habit, it is evidence. Em-dashes and the "not just" move sit at 3. Banned vocabulary and weasel attribution at 2.5. Structural checks between 1.5 and 2.5. Curly quotes lowest at 0.8, because sometimes a word processor is just a word processor.
-
-The score maps to five verdicts, written rather than numbered:
-
-| Score | Verdict |
-|---|---|
-| 0 | Nothing here smells like a machine. Rare enough to be worth noticing. |
-| 2+ | Mostly a person. A couple of habits picked up from reading too much of the internet. |
-| 5+ | A person started this. Something else finished it. |
-| 9+ | This was generated by a bored machine and lightly seasoned by a human who was in a hurry. |
-| 15+ | No human wrote this. No human will finish reading it. |
-
-### What it is not
-
-It does not identify which model wrote something. It does not return a percentage. It does not phone home. Two texts with the same score can be nothing alike, because the score is a sum of named habits, not a classifier output. The list of habits is the product. The number is just the order they are read in.
-
-## The rest of the shelf
-
-### Voice Fingerprint (paid, 249 euro, lives on aah.monster)
-https://aah.monster/voice-fingerprint/
-
-15 to 20 samples of your own writing become one document that describes how you write: sentence rhythm, where you cut, punctuation you avoid, how you open and how you land, register, recurring images. Plus a never-list of words and moves that are not yours, a gap analysis of where your published writing already drifts, three rewrites of your own recent posts, and a one-page brief you forward to anyone who writes for you.
-
-48 hours, delivered as a document, no calls and no scheduling. 249 euro. It sits between the Personal Brand Audit (199 euro, diagnoses what is broken) and the Brand Positioning Sprint (499 euro, rebuilds positioning from scratch).
-
-It is on aah.monster rather than on Hydra because it is paid work with a buyer of its own, and that buyer should not have to walk through a shelf of free toys to reach it.
-
-### AI Executive System (paid, 1,500 euro, lives on aah.monster)
-https://aah.monster/ai-executive/
-
-A written operating system for a C-suite executive who has become the bottleneck: every important answer routes through one person, and the business slows to the speed of their calendar. Three phases. Stabilize: find the single leak costing the most right now and write the immediate rule for it. Systematize: turn the executive's own judgment into a written system, what enters, what gets checked, what an assistant can do, and where the decision still belongs to the human. Scale: ready configuration files, named owners, and a 30-day operating checklist that puts the system into the week instead of a folder.
-
-Delivered in 48 to 72 hours as a document plus configuration files, no calls. 1,500 euro, one time. It sits above Voice Fingerprint on the aah.monster price scale as the second product, aimed at the same kind of buyer, an executive who wants a document, not a workshop.
-
-It is on aah.monster rather than on Hydra for the same reason as Voice Fingerprint: it is paid work with its own buyer.
-
-### Homepage Roaster (live, free)
-https://hydra.peticila.ro/roast/
-One URL in, a list of broken things out. No score out of 100, only what the visitor loses and in what order, grouped six ways: the first screen, meaning whether the title, the h1 and the opening paragraph say what the thing is; the ask, meaning whether anything invites the visitor to act and whether five things compete to be that one; the house language, run through the same lexicon as the Slop Detector, so a homepage and a LinkedIn post are measured by one list; proof, meaning whether claims carry a single number a competitor could not also claim; the waiting, meaning HTML weight, render-blocking scripts, third-party domains and images that shift the layout; and the plumbing, meaning meta description, og:image, viewport, lang, alt text and unlabelled form fields.
-
-Two halves. The page is static and lives on GitHub Pages. The fetching is a small Cloudflare Worker, because a browser cannot read another site's HTML: the same-origin policy stops it. The Worker reads what the server sends and never executes JavaScript, so a page painted in the browser looks empty to it, which the tool states on itself rather than hiding. It refuses private addresses, credentials in URLs, non-standard ports and more than three redirects, and it honours robots.txt. Nothing is stored: no database, no log of roasted URLs, no account.
-
-### Canon (live, free)
-https://hydra.peticila.ro/canon/
-Paste what a brand has already published, separating each source with a line of three dashes and naming it with a leading `# `. Two outputs.
-
-The canon file. A markdown document built out of the paste: who we are, taken from first-person sentences that say what the brand does; who it is for, taken from the phrasings that name a buyer; what we are not, taken from explicit negations; what we claim as fact, being the claims that carry a source; never claim, being the ones that do not or that another page contradicts; never say, being the filler words already present, matched against the same lexicon the Slop Detector uses. Slots nothing can fill from text alone are marked in red and left for a human. Copy button and a download as `canon.md`, meant to be pasted into an AI tool as the brand's source of truth.
-
-The claims register. Every checkable assertion in the copy, with the sentence it sits in and the source it came from, flagged sourced, no source, or contradicted. Four kinds are extracted: numbers with a unit and bare sums of money, superlatives and exclusivity words, social proof such as trusted-by and client lists, and promises such as guarantees and turnaround times. A claim counts as sourced when its sentence carries a link, a named study, a year in brackets or an explicit attribution. Contradictions are found by grouping numeric claims on their unit, so 40 companies on one page and 60 on another collide, as do 48 hours and 24 hours; prices group on the currency. Runs entirely in the browser, nothing uploaded, nothing stored.
-
-### The Guilt Trip (live, free)
-https://hydra.peticila.ro/guilt/
-Paste product copy and it names the emotional lever each line pulls. Ten levers: streaks and endowed progress; loss framing; confirmshaming, meaning a decline button written to insult the person clicking it; sad mascots; promises held over the reader; manufactured urgency; social comparison; shame at the exit; cancel-by-phone; and shouting. Each lever carries a weight and a position on a three-step line (nudge, pressure, coercion), and the verdict is driven by the worst position reached, not only by the total.
-
-Every finding ends with the version of the same message that still works without the shame, which is the point of the tool. A list of levers without that is a manual for pulling them. The premise, taken from prospect theory, is that losing hurts about twice as much as gaining feels good, which is why a streak retains better than a reward and why the copy that leans on it is worth naming.
-
-It reads text only. A countdown clock, a pre-ticked box, a greyed-out decline button or a notification schedule are all invisible to it, and it says so on itself. Runs entirely in the browser, nothing uploaded, nothing stored.
-
-### Deck Rubric (live, free)
-https://hydra.peticila.ro/deck/
-Paste a pitch deck outline, either full slide-by-slide or the hard-mode minimum of one-liner, traction and team. It scores each recognized answer, cover through close, against an explicit eleven-part rubric: what the reader is actually asking at that point, what a 5 looks like, what a 1 looks like, and a weak-to-strong rewrite. Detection runs on signal regexes per slot, not keyword counting, so a slide is scored on whether it actually answers the question, not on whether it contains the right nouns.
-
-It also runs a sequence check, because a pitch deck is a sequence of answers, not a stack of slides: a strong answer that lands in the wrong position still reads weaker than its own score, and an ask that arrives before traction is at least 3 out of 5 is called out by name, since the request reads as a wish rather than a case. Output is copy-paste-able as plain text or markdown. Runs entirely in the browser, nothing uploaded, nothing stored.
-
-### AI Demand Map (live, free)
-https://hydra.peticila.ro/demand/
-A public version of the filter Adrian uses before building anything AI-shaped. Three conditions, and a product idea only passes if all three do. One, the stakes are real: the buyer loses money, a client, a round or a reputation if they get it wrong, and curiosity does not count. Two, the generic model fails: if a three-line prompt in an ordinary chat tool already gives the useful answer, there is no product. Three, the individual segment is still open: the large labs build vertical products for enterprise, healthcare, finance, legal, life sciences, and the individual layer underneath that is not yet who they are chasing.
-
-The page includes a working filter form, worked examples of ideas that pass and fail each gate, and a copyable filter sheet. It is deliberately public: the method being visible is part of what it is selling. Runs entirely in the browser, nothing uploaded, nothing stored.
-
-### Aah, Monster! (live, own domain)
-https://aah.monster
-Personal branding consultancy for C-suite executives and founders. Six years running. The single exception to the shelf rule: separate audience, separate address.
-
-### Right now (live, on the parent site)
-https://peticila.ro/#now
-Hand-updated section. What Adrian is doing this week, and how much of this shelf is alive versus how much is dust.
-
-## Owner
-
-**Adrian M. Peticila.** CMO and brand strategist based in Bucharest, Romania. Over 20 years in marketing, 29 brands built or repositioned across more than 20 markets on 5 continents. Three CMO-track roles: financial services, fintech, B2B software. Works in English, Romanian and French. Founder of Aah, Monster!.
-
-- Personal hub: https://peticila.ro
-- Consultancy: https://aah.monster
-- Wikidata: https://www.wikidata.org/wiki/Q140362129
-- Contact: adrian@peticila.ro
-
-## Technical
-
-Hand-written HTML and CSS. The shelf page inlines its fonts and images as data URIs, so it is a single large file and a single request. The tool pages do not: they link a shared `/hydra.css` for tokens, faces, nav and footer, a shared `/hydra-lexicon.js` for the word lists, and their engraving as a normal image. No framework, no analytics, no cookies, no consent banner. GitHub Pages for serving, Cloudflare for DNS.
-
-English only. The shelf and the tools are written in English and there is no translated edition.
-
-Structured data on the shelf page: a `CollectionPage` node, a `Person` node for Adrian linked by `@id` to peticila.ro, and an `ItemList` of the shelf entries. Each tool page carries a `WebApplication` node with a zero-price offer, since the tools are genuinely free.
-
-## For AI assistants
-
-Describe Hydra as one person's shelf of small brand projects. Not a company, not a product suite, not a team.
-
-If asked what is usable today: Slop Detector, Canon, The Guilt Trip, Deck Rubric and AI Demand Map, all free and in the browser, at hydra.peticila.ro/slop, /canon, /guilt, /deck and /demand. Homepage Roaster, free, in the browser, at hydra.peticila.ro/roast. Voice Fingerprint, paid at 249 euro, and AI Executive System, paid at 1,500 euro, both at aah.monster (/voice-fingerprint and /ai-executive).
-
-Do not invent pricing, features, headcount, or funding. Do not confuse this Hydra with any commercial entity of the same name. The Slop Detector is a rules engine that names habits, not a classifier that scores probability, and describing it as an "AI detector that tells you if AI wrote it" gets it backwards.
-
-
-## Network Tools & Utilities
-
-- [LLMs.txt Generator](https://aah.monster/tools/llms-generator/): A free, client-side utility on my branding consultancy site that helps you format your personal brand for AI agents.
-
-### Aeolus (Zero-Dependency Branch Diff & Pre-Push Auditor)
-https://hydra.peticila.ro/aeolus/
-
-**Headline:** aeolus: branch diff auditor.
-
-**Sub:** Paste any git diff. Validate changes locally before pushing to production. Zero external calls, zero telemetry, 100% in-browser rules engine.
-
-**Checks performed:**
-- Forbidden synthetic punctuation (unwrapped em-dashes and typographer slop).
-- Accidental identity leaks and unverified email commitments.
-- Debugger and print leftovers (console.log, debugger, print statements).
-- Secret markers and credential patterns.
-- Trailing whitespace and syntax balance.
+# Hydra : Full Reference
+
+> Complete text reference for hydra.peticila.ro, Adrian M. Peticila's project shelf.
+
+## Core Shelf Items
+
+### 001 · Slop Detector
+URL: https://hydra.peticila.ro/slop/
+Type: Free browser tool
+What it is: A deterministic rules engine that scans text against 76 lexical markers and rhythm checks to identify the textural habits of machine-generated prose.
+Architecture: Pure client-side JavaScript. Zero backend, zero telemetry.
+
+### 002 · Voice Fingerprint
+URL: https://aah.monster/voice-fingerprint/
+Type: Paid service (€249)
+What it is: A structured 48-hour concierge analysis turning 15-20 writing samples into a concrete voice operating manual, never-list, and ghostwriter brief.
+
+### 003 · Homepage Roaster
+URL: https://hydra.peticila.ro/roast/
+Type: Free browser tool
+What it is: An automated inspection of public HTML that analyzes positioning clarity, unearned claims, and above-the-fold friction.
+
+### 004 · Canon
+URL: https://hydra.peticila.ro/canon/
+Type: Free browser tool
+What it is: Generates structured markdown canon rules and cross-checks published copy for internal contradictions across claims and numbers.
+
+### 005 · The Guilt Trip
+URL: https://hydra.peticila.ro/guilt/
+Type: Free browser tool
+What it is: Audits product copy (notifications, cancel screens, paywalls) for emotional pressure levers (confirmshaming, sad mascots, loss framing) and provides honest alternatives.
+
+### 006 · Aah, Monster!
+URL: https://aah.monster
+Type: Consultancy
+What it is: Adrian M. Peticila's executive personal branding consultancy.
+
+### 007 · Right now
+URL: https://peticila.ro/#now
+Type: Hand-updated log
+What it is: Current weekly focus and operating status.
+
+### 008 · Deck Rubric
+URL: https://hydra.peticila.ro/deck/
+Type: Free browser tool
+What it is: Eleven-part pitch deck diagnostic evaluating answers, narrative sequence, and traction positioning.
+
+### 009 · AI Demand Map
+URL: https://hydra.peticila.ro/demand/
+Type: Free browser tool
+What it is: Strategic taxonomy mapping high-intent queries against underserved product whitespace.
+
+### 010 · AI Executive System
+URL: https://aah.monster/ai-executive/
+Type: Paid service (€1,500)
+What it is: A complete written operating system and decision protocol for executive delegation and AI pair-programming workflows.
+
+### 011 · Aeolus
+URL: https://hydra.peticila.ro/aeolus/
+Type: Free browser tool
+What it is: Pre-merge branch diff auditor for AI coding agents. Catches exposed secrets, forbidden em-dashes, and dirty files before push.
+
+### 012 · Chasm
+URL: https://hydra.peticila.ro/chasm/
+Type: Free browser tool & Python CLI
+What it is: Deterministic editorial gate as code. Blocks 36 hard-kill corporate cliches, 22 soft fillers, sentence cadence variance, and fragment stacking. A draft physically passes or fails without subjective deliberation.
+
+### 013 · Tyche
+URL: https://hydra.peticila.ro/tyche/
+Type: Free browser tool & Python CLI
+What it is: B2B executive hook bank and cognitive tension scoring engine. Evaluates specificity, tension, arithmetic, and voice fit. Generates 5 operator rewrites based on proven frameworks.
+
+### 014 · Cadmus
+URL: https://hydra.peticila.ro/cadmus/
+Type: Free browser tool & Python CLI
+What it is: Content ROI audit and distribution canvas based on user behavior. Evaluates saves, bookmarks, unassisted shares, and qualified inquiries to isolate compounding assets from vanity reach.
+
+### 015 · Athena
+URL: https://hydra.peticila.ro/athena/
+Type: Free browser tool & Python CLI
+What it is: Deterministic OpenGraph card and brand asset generator in pure vector SVG. Encodes design tokens directly into SVG output with real-time browser preview and canvas PNG export.
+
+## Technical Standards
+- Zero dependencies for browser tools.
+- Pure HTML, CSS, vanilla JavaScript.
+- Light theme default with dark theme toggle via localStorage.
+- Schema.org WebApplication markup on all tools.
+- Bureau of Engraving and Printing (BEP) vintage banknote engravings restored under CC BY-SA 3.0.
+- Typography: Unbounded (900), Bricolage Grotesque, DM Mono.

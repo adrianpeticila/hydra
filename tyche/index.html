@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tyche · Executive Hook Bank & Scorer · Hydra</title>
+<meta name="description" content="Test your opening hook against proven B2B executive frameworks. Scores specificity, tension, proof-of-work, and immediate cognitive pull.">
+<link rel="canonical" href="https://hydra.peticila.ro/tyche/">
+<link rel="icon" href="https://peticila.ro/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tyche · Executive Hook Bank & Scorer · Hydra">
+<meta property="og:description" content="Test your opening hook against proven B2B executive frameworks. Scores specificity, tension, proof-of-work, and immediate cognitive pull.">
+<meta property="og:url" content="https://hydra.peticila.ro/tyche/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://hydra.peticila.ro/tyche/#app",
+  "name": "Tyche",
+  "url": "https://hydra.peticila.ro/tyche/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any browser",
+  "description": "Deterministic executive hook bank and scoring engine. Generates and evaluates B2B opening hooks based on proven operator patterns. Runs entirely in the browser.",
+  "isPartOf": { "@id": "https://hydra.peticila.ro/#page" },
+  "author": { "@type": "Person", "@id": "https://peticila.ro/#person", "name": "Adrian M. Peticila" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}</script>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('hydra-theme') || 'light');</script>
+<link rel="stylesheet" href="/hydra.css">
+<style>
+.masthead{padding:8.5rem 0 0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 1.4rem}
+h1{font-family:var(--name);font-weight:900;margin:0 0 1.6rem;font-size:clamp(2.8rem,10vw,7rem);line-height:.86;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
+h1 em{font-style:normal;color:var(--fg)}
+.sub{font-size:1.06rem;max-width:54ch;margin:0;color:var(--fg)}
+.only{margin:1.4rem 0 0;max-width:54ch;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);border-left:2px solid var(--warn);padding-left:.8rem;line-height:1.8}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 15rem;gap:3.5rem;padding:3rem 0 5rem}
+@media(max-width:880px){.cols{grid-template-columns:minmax(0,1fr);gap:2.5rem}}
+.cols>main{min-width:0}
+.side h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;color:var(--mid);margin:0 0 .2rem;padding-bottom:.7rem;border-bottom:1px solid var(--fg)}
+.side ul{list-style:none;margin:0;padding:.9rem 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);line-height:2.1}
+@media(max-width:880px){.art{max-width:16rem}}
+
+.mode-tabs{display:flex;gap:1rem;margin-bottom:1.5rem;border-bottom:1px solid var(--rule);padding-bottom:.8rem}
+.mode-tab{background:none;border:none;color:var(--mid);font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;padding:.4rem 0;position:relative}
+.mode-tab.active{color:var(--fg);font-weight:600}
+.mode-tab.active::after{content:'';position:absolute;bottom:-.85rem;left:0;right:0;height:2px;background:var(--red)}
+
+textarea{width:100%;min-height:7rem;background:var(--bg2);color:var(--fg);border:1px solid var(--rule);padding:1.1rem;font-size:1rem;line-height:1.6;resize:vertical;font-family:var(--body);outline:none}
+textarea:focus{border-color:var(--red)}
+textarea::placeholder{color:var(--mid)}
+
+.input-row{margin:1rem 0;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.input-row{grid-template-columns:1fr}}
+.input-row input{width:100%;background:var(--bg2);color:var(--fg);border:1px solid var(--rule);padding:.8rem;font-size:.95rem;font-family:var(--body);outline:none}
+.input-row input:focus{border-color:var(--red)}
+
+.bar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin:1rem 0 0}
+button{background:none;border:1px solid var(--red);color:var(--red);padding:.55rem 1.2rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s}
+button:hover{background:var(--red);color:var(--bg)}
+button.ghost{border-color:var(--faint);color:var(--mid)}
+button.ghost:hover{background:none;border-color:var(--fg);color:var(--fg)}
+
+#out{margin-top:3rem}
+.verdict{border-top:1px solid var(--fg);border-bottom:1px solid var(--rule);padding:1.6rem 0 1.8rem;margin:0 0 2rem}
+.verdict .score{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:0 0 .9rem}
+.verdict p.line{font-family:var(--name);font-weight:900;margin:0;font-size:clamp(1.4rem,3.4vw,2.2rem);line-height:1.12;letter-spacing:-.03em;color:var(--red)}
+.verdict.clean p.line{color:var(--ok)}
+.verdict.mild p.line{color:var(--fg)}
+
+.radar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.8rem 0 2.5rem}
+.radar-box{background:var(--bg2);border:1px solid var(--rule);padding:1rem}
+.radar-box .label{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.4rem}
+.radar-box .val{font-family:var(--name);font-size:1.3rem;font-weight:900;color:var(--fg)}
+.radar-box .val.hi{color:var(--ok)}
+.radar-box .val.mid{color:var(--warn)}
+.radar-box .val.low{color:var(--red)}
+
+.rewrites-title{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin:2.5rem 0 1.2rem;border-bottom:1px solid var(--fg);padding-bottom:.6rem}
+.rewrite-card{background:var(--bg2);border:1px solid var(--rule);padding:1.4rem;margin-bottom:1.2rem;position:relative}
+.rewrite-card .fw-tag{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;display:block}
+.rewrite-card .fw-text{font-size:1.05rem;line-height:1.55;color:var(--fg);margin:0 0 .8rem}
+.rewrite-card .fw-why{font-size:.85rem;color:var(--mid);line-height:1.5;margin:0}
+
+.vault-banner{background:var(--bg3);border:1px solid var(--rule);padding:1.8rem;margin:3rem 0;position:relative}
+.vault-banner h3{font-family:var(--name);font-size:1.3rem;margin:0 0 .6rem;color:var(--fg)}
+.vault-banner p{font-size:.95rem;color:var(--mid);margin:0 0 1.2rem;max-width:56ch;line-height:1.55}
+.vault-banner a{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;padding:.6rem 1.3rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s,color .15s}
+.vault-banner a:hover{background:var(--red);color:var(--bg)}
+
+.next{margin:3rem 0 0;padding:2rem 0 0;border-top:1px solid var(--fg)}
+.next .say{margin:0 0 1.4rem;font-size:1.06rem;line-height:1.55;max-width:58ch}
+.next .cta{display:inline-block;border:1px solid var(--red);color:var(--red);text-decoration:none;padding:.7rem 1.4rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s,color .15s;margin-right:.8rem;margin-bottom:.6rem}
+.next .cta:hover{background:var(--red);color:var(--bg)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-id" href="https://hydra.peticila.ro/">hydra <b>· tyche</b></a>
+  <div class="nav-r">
+    <a class="nav-a" href="https://hydra.peticila.ro/">The shelf</a>
+    <a class="nav-a" href="https://peticila.ro/">peticila.ro</a>
+    <a class="nav-a" href="https://aah.monster" target="_blank" rel="noopener">aah.monster ↗</a>
+    <button class="nav-theme" id="th">dark</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">hydra · 013 · tyche</p>
+  <h1>the hook bank that never <em>improvises</em></h1>
+  <p class="sub">Paste your opening line or select an operator framework. Tyche evaluates executive tension, quantitative proof, and stop-scroll friction without social media fluff. Improvised copy is a luxury for people with infinite runway.</p>
+  <p class="only">B2B & Executive calibrated. Tested against LinkedIn, cold outreach, and above-the-fold landing page headers.</p>
+</header>
+
+<div class="cols">
+  <main>
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tab-score" onclick="switchMode('score')">Score My Hook</button>
+      <button class="mode-tab" id="tab-gen" onclick="switchMode('gen')">Generate from Topic</button>
+      <button class="mode-tab" id="tab-bank" onclick="switchMode('bank')">Browse Frameworks</button>
+    </div>
+
+    <!-- Mode 1: Score -->
+    <div id="panel-score">
+      <textarea id="hook-in" placeholder="Paste your hook: 'Most CMOs think brand awareness is unmeasurable. Here is the exact formula we use to tie positioning to pipeline.'"></textarea>
+      <div class="bar">
+        <button id="btn-score">Score Hook</button>
+        <button id="btn-clr-score" class="ghost">Clear</button>
+      </div>
+    </div>
+
+    <!-- Mode 2: Generate -->
+    <div id="panel-gen" style="display:none;">
+      <div class="input-row">
+        <input type="text" id="gen-topic" placeholder="Topic or Area (e.g. B2B Pricing, SEO, Founder Branding)">
+        <input type="text" id="gen-metric" placeholder="Metric / Number / Cost (e.g. 48h, 24%, $120k lost)">
+      </div>
+      <div class="input-row">
+        <input type="text" id="gen-villain" placeholder="Common Mistake / Industry Myth (e.g. discounting, posting daily)">
+        <input type="text" id="gen-truth" placeholder="The Real Fix / Core Insight (e.g. packaging by usage, narrow ICP)">
+      </div>
+      <div class="bar">
+        <button id="btn-gen">Generate 5 Operator Hooks</button>
+        <button id="btn-clr-gen" class="ghost">Clear</button>
+      </div>
+    </div>
+
+    <!-- Mode 3: Bank -->
+    <div id="panel-bank" style="display:none;">
+      <div id="bank-list"></div>
+    </div>
+
+    <div id="out"></div>
+
+    <div class="vault-banner">
+      <h3>The Operator Hook Vault</h3>
+      <p>Looking for the full bank of 150+ battle-tested B2B hooks, live outlier scrape pipelines, and audience-specific calibration telemetry? Built for founders and marketing leaders who write to convert.</p>
+      <a href="https://aah.monster/voice-fingerprint/" target="_blank" rel="noopener">Access Vault via Voice Fingerprint ↗</a>
+    </div>
+  </main>
+
+  <aside class="side">
+    <figure class="art">
+      <img src="/art/bep-caduceus.jpg" width="420" height="456" alt="Steel engraving of a seated classical figure holding a caduceus">
+      <figcaption>Caduceus, Bureau of Engraving and Printing. Public domain, restored by Godot13, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license nofollow">CC BY-SA 3.0</a>. Fortune favors the tested. A winning hook is not luck: it is arithmetic and tension.</figcaption>
+    </figure>
+    <h2>The 5 Core Frameworks</h2>
+    <ul>
+      <li>Contrarian Diagnostic</li>
+      <li>The Expensive Mistake</li>
+      <li>Concrete Arithmetic</li>
+      <li>The Uncomfortable Audit</li>
+      <li>Behind the Curtain</li>
+    </ul>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-pages">
+    <span>Hydra</span>
+    <a href="https://hydra.peticila.ro/">The shelf</a>
+    <a href="https://hydra.peticila.ro/chasm/">Chasm</a>
+    <a href="https://hydra.peticila.ro/slop/">Slop Detector</a>
+    <a href="https://hydra.peticila.ro/canon/">Canon</a>
+    <a href="https://hydra.peticila.ro/guilt/">The Guilt Trip</a>
+    <a href="https://hydra.peticila.ro/roast/">Homepage Roaster</a>
+    <a href="https://hydra.peticila.ro/deck/">Deck Rubric</a>
+    <a href="https://hydra.peticila.ro/demand/">AI Demand Map</a>
+    <a href="https://hydra.peticila.ro/aeolus/">Aeolus</a>
+    <a href="https://github.com/adrianpeticila/hydra">Source</a>
+  </div>
+  <div class="footer-inner">
+    <span>Runs in your browser. Nothing is uploaded, nothing is stored.</span>
+    <span>Published by <a rel="author" href="https://peticila.ro/about/">Adrian M. Peticila</a> &copy; 2026</span>
+    <span><time datetime="2026-08-18">Updated August 2026</time></span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+const FRAMEWORKS = [
+  {
+    id: "contrarian-diagnostic",
+    name: "The Contrarian Diagnostic",
+    structure: "Most [Role/Industry] believe [Common Myth]. The reality is [Hard Truth with Data].",
+    example: "Most founders treat churn as a product bug. In 85% of B2B cases, churn is an onboarding failure that happened in the first 14 minutes.",
+    why: "Forces immediate cognitive dissonance by dismantling comfortable assumptions."
+  },
+  {
+    id: "expensive-mistake",
+    name: "The Expensive Mistake",
+    structure: "How [Target Audience] burns [Metric/Dollars/Hours] on [Tactical Distraction] without realizing it.",
+    example: "How Series A companies burn 40k EUR a month on outbound spam while their core landing page converts at 0.4%.",
+    why: "Loss framing combined with tangible resource drain. High emotional resonance for operators."
+  },
+  {
+    id: "concrete-arithmetic",
+    name: "Concrete Arithmetic",
+    structure: "[Exact Number] [Timeframe/Asset]. Zero [Fluff/Excuses]. Here is the breakdown.",
+    example: "29 brands built, 6 years running lean, 0 sales calls booked. The exact system behind zero-waste distribution.",
+    why: "Proof-of-work up front. Removes abstract hype and replaces it with quantifiable results."
+  },
+  {
+    id: "uncomfortable-audit",
+    name: "The Uncomfortable Audit",
+    structure: "If your [Asset/Team/Strategy] does [Tell/Symptom], you do not have [Goal]. You have [Uncomfortable Reality].",
+    example: "If your marketing requires a 12-page PDF to explain your value proposition, you don't have a positioning problem: you have no product conviction.",
+    why: "Binary diagnostic. The reader is forced to self-assess immediately."
+  },
+  {
+    id: "behind-the-curtain",
+    name: "Behind the Curtain",
+    structure: "Inside the [Exact System/Pipeline] we use to [Outcome] without [Standard Industry Headache].",
+    example: "Inside the deterministic pre-merge gate we use to prevent AI slop from reaching production across 7 brand repos.",
+    why: "Appeals to craftsmanship and curiosity. Offers a concrete operational look rather than general advice."
+  }
+];
+
+function switchMode(mode){
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-score').style.display = 'none';
+  document.getElementById('panel-gen').style.display = 'none';
+  document.getElementById('panel-bank').style.display = 'none';
+  document.getElementById('out').innerHTML = '';
+
+  if(mode === 'score'){
+    document.getElementById('tab-score').classList.add('active');
+    document.getElementById('panel-score').style.display = 'block';
+  } else if(mode === 'gen'){
+    document.getElementById('tab-gen').classList.add('active');
+    document.getElementById('panel-gen').style.display = 'block';
+  } else if(mode === 'bank'){
+    document.getElementById('tab-bank').classList.add('active');
+    document.getElementById('panel-bank').style.display = 'block';
+    renderBank();
+  }
+}
+
+function evaluateHook(text){
+  let scoreSpec = 0, scoreTension = 0, scoreVoice = 0, scoreRel = 0;
+  const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+  const len = words.length;
+
+  // 1. Specificity & Arithmetic (numbers, percentages, currencies, specific nouns)
+  const numMatches = text.match(/\b\d+(?:[\.,]\d+)?%?|\$\d+|\€\d+|EUR|USD|hours?|days?|months?|k\b/gi) || [];
+  if(numMatches.length >= 2) scoreSpec = 25;
+  else if(numMatches.length === 1) scoreSpec = 18;
+  else scoreSpec = 8;
+
+  // 2. Cognitive Tension (contrast words, diagnostic triggers)
+  const tensionWords = ["most", "reality", "instead", "mistake", "burn", "zero", "stop", "fail", "without", "truth", "myth", "lie", "waste", "hidden", "broken", "vs", "versus"];
+  const tensionHits = tensionWords.filter(tw => new RegExp('\\b' + tw + '\\b', 'i').test(text));
+  if(tensionHits.length >= 2) scoreTension = 25;
+  else if(tensionHits.length === 1) scoreTension = 18;
+  else scoreTension = 10;
+
+  // 3. Voice & Brevity (optimal hook: 12-28 words, no corporate slop)
+  const slopWords = ["leverage", "unleash", "delve", "game-changer", "supercharge", "elevate", "seamless", "synergy", "journey"];
+  const hasSlop = slopWords.some(sw => new RegExp('\\b' + sw + '\\b', 'i').test(text));
+  
+  if(hasSlop){
+    scoreVoice = 5;
+  } else if(len >= 10 && len <= 30){
+    scoreVoice = 25;
+  } else if(len < 10){
+    scoreVoice = 15;
+  } else {
+    scoreVoice = 12;
+  }
+
+  // 4. Qualified Relevancy (B2B / Operator markers)
+  const b2bMarkers = ["founder", "cmo", "ceo", "b2b", "pipeline", "churn", "pricing", "retention", "landing page", "revenue", "system", "brand", "client", "customer", "audit", "margin"];
+  const relHits = b2bMarkers.filter(bm => new RegExp('\\b' + bm + '\\b', 'i').test(text));
+  if(relHits.length >= 2) scoreRel = 25;
+  else if(relHits.length === 1) scoreRel = 19;
+  else scoreRel = 12;
+
+  const total = scoreSpec + scoreTension + scoreVoice + scoreRel;
+  return { total, scoreSpec, scoreTension, scoreVoice, scoreRel, numMatches, tensionHits, hasSlop, len };
+}
+
+function scoreHook(){
+  const ta = document.getElementById('hook-in');
+  const text = ta.value.trim();
+  const out = document.getElementById('out');
+  if(!text){ out.innerHTML = ''; return; }
+
+  const res = evaluateHook(text);
+  let vClass = "clean";
+  let vText = "HIGH CONVERTING · Strong arithmetic and cognitive tension. Clean operator tone.";
+  if(res.total < 60){
+    vClass = "fail";
+    vText = "WEAK SIGNAL · Lacks tangible numbers or contrarian pull. Reads like generic advice.";
+  } else if(res.total < 80){
+    vClass = "mild";
+    vText = "DECENT BASE · Clear premise, but adding concrete numbers or sharper contrast will increase stop-rate.";
+  }
+
+  let html = `<div class="verdict ${vClass}">
+    <p class="score mono">Tyche Quality Index: ${res.total}/100 · Length: ${res.len} words</p>
+    <p class="line">${esc(vText)}</p>
+  </div>`;
+
+  html += `<div class="radar-grid">
+    <div class="radar-box">
+      <div class="label">Specificity & Data</div>
+      <div class="val ${res.scoreSpec >= 20 ? 'hi' : (res.scoreSpec >= 15 ? 'mid' : 'low')}">${res.scoreSpec}/25</div>
+    </div>
+    <div class="radar-box">
+      <div class="label">Cognitive Tension</div>
+      <div class="val ${res.scoreTension >= 20 ? 'hi' : (res.scoreTension >= 15 ? 'mid' : 'low')}">${res.scoreTension}/25</div>
+    </div>
+    <div class="radar-box">
+      <div class="label">Voice & Economy</div>
+      <div class="val ${res.scoreVoice >= 20 ? 'hi' : (res.scoreVoice >= 15 ? 'mid' : 'low')}">${res.scoreVoice}/25</div>
+    </div>
+    <div class="radar-box">
+      <div class="label">B2B Relevancy</div>
+      <div class="val ${res.scoreRel >= 20 ? 'hi' : (res.scoreRel >= 15 ? 'mid' : 'low')}">${res.scoreRel}/25</div>
+    </div>
+  </div>`;
+
+  html += `<h4 class="rewrites-title">Instant Framework Adaptations</h4>`;
+  
+  FRAMEWORKS.forEach(fw => {
+    html += `<div class="rewrite-card">
+      <span class="fw-tag">${esc(fw.name)}</span>
+      <p class="fw-text">"${esc(fw.example)}"</p>
+      <p class="fw-why"><b>Why it works:</b> ${esc(fw.why)}</p>
+    </div>`;
+  });
+
+  html += `<div class="next">
+    <p class="say">Next steps: Run your rewritten post through the Chasm editorial gate to verify tone, then check claims in Canon.</p>
+    <a class="cta" href="https://hydra.peticila.ro/chasm/">verify with chasm</a>
+    <a class="cta" href="https://hydra.peticila.ro/canon/">audit claims in canon</a>
+    <a class="cta" href="https://hydra.peticila.ro/slop/">slop detector</a>
+  </div>`;
+
+  out.innerHTML = html;
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function generateHooks(){
+  const topic = document.getElementById('gen-topic').value.trim() || "B2B Positioning";
+  const metric = document.getElementById('gen-metric').value.trim() || "73% of deals";
+  const villain = document.getElementById('gen-villain').value.trim() || "chasing feature parity";
+  const truth = document.getElementById('gen-truth').value.trim() || "owning one clear claim";
+  const out = document.getElementById('out');
+
+  const generated = [
+    {
+      fw: "The Contrarian Diagnostic",
+      hook: `Most teams approach ${topic} by ${villain}. In reality, ${metric} are lost because nobody took the time for ${truth}.`,
+      why: "Attacks industry complacency and introduces the real problem immediately."
+    },
+    {
+      fw: "The Expensive Mistake",
+      hook: `How companies lose ${metric} trying to solve ${topic} through ${villain}.`,
+      why: "Quantifies the exact price of continuing with the default playbook."
+    },
+    {
+      fw: "Concrete Arithmetic",
+      hook: `${metric} impacted, 0 vanity metrics. The exact arithmetic behind ${topic} through ${truth}.`,
+      why: "Proof-first delivery that earns immediate attention."
+    },
+    {
+      fw: "The Uncomfortable Audit",
+      hook: `If your ${topic} relies on ${villain}, you don't have a distribution strategy: you have a high-cost distraction.`,
+      why: "Forces self-diagnosis without sugarcoating."
+    },
+    {
+      fw: "Behind the Curtain",
+      hook: `Inside the exact operational framework we use to master ${topic} through ${truth} (without ${villain}).`,
+      why: "High perceived utility. Demonstrates real execution behind closed doors."
+    }
+  ];
+
+  let html = `<div class="verdict clean">
+    <p class="score mono">Generated 5 Operator Hooks for "${esc(topic)}"</p>
+    <p class="line">Select a hook below and paste it directly into your draft.</p>
+  </div>`;
+
+  generated.forEach(g => {
+    html += `<div class="rewrite-card">
+      <span class="fw-tag">${esc(g.fw)}</span>
+      <p class="fw-text">"${esc(g.hook)}"</p>
+      <p class="fw-why"><b>Strategy:</b> ${esc(g.why)}</p>
+    </div>`;
+  });
+
+  html += `<div class="next">
+    <p class="say">Next steps: Run your rewritten post through the Chasm editorial gate to verify tone, then check claims in Canon.</p>
+    <a class="cta" href="https://hydra.peticila.ro/chasm/">verify with chasm</a>
+    <a class="cta" href="https://hydra.peticila.ro/canon/">audit claims in canon</a>
+  </div>`;
+
+  out.innerHTML = html;
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderBank(){
+  const container = document.getElementById('bank-list');
+  let html = '';
+  FRAMEWORKS.forEach(fw => {
+    html += `<div class="rewrite-card">
+      <span class="fw-tag">${esc(fw.name)}</span>
+      <p class="fw-text" style="color:var(--mid);font-size:.92rem;margin-bottom:.5rem;"><b>Template:</b> <code>${esc(fw.structure)}</code></p>
+      <p class="fw-text"><b>Example:</b> "${esc(fw.example)}"</p>
+      <p class="fw-why"><b>Why it works:</b> ${esc(fw.why)}</p>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+document.getElementById('btn-score').onclick = scoreHook;
+document.getElementById('btn-clr-score').onclick = () => { document.getElementById('hook-in').value = ''; document.getElementById('out').innerHTML = ''; };
+document.getElementById('btn-gen').onclick = generateHooks;
+document.getElementById('btn-clr-gen').onclick = () => {
+  document.getElementById('gen-topic').value = '';
+  document.getElementById('gen-metric').value = '';
+  document.getElementById('gen-villain').value = '';
+  document.getElementById('gen-truth').value = '';
+  document.getElementById('out').innerHTML = '';
+};
+
+(function(){
+  const root = document.documentElement, btn = document.getElementById('th'), key = 'hydra-theme';
+  const initial = localStorage.getItem(key) || 'light';
+  root.setAttribute('data-theme', initial);
+  btn.textContent = initial === 'dark' ? 'light' : 'dark';
+  btn.onclick = ()=>{
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(key, next);
+    btn.textContent = next === 'dark' ? 'light' : 'dark';
+  };
+})();
+</script>
+</body>
+</html>
