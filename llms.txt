@@ -110,8 +110,10 @@ Hero engraving: Hans Sebald Beham, "Hercules Killing the Lernean Hydra", 1545, C
 | Site | Relationship |
 |---|---|
 | https://peticila.ro | Parent hub. Who Adrian is, what he does. |
+| https://github.com/adrianpeticila | GitHub open source repositories and tools |
 | https://aah.monster | His consultancy. Separate buyer, separate address. |
 | https://www.wikidata.org/wiki/Q140362129 | Wikidata item for Adrian M. Peticila |
+| https://orcid.org/0009-0005-9601-9527 | Official ORCID iD for Adrian M. Peticila |
 
 ## Contact
 adrian@peticila.ro
